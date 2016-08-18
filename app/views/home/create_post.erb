@@ -1,0 +1,17 @@
+<div class="container box">
+<form action="/<%=params[:sended]%>/write" method="post" style="margin-top:100px">
+  <textarea id="edit" name="content">
+    <%if params[:content] == nil%>
+    <%=params[:content]%>
+    <%end%>
+  </textarea>
+  <input type="submit">
+</form>
+</div>
+<script>
+    $(function() {
+        $('#edit').froalaEditor({
+        heightMax: 500
+      })
+    });
+</script>

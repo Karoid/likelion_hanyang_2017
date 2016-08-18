@@ -1,0 +1,37 @@
+<section id="main-slider" class="sub carousel">
+  <div class="black-glass"></div>
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="container">
+                <div class="carousel-content">
+                    <h1>Song</h1>
+                </div>
+            </div>
+        </div><!--/.item-->
+    </div><!--/.carousel-inner-->
+</section><!--/#main-slider-->
+<div class="container box">
+<%if @article == nil%>
+  <div>no data</div>
+  <a href="/create?sended=introduce/<%=@article[0].usage%>">새로 만들기</a>
+<%else%>
+  <%=@article[-1].content.html_safe%>
+  <form action="/create" method="post">
+    <input type="hidden" name="sended" value="introduce/<%=@article[0].usage%>">
+    <input type="hidden" name="content" value="<%=@article[0].content%>">
+    <input class="col-sm-4 col-xs-6 blue-button" type="submit" value="수정하기">
+  </form>
+  <a href="/create?sended=introduce/<%=@article[0].usage%>" class="col-sm-4 col-xs-6 blue-button">새로 만들기</a>
+  <div class="col-sm-4 col-xs-12 blue-button">목록 더보기</div>
+  <style>
+  .blue-button{
+    display: block;
+    background: #2980b9;
+    border:solid white 1px;
+    height:50px;
+    cursor: pointer;
+  }
+  </style>
+
+<%end%>
+</div>

@@ -1,6 +1,16 @@
 Rails.application.routes.draw do
   root 'home#index'
-
+  get 'create' => 'home#create_post'
+  post 'create' => 'home#create_post'
+  #introduce routes
+  get 'introduce/history' => 'introduce#history'
+  post 'introduce/history/write' => 'introduce#history_write'
+  get 'introduce/staff' => 'introduce#staff'
+  post 'introduce/staff/write' => 'introduce#staff_write'
+  get 'introduce/song' => 'introduce#song'
+  post 'introduce/song/write' => 'introduce#song_write'
+  get 'introduce/rules' => 'introduce#rules'
+  post 'introduce/rules/write' => 'introduce#rules_write'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

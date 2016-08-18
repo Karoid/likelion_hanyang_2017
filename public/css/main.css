@@ -1,7 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700);
 body {
   background: #e5e5e5;
-  color: #999;
   font-family: 'Montserrat', 'Noto-Sans', sans-serif;
 }
 h1,
@@ -48,7 +47,7 @@ a:focus {
   height: 80px;
   z-index: 99999;
 }
-#main-slider {
+#main-slider{
   background-image: url(../images/slider-bg.jpg);
   background-attachment: fixed;
   background-size: cover;
@@ -58,6 +57,11 @@ a:focus {
   color: #fff;
   height:100vh;
   overflow: hidden;
+}
+#main-slider.sub{
+  height: 80vw;
+  max-height: 240px;
+  padding: 100px 0;
 }
 #main-slider .black-glass{
   width: 100%;
@@ -347,6 +351,9 @@ a:focus {
   -ms-transition: none;
   -o-transition: none;
   transition: none;
+}
+.lead{
+  color:#999
 }
 #performance .box {
   background-color: #52b6ec;
