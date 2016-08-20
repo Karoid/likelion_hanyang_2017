@@ -1,13 +1,31 @@
+<section id="main-slider" class="sub carousel">
+  <div class="black-glass"></div>
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="container">
+                <div class="carousel-content">
+                    <h1><%=params[:sended]%></h1>
+                </div>
+            </div>
+        </div><!--/.item-->
+    </div><!--/.carousel-inner-->
+</section><!--/#main-slider-->
 <div class="container box">
-<form action="/<%=params[:sended]%>/write" method="post" style="margin-top:100px">
+<form action="/<%=params[:sended]%>/write" method="post">
+  <div class="form-group">
+    <input type="text" name="title" class="form-control" placeholder="제목" value="<%if params[:title] != nil%><%=params[:title]%><%end%>">
+  </div>
   <textarea id="edit" name="content">
-    <%if params[:content] == nil%>
+    <%if params[:content] != nil%>
     <%=params[:content]%>
     <%end%>
   </textarea>
+  <input type="hidden" name="post_id" value="<%=params[:id]%>">
+  <input type="hidden" name="member_id" value="<%=current_member.id%>">
   <input type="submit">
 </form>
 </div>
+
 <script>
     $(function() {
         $('#edit').froalaEditor({

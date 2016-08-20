@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :members
   root 'home#index'
   get 'create' => 'home#create_post'
   post 'create' => 'home#create_post'
@@ -6,6 +7,7 @@ Rails.application.routes.draw do
   get 'introduce/history' => 'introduce#history'
   post 'introduce/history/write' => 'introduce#history_write'
   get 'introduce/staff' => 'introduce#staff'
+  get 'introduce/staff/:id' => 'introduce#staff'
   post 'introduce/staff/write' => 'introduce#staff_write'
   get 'introduce/song' => 'introduce#song'
   post 'introduce/song/write' => 'introduce#song_write'

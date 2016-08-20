@@ -1,21 +1,30 @@
 class IntroduceController < ApplicationController
+before_action :authenticate_member!, except: [ :history, :rules ]
   def pagelogic(pagename)
-    if Introduce.where(:usage => pagename).empty?
-      @article = Introduce.new
-      @article.usage = pagename
-      @article.save
+    @article = Introduce.where(:usage => pagename)
+    @usage = pagename
+    @navigation = "<a href='/introduce/history'>History</a>  /  <a href='/introduce/staff'>Staff</a>  /  <a href='/introduce/song'>Song</a>  /  <a href='/introduce/rules'>Rules</a>"
+    if params[:id]==nil
+      @id = -1
     else
-      @article = Introduce.where(:usage => pagename)
+      @id = params[:id].to_i
     end
   end
   def pagelogic_write(pagename)
-    if Introduce.where(:usage => pagename).empty?
+    if params[:id] == ""
       @article = Introduce.new
       @article.usage = pagename
+    elsif params[:usage] == "delete"
+      @article = Introduce.find(params[:id].to_i)
+      @article.destroy
+      redirect_to :back
+      return 0
     else
-      @article = Introduce.where(:usage => pagename)[0]
+      @article = Introduce.find(params[:post_id].to_i)
     end
+    @article.title = params[:title]
     @article.content = params[:content]
+    @article.member_id = params[:member_id]
     @article.save
     redirect_to "/introduce/"+pagename
   end

@@ -6,7 +6,7 @@
   <%= javascript_include_tag 'application'%>
   <%= csrf_meta_tags %>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
   <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -38,10 +38,16 @@
                           <span class="icon-bar"></span>
                       </button>
                       <a class="navbar-brand" href="/"></a>
+                      <% if member_signed_in? %>
+                        <div style="float:left;padding:20px 14px"><%= current_member.senior_number %>기 <%= current_member.username %>
+                        <div><%= link_to "로그아웃", destroy_member_session_path, method: :get, data: { confirm: "Are you sure?" } %></div></div>
+                      <% else %>
+                        <div style="float:left;padding:30px 40px"><%= link_to "로그인", new_member_session_path %></div>
+                      <% end %>
                   </div>
                   <div class="collapse navbar-collapse">
                       <ul class="nav navbar-nav">
-                          <li><a href="/"><i class="icon-home"></i></a></li>
+                          <li class="hidden-sm hidden-xs"><a href="/"><i class="icon-home"></i></a></li>
                           <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">휴즈 소개
                             <span class="caret"></span></button>
@@ -77,6 +83,7 @@
                   </div>
               </div>
           </div>
+          <%= render partial: "shared/flash_messages", flash: flash %>
       </header><!--/#header-->
 
 <%= yield %>

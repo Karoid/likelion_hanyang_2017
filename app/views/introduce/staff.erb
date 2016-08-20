@@ -1,26 +1,70 @@
-<section id="main-slider" class="sub carousel">
+<section id="main-slider" class="sub carousel" data-spy="affix" data-offset-top="140">
   <div class="black-glass"></div>
+  <div class="navigation-bar"><%=@navigation.html_safe%></div>
     <div class="carousel-inner">
         <div class="item active">
             <div class="container">
                 <div class="carousel-content">
-                    <h1>Staff</h1>
+                    <h1 style="text-transform: capitalize;"><%=@usage%></h1>
                 </div>
             </div>
         </div><!--/.item-->
     </div><!--/.carousel-inner-->
 </section><!--/#main-slider-->
 <div class="container box button-list">
-<%if @article == nil%>
+<%if @article[@id] == nil%>
   <div>no data</div>
-  <a href="/create?sended=introduce/<%=@article[0].usage%>">새로 만들기</a>
+  <a href="/create?sended=introduce/<%=@usage%>">새로 만들기</a>
 <%else%>
-  <%=@article[-1].content.html_safe%>
-  <form action="/create" method="post">
-    <input type="hidden" name="sended" value="introduce/<%=@article[0].usage%>">
-    <input type="hidden" name="content" value="<%=@article[0].content%>">
-    <input type="submit" value="수정하기">
-  </form>
-  <a href="/create?sended=introduce/<%=@article[0].usage%>">새로 만들기</a>
+  <div class="article">
+    <!--제목 시작-->
+    <h3 style="display:inline-block"><%=@article[@id].title%></h3>
+    <span> - <%=@article[@id].member.senior_number%>기 <%=@article[@id].member.username%></span>
+    <!--수정 버튼-->
+    <form action="/create" method="post" style="display:inline-block">
+      <input type="hidden" name="sended" value="introduce/<%=@usage%>">
+      <input type="hidden" name="title" value="<%=@article[@id].title%>">
+      <input type="hidden" name="content" value="<%=@article[@id].content%>">
+      <input type="hidden" name="id" value="<%=@article[@id].id%>">
+      <button type="submit" class="glyphicon glyphicon-edit" aria-hidden="true" style="border:none;background:none"></button>
+    </form>
+    <!--삭제 버튼-->
+    <form action="/introduce/<%=@usage%>/write" method="post" style="display:inline-block">
+      <input type="hidden" name="usage" value="delete">
+      <input type="hidden" name="id" value="<%=@article[@id].id%>">
+      <button type="submit" class="glyphicon glyphicon-remove" aria-hidden="true" style="border:none;background:none"></button>
+    </form>
+    <div style="float:right">
+      <%=@article[@id].created_at.strftime("%d %b")%>
+      <span class='hidden-xs' style="display:inline-block!important"><%=@article[@id].created_at.strftime(".%Y")%></span>
+    </div>
+    <hr>
+    <!--본문 시작-->
+    <%=@article[@id].content.html_safe%>
+  </div>
 <%end%>
+<hr>
+<!--게시글 목록 시작-->
+<table class="table table-hover article_list">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>제목</th>
+      <th>글쓴이</th>
+      <th>날짜</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%@article.each do |article|%>
+    <tr>
+      <th scope="row"><%=@article.index(article)%></th>
+      <td><a href="/introduce/<%=@usage%>/<%=@article.index(article)%>"><%=article.title%></a></td>
+      <td><%=article.member.senior_number%><span class='hidden-xs'>기 </span><%=article.member.username%></td>
+      <td><%=article.created_at.strftime("%d %b")%><span class='hidden-xs'><%=article.created_at.strftime(".%Y")%></span></td>
+    </tr>
+    <%end%>
+  </tbody>
+</table>
+<!--게시글 목록 끝-->
+<a href="/create?sended=introduce/<%=@usage%>">새글 쓰기</a>
 </div>
