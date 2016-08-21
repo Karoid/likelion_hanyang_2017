@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   #protect_from_forgery with: :exception
+  alias_method :current_user, :current_member # current_user를 current_member로 이용
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   protected

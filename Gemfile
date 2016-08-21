@@ -26,6 +26,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem "wysiwyg-rails"
 #members login gem
 gem 'devise'
+# 권한설정
+gem 'cancancan'
+#board page moving method!
+gem 'will_paginate', '~> 3.1.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

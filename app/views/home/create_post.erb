@@ -11,18 +11,18 @@
     </div><!--/.carousel-inner-->
 </section><!--/#main-slider-->
 <div class="container box">
-<form action="/<%=params[:sended]%>/write" method="post">
-  <div class="form-group">
-    <input type="text" name="title" class="form-control" placeholder="제목" value="<%if params[:title] != nil%><%=params[:title]%><%end%>">
+<form name="write_article" action="/<%=params[:sended]%>/write" method="post">
+  <div class="form-group has-feedback">
+    <input type="text" name="title" class="form-control" placeholder="제목" value="<%if params[:title] != nil%><%=params[:title]%><%end%>" required>
   </div>
-  <textarea id="edit" name="content">
+  <textarea id="edit" name="content" required>
     <%if params[:content] != nil%>
     <%=params[:content]%>
     <%end%>
   </textarea>
   <input type="hidden" name="post_id" value="<%=params[:id]%>">
   <input type="hidden" name="member_id" value="<%=current_member.id%>">
-  <input type="submit">
+  <button type="submit" class="btn btn-default" onclick="validateForm()">작성</button>
 </form>
 </div>
 
@@ -32,4 +32,11 @@
         heightMax: 500
       })
     });
+    function validateForm() {
+      var x = document.forms["write_article"]["title"].value;
+      if (x == null || x == "") {
+          document.forms["write_article"].classList.add("has-error");
+          return false;
+      }
+  }
 </script>

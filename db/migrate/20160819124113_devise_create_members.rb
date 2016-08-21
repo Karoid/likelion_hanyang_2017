@@ -8,7 +8,14 @@ class DeviseCreateMembers < ActiveRecord::Migration
       t.string  :tel,                null: false, default: "미입력"
       t.integer :major,              null: false, default: "미입력"
       t.string  :encrypted_password, null: false, default: ""
-
+      t.boolean :admin,              null: false, default: false
+      t.boolean :staff,              null: false, default: false
+      #role의 경우 다음과 같이 정합니다
+      #0: 외부인
+      #1: 준회원
+      #2: 정회원
+      #3: 졸업생
+      t.integer :role,               null: false, default: 0
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at
