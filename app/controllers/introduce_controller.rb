@@ -11,7 +11,7 @@ before_action :authenticate_member!, except: [ :history, :rules ]
     end
   end
   def pagelogic_write(pagename)
-    if params[:id] == ""
+    if params[:post_id] == ""
       @article = Introduce.new
       @article.usage = pagename
     elsif params[:usage] == "delete"
