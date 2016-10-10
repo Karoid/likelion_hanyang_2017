@@ -1,10 +1,11 @@
 class BoardController < ApplicationController
   before_action :authenticate_member!
-    def pagelogic(usage_name,use_templete,Model_name)#CRUD중 R기능을 구현한 함수
+    def pagelogic(usage_name,model,use_templete)#CRUD중 R기능을 구현한 함수
       #초기화
-      @article = Introduce.where(:usage => usage_name)
+      @category = "board"
+      @article = model.all
       @usage = usage_name
-      @navigation = "<a href='/introduce/history'>History</a>  /  <a href='/introduce/staff'>Staff</a>  /  <a href='/introduce/song'>Song</a>  /  <a href='/introduce/rules'>Rules</a>"
+      @navigation = "<a href='/#{@category}/notice'>Notice</a>  /  <a href='/#{@category}/free'>Free</a>  /  <a href='/#{@category}/member'>Member</a>  /  <a href='/#{@category}/graduate'>HAS</a>/  <a href='/#{@category}/sameage'>Same-age</a>"
       #해당 게시판에 처음 들어갔을때 설정
       if params[:id]==nil                        #기본 접근시 가장 최근의 글을 보여줍니다
         @id = -1
@@ -13,60 +14,67 @@ class BoardController < ApplicationController
       end
       #페이지 목록
       if params[:page] ==nil && params[:id]!=nil #해당 글이 위치한 페이지를 띄웁니다
-        page = ((@article.length - params[:id].to_i)/5).ceil+1
+        page = ((@article.length - params[:id].to_i)/10).ceil+1
       else
         page = params[:page]
       end
-      @article_page = Introduce.where(:usage => usage_name).reverse_order.paginate(:page => page).per_page(5) #페이지 목록을 5개씩 끊어서 번호를 부여합니다
+      @article_page = model.all.reverse_order.paginate(:page => page).per_page(10) #페이지 목록을 5개씩 끊어서 번호를 부여합니다
+      authorize! :read, model
       #use_templete값이 참이면 공통된 html을 갖습니다
       if use_templete                            #use_templete값이 true이면,
-        render template: "shared/article_view"   #shared 템플릿의 article_view로 페이지를 띄웁니다
+        render template: "shared/list_view"   #shared 템플릿의 article_view로 페이지를 띄웁니다
       end
     end
-    def pagelogic_write(usage_name,Model_name)              #C(R빼고)UD 기능 구현한 함수
+    def pagelogic_write(usage_name,model)        #C(R빼고)UD 기능 구현한 함수
+      category = "board"
       if params[:post_id] == ""                  #Create Post
-        @article = Introduce.new
-        @article.usage = usage_name
-        authorize! :create, @article
+        @article = model.new
+        authorize! :create, model
       elsif params[:usage] == "delete"           #Delete Post
-        @article = Introduce.find(params[:id].to_i)
+        @article = model.find(params[:id].to_i)
         @article.destroy
-        authorize! :destroy, @article
+        authorize! :destroy, model
         redirect_to :back
         return 0
       else                                     #Update Post
-        @article = Introduce.find(params[:post_id].to_i)
-        number = Introduce.where(:usage => usage_name).index(@article)
-        authorize! :update, @article
+        @article = model.find(params[:post_id].to_i)
+        number = model.all.index(@article)
+        authorize! :update, model
       end
       @article.title = params[:title]
       @article.content = params[:content]
       @article.member_id = params[:member_id]
       @article.save
-      redirect_to "/introduce/#{usage_name}/#{number}"
+      redirect_to "/#{category}/#{usage_name}/#{number}"
     end
-    def history
-      pagelogic("history",true)
+    def notice
+      pagelogic("notice",NoticeBoard,true)
     end
-    def history_write
-      pagelogic_write("history")
+    def notice_write
+      pagelogic_write("notice",NoticeBoard)
     end
-    def staff
-      pagelogic("staff",true)
+    def free
+      pagelogic("free",FreeBoard,true)
     end
-    def staff_write
-      pagelogic_write("staff")
+    def free_write
+      pagelogic_write("free",FreeBoard)
     end
-    def song
-      pagelogic("song",true)
+    def member
+      pagelogic("member",MemberBoard,true)
     end
-    def song_write
-      pagelogic_write("song")
+    def member_write
+      pagelogic_write("member",MemberBoard)
     end
-    def rules
-      pagelogic("rules",true)
+    def graduate
+      pagelogic("graduate",GraduateBoard,true)
     end
-    def rules_write
-      pagelogic_write("rules")
+    def graduate_write
+      pagelogic_write("graduate",GraduateBoard)
+    end
+    def sameage
+      pagelogic("sameage",SameageBoard,true)
+    end
+    def sameage_write
+      pagelogic_write("sameage",SameageBoard)
     end
 end

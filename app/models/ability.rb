@@ -13,18 +13,29 @@ class Ability
     if member.admin
       can :manage, :all
 
-    elsif member.role ==2
-      
-    else
-
-      can :create, Introduce
-
-      can :update, Introduce do |introduce|
-        introduce.member == member
+    elsif member.role > 0
+      can :read, :all
+      if member.staff
+        can :create, Introduce
+        can [:update,:destroy], Introduce do |model_name|
+          model_name.member == member
+        end
+        can :create, NoticeBoard
+        can [:update,:destroy], NoticeBoard do |model_name|
+          model_name.member == member
+        end
       end
-
-      can :destroy, Introduce do |introduce|
-        introduce.member == member
+      can :create, FreeBoard
+      can [:update,:destroy], FreeBoard do |model_name|
+        model_name.member == member
+      end
+      can :create, MemberBoard
+      can [:update,:destroy], MemberBoard do |model_name|
+        model_name.member == member
+      end
+      can :create, SameageBoard
+      can [:update,:destroy], SameageBoard do |model_name|
+        model_name.member == member
       end
     end
     # The first argument to `can` is the action you are giving the user

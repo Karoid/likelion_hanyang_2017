@@ -2,6 +2,7 @@ class IntroduceController < ApplicationController
 before_action :authenticate_member!, except: [ :history, :rules ]
   def pagelogic(usage_name,use_templete)     #CRUD중 R기능을 구현한 함수
     #초기화
+    @category = "introduce"
     @article = Introduce.where(:usage => usage_name)
     @usage = usage_name
     @navigation = "<a href='/introduce/history'>History</a>  /  <a href='/introduce/staff'>Staff</a>  /  <a href='/introduce/song'>Song</a>  /  <a href='/introduce/rules'>Rules</a>"
@@ -18,6 +19,7 @@ before_action :authenticate_member!, except: [ :history, :rules ]
       page = params[:page]
     end
     @article_page = Introduce.where(:usage => usage_name).reverse_order.paginate(:page => page).per_page(5) #페이지 목록을 5개씩 끊어서 번호를 부여합니다
+    authorize! :read, Introduce
     #use_templete값이 참이면 공통된 html을 갖습니다
     if use_templete                            #use_templete값이 true이면,
       render template: "shared/article_view"   #shared 템플릿의 article_view로 페이지를 띄웁니다

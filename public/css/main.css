@@ -216,7 +216,7 @@ a:focus {
   box-shadow: none;
 }
 .box {
-  padding: 50px 0;
+  padding: 50px 0 70px 0;
   background: #fff;
   border-bottom: 1px solid #e9e9e9;
   position: relative;
@@ -544,7 +544,7 @@ a:focus {
   border-radius: 0 0 0 5px;
 }
 .navbar-default .navbar-brand {
-  margin-left: 20px;
+  margin-left:10px;
   width: 120px;
   height: 78px;
   background: url(../images/logo.png) no-repeat 0 50%;

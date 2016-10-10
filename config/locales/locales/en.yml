@@ -19,8 +19,8 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
+---
 en:
-  hello: "Hello world"
   activerecord:
     attributes:
       commontator/comment:
@@ -36,7 +36,7 @@ en:
     models:
       commontator/comment:
         one: 댓글
-        other: comments
+        other: 댓글
       commontator/subscription:
         one: subscription
         other: subscriptions
@@ -62,8 +62,8 @@ en:
         not_deleted: "댓글이 삭제되지 않았습니다."
         update: "이 댓글은 다음의 이유로 수정되지 않았습니다:"
       status:
-        created_at: "%{created_at}에 작성됨."
-        deleted_by: "%{deleter_name}에 삭제됨."
+        created_at: "%{created_at}에 의해 작성됨."
+        deleted_by: "%{deleter_name}에 의해 삭제됨."
         updated_at: "%{editor_name}에 의해 마지막으로 %{updated_at}에 수정됨."
     email:
       comment_created:
@@ -74,28 +74,28 @@ en:
     require_login: "댓글을 등록하기 위해서 로그인해야 합니다."
     subscription:
       actions:
-        confirm_unsubscribe: "Are you sure you want to unsubscribe from this discussion?"
-        subscribe: Subscribe
-        unsubscribe: Unsubscribe
+        confirm_unsubscribe: "정말 이 토론을 구독하지 않겠습니까?"
+        subscribe: 구독
+        unsubscribe: 구독 해제
       errors:
-        already_subscribed: "You are already subscribed to this discussion."
-        not_subscribed: "You are not subscribed to this discussion."
+        already_subscribed: "이미 이 토론을 구독중입니다."
+        not_subscribed: "이 토론을 구독하고 있지 않습니다."
     thread:
       actions:
         show_all: "모든 댓글 보이기"
         filter: "Filter Comments"
-        close: "Close Discussion"
+        close: "토론 종결"
         confirm_close: "Are you sure you want to close this discussion?"
-        reopen: "Reopen Discussion"
+        reopen: "토론 재 논의"
         show: "댓글 보기"
         hide: "댓글 숨기기"
       errors:
-        already_closed: "This discussion has already been closed."
-        not_closed: "This discussion is not closed."
+        already_closed: "이 토론은 이미 종결되었습니다."
+        not_closed: "이 토론은 종결되지 않았습니다."
       status:
         cannot_post: "지금은 새로운 댓글이 달릴수 없습니다."
         closed: "Comments (Closed by %{closer_name})"
         open: Comments
   time:
     formats:
-      commontator: "%Y.%m.%d %I:%M%p"
+      commontator: "%b %d %Y at %I:%M%p %Z"

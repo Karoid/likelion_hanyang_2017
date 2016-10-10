@@ -1,4 +1,4 @@
-<%@name={"history"=>"연혁","staff"=>"임원단 소개","song"=>"회가","rules"=>"회칙"}%>
+<%@name={"notice"=>"공지사항","free"=>"자유게시판","member"=>"회원게시판","graduate"=>"HAS게시판","sameage"=>"기수별게시판"}%>
 <section id="main-slider" class="sub carousel" data-spy="affix" data-offset-top="140">
   <div class="black-glass"></div>
   <div class="navigation-bar"><%=@navigation.html_safe%></div>
@@ -13,9 +13,11 @@
     </div><!--/.carousel-inner-->
 </section><!--/#main-slider-->
 <div class="container box button-list">
-<%if @article[@id] == nil%>
-  <div>해당 주소에 글이 없습니다</div>
-  <a href="/create?sended=<%=@category%>/<%=@usage%>">새글 쓰기</a>
+<%if @id == -1%>
+
+<%elsif  @article[@id] == nil%>
+<div>해당 주소에 글이 없습니다</div>
+<a href="/create?sended=<%=@category%>/<%=@usage%>">새글 쓰기</a>
 <%else%>
   <div class="article">
     <!--제목 시작-->
@@ -47,8 +49,10 @@
     <!--본문 시작-->
     <%=@article[@id].content.html_safe%>
   </div>
+  <!--댓글 시작-->
+  <%= commontator_thread(@article[@id]) %>
+  <hr>
 <%end%>
-<hr>
 <!--게시글 목록 시작-->
 <table class="table table-hover article_list">
   <thead>

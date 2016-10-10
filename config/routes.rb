@@ -1,8 +1,16 @@
 Rails.application.routes.draw do
-  devise_for :members
   root 'home#index'
+  devise_for :members
+  mount Commontator::Engine => '/commontator'
+  def route_rule(category,useage)
+    get category+'/'+useage => category+'#'+useage
+    get category+'/'+useage+'/:id' => category+'#'+useage
+    post category+'/'+useage+'/write' => category+'#'+useage+'_write'
+  end
+  #home routes
   get 'create' => 'home#create_post'
   post 'create' => 'home#create_post'
+  get 'profile' => 'home#your_profile'
   #introduce routes
   get 'introduce/history' => 'introduce#history'
   get 'introduce/history/:id' => 'introduce#history'
@@ -16,6 +24,12 @@ Rails.application.routes.draw do
   get 'introduce/rules' => 'introduce#rules'
   get 'introduce/rules/:id' => 'introduce#rules'
   post 'introduce/rules/write' => 'introduce#rules_write'
+  #board routes
+  route_rule('board','notice')
+  route_rule('board','free')
+  route_rule('board','member')
+  route_rule('board','graduate')
+  route_rule('board','sameage')
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
