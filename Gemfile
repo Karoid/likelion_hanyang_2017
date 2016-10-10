@@ -32,6 +32,8 @@ gem 'cancancan'
 gem 'will_paginate', '~> 3.1.0'
 #comments gem
 gem 'commontator', '~> 4.11.1'
+
+gem 'rails_db'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
