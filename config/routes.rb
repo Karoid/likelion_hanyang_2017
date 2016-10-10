@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   route_rule('board','member')
   route_rule('board','graduate')
   route_rule('board','sameage')
+  #old data restore, #database:/rails/db
+  get 'db/restore' => 'home#insert_old_huhs_net'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

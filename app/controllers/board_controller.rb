@@ -25,7 +25,7 @@ class BoardController < ApplicationController
         render template: "shared/list_view"   #shared 템플릿의 article_view로 페이지를 띄웁니다
       end
     end
-    def pagelogic_write(usage_name,model)        #C(R빼고)UD 기능 구현한 함수
+    def pagelogic_write(usage_name,model,redir_url)        #C(R빼고)UD 기능 구현한 함수
       category = "board"
       if params[:post_id] == ""                  #Create Post
         @article = model.new

@@ -5,6 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# 반드시 Member password를 바꾸어야 한다
+# config/initializers/rails_db 의 password, 여기 admin의 password를 바꿔줘라!
 admin_user = Member.create( username: "관리자", email: 'huhs@huhs.net', password: 'kk1111', admin: true, role:2, id: 1234567)
 Member.create(username: "정승호", email: 'shj5508@naver.com', password: 'kk1111', admin: false, role:2)
 Introduce.create(usage: 'history',

@@ -32,8 +32,10 @@ gem 'cancancan'
 gem 'will_paginate', '~> 3.1.0'
 #comments gem
 gem 'commontator', '~> 4.11.1'
-
+#edit db in browser /rails/db
 gem 'rails_db'
+#Parsing an HTML / XML Document
+gem 'nokogiri'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

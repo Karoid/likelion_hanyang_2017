@@ -34,7 +34,7 @@ before_action :authenticate_member!, except: [ :history, :rules ]
       @article = Introduce.find(params[:id].to_i)
       @article.destroy
       authorize! :destroy, @article
-      redirect_to :back
+      redirect_to "/introduce/#{usage_name}"
       return 0
     else                                     #Update Post
       @article = Introduce.find(params[:post_id].to_i)
