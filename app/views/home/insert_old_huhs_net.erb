@@ -23,7 +23,7 @@
   <a href="/db/restore?category=160&do=yes">회원게시판</a><br>
 <%@boardxml1.each do |doc|%>
   <!--자유게시판: 5793, 회원게시판: 160, 임원회의록: 166-->
-  <%if doc.at('module_srl').text == params[:category] || !params[:category]%>
+  <%if (doc.at('module_srl').text == params[:category] || !params[:category]) && (params[:category]||params[:id])%>
   <%if doc.at('document_srl').text == params[:id] || !params[:id]%>
   글쓴이: <%=doc.at('nick_name').text%><br>
   제목: <%=doc.at('title').text%><br>
