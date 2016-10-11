@@ -36,6 +36,8 @@ gem 'commontator', '~> 4.11.1'
 gem 'rails_db'
 #Parsing an HTML / XML Document
 gem 'nokogiri'
+#free remote storage service
+gem 'cloudinary'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

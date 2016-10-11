@@ -17,7 +17,7 @@
   <div>해당 주소에 글이 없습니다</div>
   <a href="/create?sended=<%=@category%>/<%=@usage%>">새글 쓰기</a>
 <%else%>
-  <div class="article">
+  <div class="article fr-view ">
     <!--제목 시작-->
     <h3 style="display:inline-block"><%=@article[@id].title%></h3>
     <span> - <%=@article[@id].member.senior_number%>기 <%=@article[@id].member.username%></span>
@@ -46,9 +46,9 @@
     <hr>
     <!--본문 시작-->
     <%=@article[@id].content.html_safe%>
+    <hr>
   </div>
 <%end%>
-<hr>
 <!--게시글 목록 시작-->
 <table class="table table-hover article_list">
   <thead>

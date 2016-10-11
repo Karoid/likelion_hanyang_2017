@@ -29,7 +29,9 @@
 <script>
     $(function() {
         $('#edit').froalaEditor({
-        heightMax: 500
+        heightMax: 500,
+        imageUploadURL: '/upload_image',
+        imageUploadParam: 'file'
       })
     });
     function validateForm() {

@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     get category+'/'+useage+'/:id' => category+'#'+useage
     post category+'/'+useage+'/write' => category+'#'+useage+'_write'
   end
+  #file management
+  post 'upload_image' => 'home#upload_image'
   #home routes
   get 'create' => 'home#create_post'
   post 'create' => 'home#create_post'
