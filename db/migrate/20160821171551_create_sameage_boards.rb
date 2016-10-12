@@ -4,6 +4,7 @@ class CreateSameageBoards < ActiveRecord::Migration
       t.string  :title
       t.text    :content
       t.integer :member_id
+      t.integer :senior_number
       t.timestamps null: false
       t.timestamps null: false
     end

@@ -33,6 +33,7 @@ before_action :authenticate_member!, except: [ :history, :rules ]
     elsif params[:usage] == "delete"           #Delete Post
       @article = Introduce.find(params[:id].to_i)
       @article.destroy
+      Uploadfile.destroy_files(params[:id].to_i,Introduce)
       authorize! :destroy, @article
       redirect_to "/introduce/#{usage_name}"
       return 0

@@ -4,16 +4,16 @@ Rails.application.routes.draw do
   mount Commontator::Engine => '/commontator'
   def route_rule(category,useage)
     get category+'/'+useage => category+'#'+useage
-    get category+'/'+useage+'/:id' => category+'#'+useage
+    get category+'/'+useage+'/:id' => category+'#'+useage, :constraints => { :id => /[0-9]+(\%7C[0-9]+)*/ }
     post category+'/'+useage+'/write' => category+'#'+useage+'_write'
   end
-  #file management
-  post 'upload_image' => 'home#upload_file'
-  post 'delete_file' => 'home#delete_file'
   #home routes
   get 'create' => 'home#create_post'
   post 'create' => 'home#create_post'
   get 'profile' => 'home#your_profile'
+  #file management
+  post 'upload_image' => 'home#upload_image'
+  post 'upload_file' => 'home#upload_file'
   #introduce routes
   get 'introduce/history' => 'introduce#history'
   get 'introduce/history/:id' => 'introduce#history'
@@ -33,6 +33,9 @@ Rails.application.routes.draw do
   route_rule('board','member')
   route_rule('board','graduate')
   route_rule('board','sameage')
+  get 'board/:senior_number' => 'board#sameage', :constraints => { :senior_number =>  /[0-9]+(\%7C[0-9]+)*/}
+  get 'board/:senior_number'+'/:id' => 'board#sameage', :constraints => { :id => /[0-9]+(\%7C[0-9]+)*/, :senior_number =>  /[0-9]+(\%7C[0-9]+)*/}
+  post 'board/:senior_number'+'/write' => 'board#sameage'+'_write', :constraints => { :senior_number =>  /[0-9]+(\%7C[0-9]+)*/}
   #old data restore, #database:/rails/db
   get 'db/restore' => 'home#insert_old_huhs_net'
   # The priority is based upon order of creation: first created -> highest priority.

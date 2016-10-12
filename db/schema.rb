@@ -125,12 +125,15 @@ ActiveRecord::Schema.define(version: 20161011101832) do
     t.string   "title"
     t.text     "content"
     t.integer  "member_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "senior_number"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "uploadfiles", force: :cascade do |t|
-    t.string   "pubilc_id"
+    t.integer  "model_number"
+    t.integer  "model_id"
+    t.string   "public_id"
     t.string   "format"
     t.string   "resource_type"
     t.string   "url"

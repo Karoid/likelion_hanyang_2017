@@ -2,8 +2,7 @@
 <html>
 <head>
   <title>Huhs.net</title>
-  <%= stylesheet_link_tag    'application'%>
-  <%= javascript_include_tag 'application'%>
+  <script src="http://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
   <%= csrf_meta_tags %>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -39,7 +38,7 @@
                       </button>
                       <a class="navbar-brand" href="/"></a>
                       <% if member_signed_in? %>
-                        <div style="float:left;padding:20px 14px"><%= current_member.senior_number %>기 <%= current_member.username %>
+                        <div style="float:left;padding:20px 14px"><a href="/profile" style="color:inherit"><%= current_member.senior_number %>기 <%= current_member.username %></a>
                         <div><%= link_to "로그아웃", destroy_member_session_path, method: :get, data: { confirm: "Are you sure?" } %></div></div>
                       <% else %>
                         <div style="float:left;padding:30px"><%= link_to "로그인", new_member_session_path %></div>

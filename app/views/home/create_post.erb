@@ -1,3 +1,5 @@
+<%= stylesheet_link_tag    'application'%>
+<%= javascript_include_tag 'application'%>
 <section id="main-slider" class="sub carousel">
   <div class="black-glass"></div>
     <div class="carousel-inner">
@@ -32,9 +34,16 @@
         heightMax: 1500,
         imageUploadURL: '/upload_image',
         imageUploadParam: 'file',
-        imageManagerDeleteURL: '/delete_file',
-        fileUploadURL: '/upload_image',
-        fileUploadParam: 'file'
+        imageUploadParams: {
+          model: '<%= params[:sended] %>',
+          model_id: '<%= params[:id] %>'
+        },
+        fileUploadURL: '/upload_file',
+        fileUploadParam: 'file',
+        fileUploadParams: {
+          model: '<%= params[:sended] %>',
+          model_id: '<%= params[:id] %>'
+        }
       })
     });
     function validateForm() {
