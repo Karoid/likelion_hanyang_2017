@@ -34,7 +34,7 @@ gem 'will_paginate', '~> 3.1.0'
 #comments gem
 gem 'commontator', '~> 4.11.1'
 #edit db in browser /rails/db
-#gem 'rails_db'
+gem 'rails_db'
 #Parsing an HTML / XML Document
 gem 'nokogiri'
 #free remote storage service
