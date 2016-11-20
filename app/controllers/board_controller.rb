@@ -16,7 +16,7 @@ class BoardController < ApplicationController
         return 0
       else                                     #Update Post
         @article = model.find(params[:post_id].to_i)
-        number = model.all.index(@article)
+        number = model.find(params[:post_id]).id
         authorize! :update, model
       end
       @article.title = params[:title]

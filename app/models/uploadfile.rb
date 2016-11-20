@@ -16,22 +16,8 @@ class Uploadfile < ActiveRecord::Base
       model
     end
   end
-
   def self.modelnumber(model)
-    model = Uploadfile.modelfinder(model)
-    if model == Introduce
-      0
-    elsif model == NoticeBoard
-      1
-    elsif model == FreeBoard
-      2
-    elsif model == MemberBoard
-      3
-    elsif model == GraduateBoard
-      4
-    elsif model == SameageBoard
-      5
-    end
+    model.board.id
   end
   def self.modelid(model,model_id)
     model = Uploadfile.modelfinder(model)
@@ -42,8 +28,7 @@ class Uploadfile < ActiveRecord::Base
     end
   end
   def self.destroy_files(model_id,model) #model_id: 모델상의 id값, model: 모델 그 자체
-    destroy_files = Uploadfile.where(model_number: Uploadfile.modelnumber(model), model_id: model_id)
-    puts Uploadfile.modelnumber(model)
+    destroy_files = Uploadfile.where(model_number: model.board.id, model_id: model_id)
     puts model_id
     destroy_files.each do |file|
       Cloudinary::Uploader.destroy(file.public_id, options = {})

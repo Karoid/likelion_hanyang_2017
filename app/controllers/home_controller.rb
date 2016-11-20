@@ -30,8 +30,4 @@ class HomeController < ApplicationController
      url: sended_msg['url'],
      resource_type: sended_msg['resource_type'])
   end
-  #휴즈넷 복구 알고리즘
-  def insert_old_huhs_net
-    
-  end
 end

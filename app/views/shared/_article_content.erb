@@ -13,7 +13,7 @@
   <%end%>
   <!--삭제 버튼-->
   <% if can? :destroy, post %>
-  <form action="/<%=post.board.category.route%>/<%=post.board.route%>/write" method="post" style="display:inline-block">
+  <form action="/board/<%=post.board.category.route%>/<%=post.board.route%>/<%=post.id%>/write" method="post" style="display:inline-block">
     <input type="hidden" name="usage" value="delete">
     <input type="hidden" name="id" value="<%=post.id%>">
     <button type="submit" class="glyphicon glyphicon-remove" aria-hidden="true" style="border:none;background:none" data-confirm="삭제 하시겠습니까?"></button>
