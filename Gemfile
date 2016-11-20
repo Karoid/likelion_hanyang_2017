@@ -33,8 +33,6 @@ gem 'cancancan'
 gem 'will_paginate', '~> 3.1.0'
 #comments gem
 gem 'commontator', '~> 4.11.1'
-#edit db in browser /rails/db
-gem 'rails_db'
 #Parsing an HTML / XML Document
 gem 'nokogiri'
 #free remote storage service
@@ -56,6 +54,10 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+  #edit db in browser /rails/db
+  gem 'rails_db'
+  #Supporting gem for Rails Panel (Google Chrome extension for Rails development).
+  gem 'meta_request'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

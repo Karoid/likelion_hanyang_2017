@@ -11,7 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161011101832) do
+ActiveRecord::Schema.define(version: 20161118061207) do
+
+  create_table "articles", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content"
+    t.string   "member_name"
+    t.integer  "board_id"
+    t.integer  "member_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "boards", force: :cascade do |t|
+    t.string   "route"
+    t.string   "name"
+    t.integer  "category_id"
+    t.boolean  "asc"
+    t.boolean  "default"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "route"
+    t.string   "name"
+    t.boolean  "default"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "commontator_comments", force: :cascade do |t|
     t.string   "creator_type"
@@ -55,39 +83,6 @@ ActiveRecord::Schema.define(version: 20161011101832) do
 
   add_index "commontator_threads", ["commontable_id", "commontable_type"], name: "index_commontator_threads_on_c_id_and_c_type", unique: true
 
-  create_table "free_boards", force: :cascade do |t|
-    t.string   "title"
-    t.text     "content"
-    t.integer  "member_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "graduate_boards", force: :cascade do |t|
-    t.string   "title"
-    t.text     "content"
-    t.integer  "member_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "introduces", force: :cascade do |t|
-    t.string   "usage"
-    t.string   "title"
-    t.text     "content"
-    t.integer  "member_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "member_boards", force: :cascade do |t|
-    t.string   "title"
-    t.text     "content"
-    t.integer  "member_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "members", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "username",               default: "",    null: false
@@ -112,23 +107,6 @@ ActiveRecord::Schema.define(version: 20161011101832) do
 
   add_index "members", ["email"], name: "index_members_on_email", unique: true
   add_index "members", ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
-
-  create_table "notice_boards", force: :cascade do |t|
-    t.string   "title"
-    t.text     "content"
-    t.integer  "member_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "sameage_boards", force: :cascade do |t|
-    t.string   "title"
-    t.text     "content"
-    t.integer  "member_id"
-    t.integer  "senior_number"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
 
   create_table "uploadfiles", force: :cascade do |t|
     t.integer  "model_number"

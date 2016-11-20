@@ -32,41 +32,6 @@ class HomeController < ApplicationController
   end
   #휴즈넷 복구 알고리즘
   def insert_old_huhs_net
-    @boardxml1 = File.open("old_migration_data/docs/documents1.xml") { |f| Nokogiri::XML(f) }
-    @boardxml1 = @boardxml1.search('//xe_documents')
-    @attach = File.open("old_migration_data/docs/attach.xml") { |f| Nokogiri::XML(f) }
-    @attach = @attach.search('//xe_files')
-    if params[:do]
-      @boardxml1.each do |doc|
-        #공지사항:238,자유게시판: 5793, 회원게시판: 160, 임원회의록: 166
-        case params[:category]
-        when '238'
-          model = NoticeBoard
-        when '5793'
-          model = FreeBoard
-        when '160'
-          model = MemberBoard
-        end
-        if doc.at('module_srl').text == params[:category]
-          @article = model.new
-          @article.member_id = 1234567
-          @article.created_at = doc.at('regdate').text.to_time
-          @article.updated_at = doc.at('last_update').text.to_time
-          @article.title = doc.at('title').text #제목
-          @article.content = ""
-          @article.content += "글쓴이: "+doc.at('nick_name').text+"<br>" #글쓴이
-          if doc.at('uploaded_count').text != '0'
-            @article.content += "첨부 갯수: "+doc.at('uploaded_count').text+"<br>" #첨부갯수
-            @attach.each do |att|
-              if att.at('upload_target_srl').text == doc.at('document_srl').text
-                @article.content += '<a href="'+att.at("uploaded_filename").text[1..-1]+'">'+att.at("source_filename").text+'</a><br>'
-              end
-            end
-          end
-          @article.content += doc.at('content').text.gsub('src="files/', 'src="/files/').html_safe #내용물
-          @article.save
-        end
-      end
-    end
+    
   end
 end

@@ -2,6 +2,11 @@ Rails.application.routes.draw do
   root 'home#index'
   devise_for :members
   mount Commontator::Engine => '/commontator'
+  get '/board/:category/:board' => 'board#showBoard'
+  get '/board/:category/:board/:id' => 'board#showArticle'
+  post '/board/:category/:board/:post_id/create' => 'home#create_post'
+  post '/board/:category/:board/:post_id/write' => 'board#pagelogic_write'
+  post '/board/:category/:board/write' => 'board#pagelogic_write'
   def route_rule(category,useage)
     get category+'/'+useage => category+'#'+useage
     get category+'/'+useage+'/:id' => category+'#'+useage, :constraints => { :id => /[0-9]+(\%7C[0-9]+)*/ }
@@ -14,19 +19,6 @@ Rails.application.routes.draw do
   #file management
   post 'upload_image' => 'home#upload_image'
   post 'upload_file' => 'home#upload_file'
-  #introduce routes
-  get 'introduce/history' => 'introduce#history'
-  get 'introduce/history/:id' => 'introduce#history'
-  post 'introduce/history/write' => 'introduce#history_write'
-  get 'introduce/staff' => 'introduce#staff'
-  get 'introduce/staff/:id' => 'introduce#staff'
-  post 'introduce/staff/write' => 'introduce#staff_write'
-  get 'introduce/song' => 'introduce#song'
-  get 'introduce/song/:id' => 'introduce#song'
-  post 'introduce/song/write' => 'introduce#song_write'
-  get 'introduce/rules' => 'introduce#rules'
-  get 'introduce/rules/:id' => 'introduce#rules'
-  post 'introduce/rules/write' => 'introduce#rules_write'
   #board routes
   route_rule('board','notice')
   route_rule('board','free')
@@ -36,8 +28,6 @@ Rails.application.routes.draw do
   get 'board/:senior_number' => 'board#sameage', :constraints => { :senior_number =>  /[0-9]+(\%7C[0-9]+)*/}
   get 'board/:senior_number'+'/:id' => 'board#sameage', :constraints => { :id => /[0-9]+(\%7C[0-9]+)*/, :senior_number =>  /[0-9]+(\%7C[0-9]+)*/}
   post 'board/:senior_number'+'/write' => 'board#sameage'+'_write', :constraints => { :senior_number =>  /[0-9]+(\%7C[0-9]+)*/}
-  #old data restore, #database:/rails/db
-  get 'db/restore' => 'home#insert_old_huhs_net'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
