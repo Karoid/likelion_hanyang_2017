@@ -13,7 +13,11 @@
     </div><!--/.carousel-inner-->
 </section><!--/#main-slider-->
 <div class="container box">
-<form name="write_article" action="/<%=params[:sended]%>/write" method="post">
+  <%if params[:post_id]%>
+  <form name="write_article" action="/board/<%=params[:category]%>/<%=params[:board]%>/<%=params[:post_id]%>/write" method="post">
+  <%else%>
+  <form name="write_article" action="/board/<%=params[:category]%>/<%=params[:board]%>/write" method="post">
+  <%end%>
   <div class="form-group has-feedback">
     <input type="text" name="title" class="form-control" placeholder="제목" value="<%if params[:title] != nil%><%=params[:title]%><%end%>" required>
   </div>

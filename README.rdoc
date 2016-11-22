@@ -1,28 +1,9 @@
-== README
+== 사이트 소개
+이 웹사이트는 한양대학교 중앙동아리 HUHS의 소개 및 문서 저장의 용도로 제작되었습니다.
+사이트는 기본적으로 카테고리 안에 게시판, 게시판 안에 글이 1:N의 관계로 구성되어 있습니다.
+게시판과 카테고리의 default 속성을 해제하면, 변형을 통한 부가적인 기능 구현을 가능하도록 설정하였습니다.
+== 구조 소개
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+== Licence
+ERB, JS, CSS파일로 구현된 프론트 엔드 디자인의 모든 권리는 한양대학교 중앙동아리 HUHS가 갖습니다.
+그 외의 루비 온 레일스 문서는 모두 MIT Licence를 따릅니다.

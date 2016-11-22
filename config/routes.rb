@@ -3,10 +3,11 @@ Rails.application.routes.draw do
   devise_for :members
   mount Commontator::Engine => '/commontator'
   get '/board/:category/:board' => 'board#showBoard'
-  get '/board/:category/:board/:id' => 'board#showArticle'
-  post '/board/:category/:board/:post_id/create' => 'home#create_post'
-  post '/board/:category/:board/:post_id/write' => 'board#pagelogic_write'
+  get '/board/:category/:board/:id' => 'board#showArticle', :constraints => { :id => /[0-9]+(\%7C[0-9]+)*/ }
+  get '/board/:category/:board/create' => 'home#create_post', :constraints => { :id => /[0-9]+(\%7C[0-9]+)*/ }
   post '/board/:category/:board/write' => 'board#pagelogic_write'
+  post '/board/:category/:board/:post_id/create' => 'home#create_post', :constraints => { :id => /[0-9]+(\%7C[0-9]+)*/ }
+  post '/board/:category/:board/:post_id/write' => 'board#pagelogic_write', :constraints => { :post_id => /[0-9]+(\%7C[0-9]+)*/ }
   def route_rule(category,useage)
     get category+'/'+useage => category+'#'+useage
     get category+'/'+useage+'/:id' => category+'#'+useage, :constraints => { :id => /[0-9]+(\%7C[0-9]+)*/ }
