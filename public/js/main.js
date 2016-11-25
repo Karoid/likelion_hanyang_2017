@@ -6,7 +6,6 @@ jQuery(function($) {
 			pause: false
 		});
 	});
-
 	//Ajax contact
 	var form = $('.contact-form');
 	form.submit(function () {

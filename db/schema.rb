@@ -19,8 +19,9 @@ ActiveRecord::Schema.define(version: 20161118061207) do
     t.string   "member_name"
     t.integer  "board_id"
     t.integer  "member_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.boolean  "active",      default: true
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "boards", force: :cascade do |t|
@@ -109,8 +110,7 @@ ActiveRecord::Schema.define(version: 20161118061207) do
   add_index "members", ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
 
   create_table "uploadfiles", force: :cascade do |t|
-    t.integer  "model_number"
-    t.integer  "model_id"
+    t.integer  "article_id"
     t.string   "public_id"
     t.string   "format"
     t.string   "resource_type"

@@ -8,11 +8,6 @@ Rails.application.routes.draw do
   post '/board/:category/:board/write' => 'board#pagelogic_write'
   post '/board/:category/:board/:post_id/create' => 'home#create_post', :constraints => { :id => /[0-9]+(\%7C[0-9]+)*/ }
   post '/board/:category/:board/:post_id/write' => 'board#pagelogic_write', :constraints => { :post_id => /[0-9]+(\%7C[0-9]+)*/ }
-  def route_rule(category,useage)
-    get category+'/'+useage => category+'#'+useage
-    get category+'/'+useage+'/:id' => category+'#'+useage, :constraints => { :id => /[0-9]+(\%7C[0-9]+)*/ }
-    post category+'/'+useage+'/write' => category+'#'+useage+'_write'
-  end
   #home routes
   get 'create' => 'home#create_post'
   post 'create' => 'home#create_post'
@@ -21,11 +16,6 @@ Rails.application.routes.draw do
   post 'upload_image' => 'home#upload_image'
   post 'upload_file' => 'home#upload_file'
   #board routes
-  route_rule('board','notice')
-  route_rule('board','free')
-  route_rule('board','member')
-  route_rule('board','graduate')
-  route_rule('board','sameage')
   get 'board/:senior_number' => 'board#sameage', :constraints => { :senior_number =>  /[0-9]+(\%7C[0-9]+)*/}
   get 'board/:senior_number'+'/:id' => 'board#sameage', :constraints => { :id => /[0-9]+(\%7C[0-9]+)*/, :senior_number =>  /[0-9]+(\%7C[0-9]+)*/}
   post 'board/:senior_number'+'/write' => 'board#sameage'+'_write', :constraints => { :senior_number =>  /[0-9]+(\%7C[0-9]+)*/}

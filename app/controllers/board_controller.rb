@@ -22,6 +22,7 @@ class BoardController < ApplicationController
       @article.title = params[:title]
       @article.content = params[:content]
       @article.member_id = params[:member_id]
+      @article.active = true
       @article.save
       redirect_to "/board/#{category}/#{board}/#{number}"
     end
@@ -29,7 +30,7 @@ class BoardController < ApplicationController
     def showBoard
       @category = Category.where(route: params[:category]).first
       @board = @category.boards.where(route: params[:board]).first
-      @article = @board.articles
+      @article = @board.articles.where(active: true)
       perpage = 10
       if params[:page]
         page = params[:page]

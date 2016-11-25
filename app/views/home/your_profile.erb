@@ -58,7 +58,7 @@
         <%@article.each do |x|%>
         <tr>
           <th scope="row"><%=@article.index(x)+1%></th>
-          <td><a href="#"><%=x.title%></a></td>
+          <td><a href="/board/<%=x.board.category.route%>/<%=x.board.route%>/<%=x.id%>"><%=x.title%></a></td>
           <td><span class='hidden-xs'><%=x.created_at.strftime("%Y.")%></span><%=x.created_at.strftime("%m.%d")%></td>
         </tr>
         <%end%>
@@ -148,7 +148,7 @@
   }
   .profile-card::-webkit-scrollbar {
     display: none;
-  } 
+  }
   .profile-card header {
   width: 179px;
   height: 280px;
