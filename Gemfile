@@ -3,9 +3,6 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3', :group => :development
-#gem 'pg',      :group => :production
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -32,7 +29,7 @@ gem 'cancancan'
 #board page moving method!
 gem 'will_paginate', '~> 3.1.0'
 #comments gem
-gem 'commontator', '~> 4.11.1'
+gem 'acts_as_commentable_with_threading'
 #Parsing an HTML / XML Document
 gem 'nokogiri'
 #free remote storage service
@@ -46,6 +43,8 @@ gem 'cloudinary'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 group :production do
+  #gem 'pg',      :group => :production
+  gem 'pg'
 end
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -53,6 +52,8 @@ group :development, :test do
 end
 
 group :development do
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
   #edit db in browser /rails/db

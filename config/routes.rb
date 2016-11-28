@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'home#index'
   devise_for :members
-  mount Commontator::Engine => '/commontator'
+  post '/comment/:id' => 'board#write_comment'
   get '/board/:category/:board' => 'board#showBoard'
   get '/board/:category/:board/:id' => 'board#showArticle', :constraints => { :id => /[0-9]+(\%7C[0-9]+)*/ }
   get '/board/:category/:board/create' => 'home#create_post', :constraints => { :id => /[0-9]+(\%7C[0-9]+)*/ }

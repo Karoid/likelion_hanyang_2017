@@ -2,7 +2,7 @@
 <div class="article fr-view ">
   <!--제목 시작-->
   <h3 style="display:inline-block"><%=post.title%></h3>
-  <span> - <%=post.member.senior_number%>기 <%=post.member.username%></span>
+  <span> - <%=post.member_name%></span>
   <!--수정 버튼-->
   <% if can? :update, post %>
   <form action="/board/<%=post.board.category.route%>/<%=post.board.route%>/<%=post.id%>/create" method="post" style="display:inline-block">
@@ -27,4 +27,40 @@
   <!--본문 시작-->
   <%=post.content.html_safe%>
   <hr>
+  <!-- 댓글 시작 -->
+  <div class="comments">
+  		<div class="comment-wrap">
+  				<div class="photo">
+  						<div class="avatar" style="background-image: url('https://s3.amazonaws.com/uifaces/faces/twitter/dancounsell/128.jpg')"></div>
+  				</div>
+  				<div class="comment-block">
+  						<form action="/comment/<%=post.id%>" method="post">
+  								<textarea name="content" cols="30" rows="3" placeholder="Add comment..."></textarea>
+              <div class="bottom-comment">
+                  <ul class="comment-actions">
+                      <input class="reply" type="submit" value="reply">
+                  </ul>
+              </div>
+            </form>
+  				</div>
+  		</div>
+
+      <%post.comment_threads.each do |comment|%>
+  		<div class="comment-wrap">
+  				<div class="photo">
+  						<div class="avatar" style="background-image: url('https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg')"></div>
+  				</div>
+  				<div class="comment-block">
+  						<p class="comment-text"><%=comment.body%></p>
+  						<div class="bottom-comment">
+  								<div class="comment-date"><%=comment.updated_at%></div>
+  								<ul class="comment-actions">
+  										<li class="complain">Complain</li>
+  										<li class="reply">Reply</li>
+  								</ul>
+  						</div>
+  				</div>
+  		</div>
+      <%end%>
+  </div>
 </div>
