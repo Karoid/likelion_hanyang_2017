@@ -1,24 +1,24 @@
 class BoardController < ApplicationController
-  before_action :authenticate_member!
     def pagelogic_write                         #C(R빼고)UD 기능 구현한 함수
       board = params[:board]
       model = Board.where(route: params[:board]).first.articles
       category = params[:category]
-      if params[:post_id] == ""                  #Create Post
-        @article = model.new
-        authorize! :create, model
-      elsif params[:usage] == "delete"           #Delete Post
+      if params[:usage] == "delete"           #Delete Post
         @article = model.find(params[:id])
         @article.active = false
         @article.save
         Uploadfile.destroy_files(params[:id])
-        authorize! :destroy, model
+        authorize! :destroy, model.last
         redirect_to "/board/#{category}/#{board}"
         return 0
-      else                                     #Update Post
+      else                                     #Create Post & Update Post
         @article = model.find(params[:post_id].to_i)
         number = model.find(params[:post_id]).id
-        authorize! :update, model
+        if @article.member_name == nil && @article.active == false
+          authorize! :create, @article
+        else
+          authorize! :update, @article
+        end
       end
       @article.title = params[:title]
       @article.content = params[:content]
@@ -33,6 +33,7 @@ class BoardController < ApplicationController
       @category = Category.where(route: params[:category]).first
       @board = @category.boards.where(route: params[:board]).first
       @article = @board.articles.where(active: true)
+      authorize! :read, @article.last
       perpage = 10
       if params[:page]
         page = params[:page]

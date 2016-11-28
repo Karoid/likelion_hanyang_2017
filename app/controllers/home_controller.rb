@@ -7,6 +7,7 @@ class HomeController < ApplicationController
     if !params[:post_id]
       board = params[:board]
       model = Board.where(route: params[:board]).first.articles
+      authorize! :create, model.last
       article = model.new
       article.member_id = current_member.id
       article.board_id = Board.where(route: params[:board]).first.id
@@ -16,7 +17,7 @@ class HomeController < ApplicationController
     end
   end
   def your_profile
-    @comment = Commontator::Comment.where(creator_id:current_member.id)
+    @comment = Comment.where(member_id:current_member.id)
     @article = Article.where(member_id: current_member.id)
   end
   #파일 업로드

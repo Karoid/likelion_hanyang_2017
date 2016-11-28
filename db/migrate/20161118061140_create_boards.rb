@@ -6,6 +6,9 @@ class CreateBoards < ActiveRecord::Migration
       t.integer :category_id                #게시판은 카테고리에 속해있다
       t.boolean :show_last, default: false  #가장 최근의 글을 보이는지 여부
       t.boolean :default,   default: true   #기본 카테고리인지 여부
+
+      t.integer :read_level, default:0
+      t.integer :write_level, default:100
       t.timestamps null: false
     end
   end

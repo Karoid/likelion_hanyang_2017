@@ -20,7 +20,7 @@
   </tbody>
 </table>
 <!--게시글 목록 끝-->
-<% if (can? :create, @article.class) || @article == nil %>
+<% if (can? :create, @article.last)%>
 <a href="/board/<%=@category.route%>/<%=@board.route%>/create" style="float:right">새글 쓰기</a>
 <%end%>
 <nav aria-label="Page navigation" style="text-align: center;">

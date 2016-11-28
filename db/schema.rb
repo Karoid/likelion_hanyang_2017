@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20161128162115) do
     t.integer  "category_id"
     t.boolean  "show_last",   default: false
     t.boolean  "default",     default: true
+    t.integer  "read_level",  default: 0
+    t.integer  "write_level", default: 100
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
