@@ -27,12 +27,21 @@ def writeolddata(model,doc)
   end
   @article.content += doc.at('content').text.gsub('src="files/', 'src="/files/').gsub('src="./files/', 'src="/files/').html_safe #내용물
   @article.save
+  return @article.id
 end
-def writegallery(doc)
+def writegallery(doc,article_id)
   if !(@article.content.include? "img") && doc.at('uploaded_count').text != '0'
     @attach.each do |att|
       if att.at('upload_target_srl').text == doc.at('document_srl').text
-        @article.content += '<img src="'+att.at("uploaded_filename").text[1..-1].gsub('src="files/', 'src="/files/').gsub('src="./files/', 'src="/files/')+'">'
+        fileName = att.at("uploaded_filename").text[1..-1].gsub('src="files/', 'src="/files/').gsub('src="./files/', 'src="/files/')
+        Uploadfile.create(
+          article_id: article_id,
+          public_id: nil,
+          format: "file",
+          url: fileName,
+          resource_type: nil
+        )
+        @article.content += '<img src="'+fileName+'">'
       end
     end
     @article.save
@@ -84,7 +93,7 @@ title: '2015년 11월 27일 개정안',member_id: 1234567, member_name:"임원")
         writeolddata(model,doc)
       when '161'
         model = Board.where(route:'gallery').first.articles
-        writeolddata(model,doc)
-        writegallery(doc)
+        article_id = writeolddata(model,doc)
+        writegallery(doc, article_id)
       end
     end

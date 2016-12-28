@@ -57,7 +57,7 @@
                       </div>
                       <%end%>
                       <%Category.where(default: false).each do |category|%>
-                      <li><a href="/board/<%=category.route%>/gallery"><%=category.name%></a></li>
+                      <li><a href="<%=category.route%>"><%=category.name%></a></li>
                       <%end%>
                   </ul>
               </div>
