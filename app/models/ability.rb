@@ -4,7 +4,7 @@ class Ability
   def initialize(member)
     # Define abilities for the passed in user here. For example:
     #
-    #   user ||= User.new # guest user (not logged in)
+    member ||= Member.new(role: 0) # guest user (not logged in)
     #   if user.admin?
     #     can :manage, :all
     #   else
@@ -13,28 +13,17 @@ class Ability
     if member.admin
       can :manage, :all
 
-    elsif member.role > 0
-      can :read, :all
-      if member.staff
-        can :create, Introduce
-        can [:update,:destroy], Introduce do |model_name|
-          model_name.member == member
-        end
-        can :create, NoticeBoard
-        can [:update,:destroy], NoticeBoard do |model_name|
-          model_name.member == member
-        end
+    else
+      can :read, Article do |model_name|
+        model_name.board.read_level <= member.role
       end
-      can :create, FreeBoard
-      can [:update,:destroy], FreeBoard do |model_name|
+      can :create, Article do |model_name|
+        model_name.board.write_level <= member.role
+      end
+      can [:update,:destroy], Article do |model_name|
         model_name.member == member
       end
-      can :create, MemberBoard
-      can [:update,:destroy], MemberBoard do |model_name|
-        model_name.member == member
-      end
-      can :create, SameageBoard
-      can [:update,:destroy], SameageBoard do |model_name|
+      can [:update,:destroy], Comment do |model_name|
         model_name.member == member
       end
     end

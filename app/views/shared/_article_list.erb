@@ -10,18 +10,17 @@
   </thead>
   <tbody>
     <%@article_page.each do |article|%>
-    <%puts params[:id].to_i; puts article.id; puts article.id == params[:id].to_i%>
     <tr class="<%if article.id == params[:id].to_i %>selected<%end%>">
       <th scope="row"><%=article.id%></th>
       <td><a href="/board/<%=article.board.category.route%>/<%=article.board.route%>/<%=article.id%>"><%=article.title%></a></td>
-      <td><%=article.member.senior_number%><span class='hidden-xs'>기 </span><%=article.member.username%></td>
+      <td><%=article.member_name%></td>
       <td><span class='hidden-xs'><%=article.created_at.strftime("%Y.")%></span><%=article.created_at.strftime("%m.%d")%></td>
     </tr>
     <%end%>
   </tbody>
 </table>
 <!--게시글 목록 끝-->
-<% if (can? :create, @article.class) || @article == nil %>
+<% if (can? :create, @article.last)%>
 <a href="/board/<%=@category.route%>/<%=@board.route%>/create" style="float:right">새글 쓰기</a>
 <%end%>
 <nav aria-label="Page navigation" style="text-align: center;">

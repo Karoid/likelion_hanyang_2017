@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Huhs.net</title>
-  <script src="http://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+  <script src="/js/jquery-1.12.4.min.js"></script>
   <%= csrf_meta_tags %>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -45,7 +45,7 @@
               <div class="collapse navbar-collapse">
                   <ul class="nav navbar-nav">
                       <li class="hidden-sm hidden-xs"><a href="/"><i class="icon-home"></i></a></li>
-                      <%Category.all.each do |category|%>
+                      <%Category.where(default: true).each do |category|%>
                       <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><%=category.name%>
                         <span class="caret"></span></button>
@@ -56,7 +56,9 @@
                         </ul>
                       </div>
                       <%end%>
-                      <li><a href="/photos">사진첩</a></li>
+                      <%Category.where(default: false).each do |category|%>
+                      <li><a href="/board/<%=category.route%>/gallery"><%=category.name%></a></li>
+                      <%end%>
                   </ul>
               </div>
           </div>

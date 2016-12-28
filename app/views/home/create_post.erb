@@ -12,21 +12,22 @@
         </div><!--/.item-->
     </div><!--/.carousel-inner-->
 </section><!--/#main-slider-->
-<div class="container box">
-  <%if params[:post_id]%>
-  <form name="write_article" action="/board/<%=params[:category]%>/<%=params[:board]%>/<%=params[:post_id]%>/write" method="post">
-  <%else%>
+<div class="container box"> 
+  <%if params[:post_id]%><!-- UPDATE POST-->
+  <form name="update_article" action="/board/<%=params[:category]%>/<%=params[:board]%>/<%=params[:post_id]%>/write" method="post">
+  <input type="hidden" name="post_id" value="<%=params[:post_id]%>">
+  <%else%><!--CREATE POST-->
   <form name="write_article" action="/board/<%=params[:category]%>/<%=params[:board]%>/write" method="post">
   <%end%>
-  <div class="form-group has-feedback">
+  <div class="form-group has-feedback"><!--제목-->
     <input type="text" name="title" class="form-control" placeholder="제목" value="<%if params[:title] != nil%><%=params[:title]%><%end%>" required>
   </div>
+  <!--내용-->
   <textarea id="edit" name="content" required>
     <%if params[:content] != nil%>
     <%=params[:content]%>
     <%end%>
   </textarea>
-  <input type="hidden" name="post_id" value="<%=params[:id]%>">
   <input type="hidden" name="member_id" value="<%=current_member.id%>">
   <button type="submit" class="btn btn-default" onclick="validateForm()">작성</button>
 </form>
@@ -39,14 +40,12 @@
         imageUploadURL: '/upload_image',
         imageUploadParam: 'file',
         imageUploadParams: {
-          model: '<%= params[:sended] %>',
-          model_id: '<%= params[:id] %>'
+          post_id: '<%= params[:post_id] %>',
         },
         fileUploadURL: '/upload_file',
         fileUploadParam: 'file',
         fileUploadParams: {
-          model: '<%= params[:sended] %>',
-          model_id: '<%= params[:id] %>'
+          post_id: '<%= params[:post_id] %>',
         }
       })
     });
