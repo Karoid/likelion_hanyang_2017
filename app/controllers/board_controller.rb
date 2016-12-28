@@ -52,6 +52,9 @@ class BoardController < ApplicationController
         @thisArticle = @article.find(params[:id])
         render template: "board/showArticle"
       end
+      if params[:template]
+        render template: params[:template]
+      end
     end
     def showArticle
       showBoard

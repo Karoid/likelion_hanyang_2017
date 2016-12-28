@@ -55,8 +55,10 @@
   						<div class="bottom-comment">
   								<div class="comment-date"><%=comment.updated_at%></div>
   								<ul class="comment-actions">
-  										<li class="complain">Complain</li>
-  										<li class="reply">Reply</li>
+                     <% if can? :destroy, comment %>
+  										<li class="delete">Delete</li>
+                    <% end %>
+  									<li class="reply">Reply</li>
   								</ul>
   						</div>
   				</div>

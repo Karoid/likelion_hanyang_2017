@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Huhs.net</title>
-  <script src="http://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+  <script src="/js/jquery-1.12.4.min.js"></script>
   <%= csrf_meta_tags %>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -57,7 +57,7 @@
                       </div>
                       <%end%>
                       <%Category.where(default: false).each do |category|%>
-                      <li><a href="<%=category.route%>"><%=category.name%></a></li>
+                      <li><a href="/board/<%=category.route%>/gallery"><%=category.name%></a></li>
                       <%end%>
                   </ul>
               </div>

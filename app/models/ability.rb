@@ -23,6 +23,9 @@ class Ability
       can [:update,:destroy], Article do |model_name|
         model_name.member == member
       end
+      can [:update,:destroy], Comment do |model_name|
+        model_name.member == member
+      end
     end
     # The first argument to `can` is the action you are giving the user
     # permission to do.
