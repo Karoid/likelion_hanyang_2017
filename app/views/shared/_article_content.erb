@@ -35,7 +35,7 @@
   						<div class="avatar" style="background-image: url('https://s3.amazonaws.com/uifaces/faces/twitter/dancounsell/128.jpg')"></div>
   				</div>
   				<div class="comment-block">
-  						<form action="/comment/<%=post.id%>" method="post">
+  						<form action="/comment/c/<%=post.id%>" method="post">
   								<textarea name="content" cols="30" rows="3" placeholder="Add comment..."></textarea>
               <div class="bottom-comment">
                   <ul class="comment-actions">
@@ -53,12 +53,16 @@
   				<div class="comment-block">
   						<p class="comment-text"><%=comment.body%></p>
   						<div class="bottom-comment">
-  								<div class="comment-date"><%=comment.updated_at%></div>
+  								<div class="comment-date"><%=comment.member.username%> - <%=comment.created_at.strftime("%Y.%m.%d")%></div>
   								<ul class="comment-actions">
                      <% if can? :destroy, comment %>
-  										<li class="delete">Delete</li>
+                     <form action="/comment/d/<%=comment.id%>" method="post" style="float:right">
+                       <div class="bottom-comment">
+                         <input class="delete" type="submit" value=" Delete">
+                       </div>
+                     </form>
                     <% end %>
-  									<li class="reply">Reply</li>
+                    <input class="reply" type="submit" value="Reply">
   								</ul>
   						</div>
   				</div>

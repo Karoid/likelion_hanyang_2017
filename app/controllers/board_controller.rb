@@ -69,4 +69,11 @@ class BoardController < ApplicationController
       end
       redirect_to :back
     end
+
+    def delete_comment
+      @comment = Comment.find(params[:id])
+      authorize! :delete, @comment
+      @comment.destroy
+      redirect_to :back
+    end
 end
