@@ -30,8 +30,8 @@ class BoardController < ApplicationController
     end
 
     def showBoard
-      @category = Category.where(route: params[:category]).first
-      @board = @category.boards.where(route: params[:board]).first
+      @category = Category.where(route: params[:category]).take
+      @board = @category.boards.where(route: params[:board]).take
       @article = @board.articles.where(active: true)
       authorize! :read, @article.last
       perpage = 10
@@ -52,8 +52,8 @@ class BoardController < ApplicationController
         @thisArticle = @article.find(params[:id])
         render template: "board/showArticle"
       end
-      if params[:template]
-        render template: params[:template]
+      if @board.template && !params[:id]
+        render template: @board.template
       end
     end
     def showArticle
@@ -63,8 +63,10 @@ class BoardController < ApplicationController
 
     def write_comment
       @article = Article.find(params[:id])
-      @comment = Comment.build_from( @article, current_member.id, params[:content] )
-      @comment.save
+      if @article.board.show_comment
+        @comment = Comment.build_from( @article, current_member.id, params[:content] )
+        @comment.save
+      end
       redirect_to :back
     end
 end

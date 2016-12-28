@@ -1,65 +1,26 @@
-<div class="container1">
-	<div class="photo">
-		<img src="http://images.kpopstarz.com/data/images/full/193508/younha.png" align="center">
-	</div>
-	<div class="text">
-		Younha !
-	</div>
-</div>
-
-<div class="container1">
-	<div class="photo">
-		<img src="http://img.yonhapnews.co.kr/etc/inner/KR/2013/10/24/AKR20131024057700005_01_i.jpg" align="center">
-	</div>
-	<div class="text">
-		Younha !
-	</div>
-</div>
-
-<div class="container1">
-	<div class="photo">
-		<img src="http://images.kpopstarz.com/data/images/full/193508/younha.png" align="center">
-	</div>
-	<div class="text">
-		Younha !
-	</div>
-</div>
-
-<div class="container1">
-	<div class="photo">
-		<img src="http://img.yonhapnews.co.kr/etc/inner/KR/2013/10/24/AKR20131024057700005_01_i.jpg" align="center">
-	</div>
-	<div class="text">
-		Younha !
-	</div>
-</div>
-
-<div class="container1">
-	<div class="photo">
-		<img src="http://images.kpopstarz.com/data/images/full/193508/younha.png" align="center">
-	</div>
-	<div class="text">
-		Younha !
-	</div>
-</div>
-
-<div class="container1">
-	<div class="photo">
-		<img src="http://images.kpopstarz.com/data/images/full/193508/younha.png" align="center">
-	</div>
-	<div class="text">
-		Younha !
-	</div>
-</div>
-
-<div class="container1">
-	<div class="photo">
-		<img src="http://images.kpopstarz.com/data/images/full/193508/younha.png" align="center">
-	</div>
-	<div class="text">
-		Younha !
-	</div>
-</div>
+<!--게시글 목록 시작-->
+    <%@article_page.each do |article|%>
+		<a href="/board/<%=article.board.category.route%>/<%=article.board.route%>/<%=article.id%>">
+		<div class="container1 <%if article.id == params[:id].to_i %>selected<%end%>">
+			<div class="photo">
+				<%if article.uploadfiles.take%>
+				<img src="<%=article.uploadfiles.take.url%>" align="center">
+				<%end%>
+			</div>
+			<div class="text">
+				<%=article.title%> - <span class='hidden-xs'><%=article.created_at.strftime("%Y.")%></span><%=article.created_at.strftime("%m.%d")%>
+			</div>
+		</div>
+		</a>
+    <%end%>
+		<hr style="clear:both">
+<!--게시글 목록 끝-->
+<% if (can? :create, @article.last)%>
+<a href="/board/<%=@category.route%>/<%=@board.route%>/create" style="float:right">새글 쓰기</a>
+<%end%>
+<nav aria-label="Page navigation" style="text-align: center;">
+  <%= will_paginate @article_page, previous_label: "<", next_label: ">" %>
+</nav>
 
 <style type="text/css">
 	.container1 {

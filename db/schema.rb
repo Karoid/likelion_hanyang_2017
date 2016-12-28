@@ -25,23 +25,25 @@ ActiveRecord::Schema.define(version: 20161128162115) do
   end
 
   create_table "boards", force: :cascade do |t|
-    t.string   "route",                       null: false
-    t.string   "name",                        null: false
+    t.string   "route",                        null: false
+    t.string   "name",                         null: false
     t.integer  "category_id"
-    t.boolean  "show_last",   default: false
-    t.boolean  "default",     default: true
-    t.integer  "read_level",  default: 0
-    t.integer  "write_level", default: 100
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.string   "template"
+    t.boolean  "show_last",    default: false
+    t.boolean  "show_comment", default: true
+    t.integer  "read_level",   default: 0
+    t.integer  "write_level",  default: 100
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   create_table "categories", force: :cascade do |t|
     t.string   "route"
     t.string   "name"
-    t.boolean  "default"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "default"
+    t.integer  "read_level", default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "comments", force: :cascade do |t|
