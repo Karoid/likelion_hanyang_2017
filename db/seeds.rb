@@ -54,6 +54,7 @@ Member.create(username: "정승호", email: 'shj5508@naver.com',senior_number:34
 Category.create(route: 'introduce', name: '휴즈 소개')
 Category.create(route: 'huhslife', name: '게시판')
 Category.create(route: 'photo', name: '사진첩', default: "/board/photo/gallery")
+Category.create(route: 'admin', name: '관리자 페이지',read_level:100 , default: "/admin")
 #Board
 Category.where(route: 'introduce').take.boards.create(route: 'history', name: '연혁', show_last: true,show_comment:false)
 Category.where(route: 'introduce').take.boards.create(route: 'staff', name: '임원단 소개', show_last: true,show_comment:false)

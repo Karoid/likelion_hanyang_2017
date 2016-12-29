@@ -14,6 +14,9 @@ class Ability
       can :manage, :all
 
     else
+      can [:read], Category do |model_name|
+        model_name.read_level <= member.role
+      end
       can :read, Article do |model_name|
         model_name.board.read_level <= member.role
       end

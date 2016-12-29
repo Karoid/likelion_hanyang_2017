@@ -46,18 +46,22 @@
                   <ul class="nav navbar-nav">
                       <li class="hidden-sm hidden-xs"><a href="/"><i class="icon-home"></i></a></li>
                       <%Category.where(default: nil).each do |category|%>
-                      <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><%=category.name%>
-                        <span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                          <%category.boards.each do |board|%>
-                          <li><a href="/board/<%=category.route%>/<%=board.route%>"><%=board.name%></a></li>
-                          <%end%>
-                        </ul>
-                      </div>
+                      <%if can? :read, category%>
+                        <div class="dropdown">
+                          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><%=category.name%>
+                          <span class="caret"></span></button>
+                          <ul class="dropdown-menu">
+                            <%category.boards.each do |board|%>
+                            <li><a href="/board/<%=category.route%>/<%=board.route%>"><%=board.name%></a></li>
+                            <%end%>
+                          </ul>
+                        </div>
+                      <%end%>
                       <%end%>
                       <%Category.where.not('default' => nil).each do |category|%>
+                      <%if can? :read, category%>
                       <li><a href="<%=category.default%>"><%=category.name%></a></li>
+                      <%end%>
                       <%end%>
                   </ul>
               </div>
