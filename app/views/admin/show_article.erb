@@ -1,0 +1,144 @@
+<div class="right_col" role="main">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>글 목록 <small>제거</small></h2>
+        <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Settings 1</a>
+              </li>
+              <li><a href="#">Settings 2</a>
+              </li>
+            </ul>
+          </li>
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="x_content">
+
+        <table id="datatable_article" class="table table-striped responsive-utilities jambo_table dt-responsive nowrap" width="100%">
+          <thead>
+            <tr class="headings">
+              <th>
+                <input type="checkbox" id="check-all" class="flat" disabled>
+              </th>
+              <th class="column-title">게시판 </th>
+              <th class="column-title">제목 </th>
+              <th class="column-title">글쓴이 </th>
+              <th class="column-title">작성일 </th>
+              <th class="column-title no-link last"><span class="nobr">Action</span>
+              </th>
+              <th class="bulk-actions" colspan="7">
+                <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @article.each do |article|%>
+            <tr class="even pointer">
+              <td class="a-center ">
+                <input type="checkbox" class="flat" name="table_records">
+              </td>
+              <td class=" "><%=article.board.name%></td>
+              <td class=" "><%=article.title%></td>
+              <td class=" "><%=article.member.senior_number%>기 <%= article.member.username%></td>
+              <td class=" "><%=article.created_at.strftime("%Y.%m.%d")%></td>
+              <td class=" last"><a href="#">Edit</a>
+              </td>
+            </tr>
+            <%end%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>삭제된 글 목록 <small>복구, 제거</small></h2>
+        <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Settings 1</a>
+              </li>
+              <li><a href="#">Settings 2</a>
+              </li>
+            </ul>
+          </li>
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="x_content">
+
+        <table id="datatable_article_trash" class="table table-striped responsive-utilities jambo_table dt-responsive nowrap" width="100%">
+          <thead>
+            <tr class="headings">
+              <th>
+                <input type="checkbox" id="check-all" class="flat" disabled>
+              </th>
+              <th class="column-title">게시판 </th>
+              <th class="column-title">제목 </th>
+              <th class="column-title">글쓴이 </th>
+              <th class="column-title">작성일 </th>
+              <th class="column-title no-link last"><span class="nobr">Action</span>
+              </th>
+              <th class="bulk-actions" colspan="7">
+                <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @article_trash.each do |article|%>
+            <tr class="even pointer">
+              <td class="a-center ">
+                <input type="checkbox" class="flat" name="table_records">
+              </td>
+              <td class=" "><%=article.board.name%></td>
+              <td class=" "><%=article.title%></td>
+              <td class=" "><%=article.member.senior_number%>기 <%= article.member.username%></td>
+              <td class=" "><%=article.created_at.strftime("%Y.%m.%d")%></td>
+              <td class=" last"><a href="#">Edit</a>
+              </td>
+            </tr>
+            <%end%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script src="/js/datatables/jquery.dataTables.min.js"></script>
+  <script src="/js/datatables/dataTables.bootstrap.js"></script>
+  <script src="/js/datatables/dataTables.buttons.min.js"></script>
+  <script src="/js/datatables/buttons.bootstrap.min.js"></script>
+  <script src="/js/datatables/jszip.min.js"></script>
+  <script src="/js/datatables/pdfmake.min.js"></script>
+  <script src="/js/datatables/vfs_fonts.js"></script>
+  <script src="/js/datatables/buttons.html5.min.js"></script>
+  <script src="/js/datatables/buttons.print.min.js"></script>
+  <script src="/js/datatables/dataTables.fixedHeader.min.js"></script>
+  <script src="/js/datatables/dataTables.keyTable.min.js"></script>
+  <script src="/js/datatables/dataTables.responsive.min.js"></script>
+  <script src="/js/datatables/responsive.bootstrap.min.js"></script>
+  <script src="/js/datatables/dataTables.scroller.min.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $('#datatable_article').DataTable();
+    $('#datatable_article_trash').DataTable();
+  });
+  </script>
+</div>

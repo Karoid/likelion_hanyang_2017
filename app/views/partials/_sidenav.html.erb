@@ -17,7 +17,10 @@
         </div>
         <div class="profile_info">
           <span>Welcome,</span>
-          <h2>John Doe</h2>
+          <h2><% if member_signed_in? %>
+            <div style="color:white"><a href="/profile" style="color:inherit"><%= current_member.senior_number %>기 <%= current_member.username %></a></div>
+            <% end %>
+          </h2>
         </div>
       </div>
       <!-- /menu profile quick info -->
@@ -28,9 +31,10 @@
       <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
         <div class="menu_section">
-          <h3>General</h3>
+          <h3><%@role = ["외부인","준회원","정회원","졸업생"]%>
+          <%=@role[current_member.role]%></h3>
           <ul class="nav side-menu">
-            <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+            <li><a><i class="fa fa-home"></i> 통계(미완성) <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu" style="display: none">
                 <li><a href="/assets/index.html">Dashboard</a>
                 </li>
@@ -40,8 +44,16 @@
                 </li>
               </ul>
             </li>
-            <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
+            <li><a><i class="fa fa-edit"></i> 관리 <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu" style="display: none">
+                <li><a href="#">첫 화면 관리</a>
+                </li>
+                <li><a href="/admin/category">카테고리/게시판 관리</a>
+                </li>
+                <li><a href="/admin/article">게시글 관리</a>
+                </li>
+                <li><a href="/assets/form.html">회원관리</a>
+                </li>
                 <li><a href="/assets/form.html">General Form</a>
                 </li>
                 <li><a href="/assets/form_advanced.html">Advanced Components</a>
@@ -169,9 +181,7 @@
         <a data-toggle="tooltip" data-placement="top" title="Lock">
           <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
         </a>
-        <a data-toggle="tooltip" data-placement="top" title="Logout">
-          <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-        </a>
+        <%= link_to '<span class="glyphicon glyphicon-off" aria-hidden="true"></span>'.html_safe , destroy_member_session_path, method: :get, data: { confirm: "Are you sure?" }, "data-toggle"=> "tooltip",        title: "Logout", "data-placement" => "top" %>
       </div>
       <!-- /menu footer buttons -->
     </div>

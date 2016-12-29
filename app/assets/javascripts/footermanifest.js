@@ -1,4 +1,3 @@
-//= require js/jquery.min.js
 //= require js/bootstrap.min.js
 //= require js/flot/jquery.flot.js
 //= require js/flot/jquery.flot.pie.js
