@@ -1,0 +1,9 @@
+.edit_input{
+  background: none;
+  border: 0px solid;
+  border-bottom: 1px solid #9E9E9E;
+  width:100%;
+}
+.edit_input:focus{
+  border-bottom: 2px solid #3f5367;
+}

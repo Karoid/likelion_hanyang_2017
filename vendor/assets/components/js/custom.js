@@ -25,7 +25,6 @@ $(function () {
         var bodyHeight = $BODY.height(),
             leftColHeight = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height(),
             contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
-            console.log(bodyHeight, leftColHeight)
         // normalize content
         contentHeight = $NAV_MENU.height() + $FOOTER.height();
 

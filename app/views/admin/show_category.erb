@@ -44,19 +44,21 @@
           <tbody>
             <% @category.each do |category|%>
             <tr class="even pointer">
-              <td class="a-center ">
-                <input type="checkbox" class="flat" name="table_records">
+              <td class="a-center " name="id">
+                <input type="checkbox" class="flat" name="table_records" id="<%=category.id%>">
               </td>
-              <td class=" "><%=category.route%></td>
-              <td class=" "><%=category.name%></td>
-              <td class=" "><%=category.read_level%></td>
-              <td class=" "><%=category.default%></i></td>
-              <td class=" last"><a href="#">Edit</a>
+              <td class=" " name="route"><%=category.route%></td>
+              <td class=" " name="name"><%=category.name%></td>
+              <td class=" " name="read_level"><%=category.read_level%></td>
+              <td class=" " name="default"><%=category.default%></i></td>
+              <td class=" last"><a href="#" class="edit_category">Edit</a>
               </td>
             </tr>
             <%end%>
           </tbody>
         </table>
+        <button id="delete_category" class="btn btn-danger">삭제</button>
+        <button id="create_category" class="btn btn-success">추가</button>
       </div>
     </div>
   </div>
@@ -109,26 +111,30 @@
           <tbody>
             <% @board.each do |board|%>
             <tr class="even pointer">
-              <td class="a-center ">
-                <input type="checkbox" class="flat2" name="table_records">
+              <td class="a-center " name="id">
+                <input type="checkbox" class="flat2" name="table_records" id="<%=board.id%>">
               </td>
-              <td class=" "><%=board.category.name%></td>
-              <td class=" "><%=board.route%></td>
-              <td class=" "><%=board.name%></td>
-              <td class=" "><%=board.show_last%></td>
-              <td class=" "><%=board.show_comment%></td>
-              <td class=" "><%=board.read_level%></td>
-              <td class=" "><%=board.write_level%></td>
-              <td class=" "><%=board.template%></td>
-              <td class=" last"><a href="#">Edit</a>
+              <td class=" " name="category.name"><%=board.category.name%></td>
+              <td class=" " name="route"><%=board.route%></td>
+              <td class=" "name="name"><%=board.name%></td>
+              <td class=" "name="show_last"><%=board.show_last%></td>
+              <td class=" "name="show_comment"><%=board.show_comment%></td>
+              <td class=" "name="read_level"><%=board.read_level%></td>
+              <td class=" "name="write_level"><%=board.write_level%></td>
+              <td class=" "name="template"><%=board.template%></td>
+              <td class=" last"><a href="#datatable_board" class="edit_board">Edit</a>
               </td>
             </tr>
             <%end%>
           </tbody>
         </table>
+        <button id="delete_board" class="btn btn-danger">삭제</button>
+        <button id="create_board" class="btn btn-success">추가</button>
+
       </div>
     </div>
   </div>
+  <script src="/js/admin_table.js"></script>
   <!-- Datatables-->
   <script src="/js/datatables/jquery.dataTables.min.js"></script>
   <script src="/js/datatables/dataTables.bootstrap.js"></script>
@@ -152,6 +158,20 @@
 
   <script type="text/javascript">
   $(document).ready(function() {
+    var categoryTable = new Admin_table('#datatable_category',"Category")
+    $("#delete_category").click(function(event) {
+      /* Act on the event */
+      categoryTable.delete(".flat");
+    });
+    categoryTable.edit(".edit_category");
+    categoryTable.create("#create_category");
+    var boardTable = new Admin_table('#datatable_board',"Board")
+    $("#delete_board").click(function(event) {
+      /* Act on the event */
+      boardTable.delete(".flat2");
+    });
+    boardTable.edit(".edit_board");
+    boardTable.create("#create_board");
     $('#datatable_category').DataTable();
     $('#datatable_board').DataTable();
     $('input.flat2').iCheck({
@@ -160,4 +180,5 @@
     });
   });
   </script>
+  <link rel="stylesheet" href="/css/admin_table.css">
 </div>

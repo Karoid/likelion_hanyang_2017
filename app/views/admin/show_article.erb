@@ -51,7 +51,7 @@
               <td class=" "><%=article.title%></td>
               <td class=" "><%=article.member.senior_number%>기 <%= article.member.username%></td>
               <td class=" "><%=article.created_at.strftime("%Y.%m.%d")%></td>
-              <td class=" last"><a href="#">Edit</a>
+              <td class=" last"><a href="/board/<%=article.board.category.route%>/<%=article.board.route%>/<%=article.id%>" target="_blank">View</a>
               </td>
             </tr>
             <%end%>
@@ -112,7 +112,7 @@
               <td class=" "><%=article.title%></td>
               <td class=" "><%=article.member.senior_number%>기 <%= article.member.username%></td>
               <td class=" "><%=article.created_at.strftime("%Y.%m.%d")%></td>
-              <td class=" last"><a href="#">Edit</a>
+              <td class=" last"><a href="/board/<%=article.board.category.route%>/<%=article.board.route%>/<%=article.id%>" target="_blank">View</a>
               </td>
             </tr>
             <%end%>
