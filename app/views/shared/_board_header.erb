@@ -1,6 +1,6 @@
 <section id="main-slider" class="sub carousel" data-spy="affix" data-offset-top="140">
   <div class="black-glass"></div>
-  <div class="navigation-bar"><%=@navigation.html_safe%></div>
+  <div class="navigation-bar"><%=sanitize @navigation%></div>
     <div class="carousel-inner">
         <div class="item active">
             <div class="container">

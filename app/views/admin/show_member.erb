@@ -2,7 +2,7 @@
   <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
       <div class="x_title">
-        <h2>카테고리 목록 <small>수정, 추가, 제거</small></h2>
+        <h2>신규 가입자</h2>
         <ul class="nav navbar-right panel_toolbox">
           <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
           </li>
@@ -23,16 +23,18 @@
 
       <div class="x_content">
 
-        <table id="datatable_category" class="table table-striped responsive-utilities jambo_table dt-responsive nowrap" width="100%">
+        <table id="datatable_nonmember" class="table table-striped responsive-utilities jambo_table dt-responsive nowrap" width="100%">
           <thead>
             <tr class="headings">
               <th>
                 <input type="checkbox" id="check-all" class="flat" disabled>
               </th>
-              <th class="column-title">영문명 </th>
-              <th class="column-title">한글명 </th>
-              <th class="column-title">표시 등급 </th>
-              <th class="column-title">리다이렉트 주소 </th>
+              <th class="column-title">기수 </th>
+              <th class="column-title">이름 </th>
+              <th class="column-title">전공 </th>
+              <th class="column-title">이메일 </th>
+              <th class="column-title">번호 </th>
+              <th class="column-title">회원상태 </th>
               <th class="column-title no-link last"><span class="nobr">Action</span>
               </th>
               <th class="bulk-actions" colspan="7">
@@ -42,30 +44,34 @@
           </thead>
 
           <tbody>
-            <% @category.each do |category|%>
+            <% @nonMember.each do |member|%>
+            <% cache member do %>
             <tr class="even pointer">
-              <td class="a-center " name="id">
-                <input type="checkbox" class="flat" name="table_records" id="<%=category.id%>">
+              <td class="a-center ">
+                <input type="checkbox" class="flat" name="table_records" id="<%=member.id%>">
               </td>
-              <td class=" " name="route"><%=category.route%></td>
-              <td class=" " name="name"><%=category.name%></td>
-              <td class=" " name="read_level"><%=category.read_level%></td>
-              <td class=" " name="default"><%=category.default%></i></td>
-              <td class=" last"><a href="#" class="edit_category">Edit</a>
+              <td class=" "><%=member.senior_number%></td>
+              <td class=" "><%=member.username%></td>
+              <td class=" "><%=member.major%></td>
+              <td class=" "><%=member.email%></td>
+              <td class=" "><%=member.tel%></td>
+              <td class=" "><%=member.role%></td>
+              <td class=" last"><a href="#datatable_nonmember">Edit</a>
               </td>
             </tr>
             <%end%>
+            <%end%>
           </tbody>
         </table>
-        <button id="delete_category" class="btn btn-danger">삭제</button>
-        <button id="create_category" class="btn btn-success">추가</button>
       </div>
+      <button id="delete_member" class="btn btn-danger">탈퇴</button>
     </div>
   </div>
+
   <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
       <div class="x_title">
-        <h2>게시판 목록 <small>수정, 추가, 제거</small></h2>
+        <h2>기존 회원</h2>
         <ul class="nav navbar-right panel_toolbox">
           <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
           </li>
@@ -86,20 +92,18 @@
 
       <div class="x_content">
 
-        <table id="datatable_board" class="table table-striped responsive-utilities jambo_table dt-responsive nowrap" width="100%">
+        <table id="datatable_member" class="table table-striped responsive-utilities jambo_table dt-responsive nowrap" width="100%">
           <thead>
             <tr class="headings">
               <th>
-                <input type="checkbox" id="check-all" class="flat2" disabled>
+                <input type="checkbox" id="check-all" class="flat" disabled>
               </th>
-              <th class="column-title">카테고리 명 </th>
-              <th class="column-title">영문명 </th>
-              <th class="column-title">한글명 </th>
-              <th class="column-title">최근 글 표시</th>
-              <th class="column-title">댓글 사용</th>
-              <th class="column-title">읽기 등급 </th>
-              <th class="column-title">쓰기 등급 </th>
-              <th class="column-title">템플릿 명</th>
+              <th class="column-title">기수 </th>
+              <th class="column-title">이름 </th>
+              <th class="column-title">전공 </th>
+              <th class="column-title">이메일 </th>
+              <th class="column-title">번호 </th>
+              <th class="column-title">회원상태 </th>
               <th class="column-title no-link last"><span class="nobr">Action</span>
               </th>
               <th class="bulk-actions" colspan="7">
@@ -109,38 +113,37 @@
           </thead>
 
           <tbody>
-            <% @board.each do |board|%>
+            <% @member.each do |member|%>
+            <% cache member do %>
             <tr class="even pointer">
-              <td class="a-center " name="id">
-                <input type="checkbox" class="flat2" name="table_records" id="<%=board.id%>">
+              <td class="a-center ">
+                <input type="checkbox" class="flat" name="table_records" id="<%=member.id%>">
               </td>
-              <td class=" " name="category.name"><%=board.category.name%></td>
-              <td class=" " name="route"><%=board.route%></td>
-              <td class=" "name="name"><%=board.name%></td>
-              <td class=" "name="show_last"><%=board.show_last%></td>
-              <td class=" "name="show_comment"><%=board.show_comment%></td>
-              <td class=" "name="read_level"><%=board.read_level%></td>
-              <td class=" "name="write_level"><%=board.write_level%></td>
-              <td class=" "name="template"><%=board.template%></td>
-              <td class=" last"><a href="#datatable_board" class="edit_board">Edit</a>
+              <td class=" "><%=member.senior_number%></td>
+              <td class=" "><%=member.username%></td>
+              <td class=" "><%=member.major%></td>
+              <td class=" "><%=member.email%></td>
+              <td class=" "><%=member.tel%></td>
+              <td class=" "><%=member.role%></td>
+              <td class=" last"><a href="#datatable_member">Edit</a>
               </td>
             </tr>
             <%end%>
+            <%end%>
           </tbody>
         </table>
-        <button id="delete_board" class="btn btn-danger">삭제</button>
-        <button id="create_board" class="btn btn-success">추가</button>
-
       </div>
+      <button id="delete_member" class="btn btn-danger">탈퇴</button>
     </div>
   </div>
   <script src="/js/admin_table.js"></script>
-  <!-- Datatables-->
+
   <script src="/js/datatables/jquery.dataTables.min.js"></script>
   <script src="/js/datatables/dataTables.bootstrap.js"></script>
   <script src="/js/datatables/dataTables.buttons.min.js"></script>
   <script src="/js/datatables/buttons.bootstrap.min.js"></script>
   <script src="/js/datatables/jszip.min.js"></script>
+  <script src="/js/datatables/pdfmake.min.js"></script>
   <script src="/js/datatables/vfs_fonts.js"></script>
   <script src="/js/datatables/buttons.html5.min.js"></script>
   <script src="/js/datatables/buttons.print.min.js"></script>
@@ -149,44 +152,47 @@
   <script src="/js/datatables/dataTables.responsive.min.js"></script>
   <script src="/js/datatables/responsive.bootstrap.min.js"></script>
   <script src="/js/datatables/dataTables.scroller.min.js"></script>
- <style>
- table th {
-   cursor: pointer;
- }
- table[role=grid]{
-   margin:0;
- }
- </style>
-
+  <style>
+  table th {
+    cursor: pointer;
+  }
+  table[role=grid]{
+    margin:0;
+  }
+  </style>
   <script type="text/javascript">
   $(document).ready(function() {
-    var categoryTable = new Admin_table('#datatable_category',"Category")
-    $("#delete_category").click(function(event) {
+    var dt_article = $('#datatable_article').DataTable({
+        scrollY:        '50vh',
+        scrollCollapse: true,
+        paging:         false
+    });
+    var dt_article_trash = $('#datatable_article_trash').DataTable({
+        scrollY:        '50vh',
+        scrollCollapse: true,
+        paging:         false,
+        'responsive': {
+        'details': {
+           'type': 'column',
+           'target': 5
+        }
+      }
+    });
+
+    var articleTable = new Admin_table('#datatable_article',"Article")
+    $("#delete_article").click(function(event) {
       /* Act on the event */
-      categoryTable.delete(".flat");
+      articleTable.inactive(".flat");
     });
-    categoryTable.edit(".edit_category");
-    categoryTable.create("#create_category");
-    var boardTable = new Admin_table('#datatable_board',"Board")
-    $("#delete_board").click(function(event) {
+    var articleTrashTable = new Admin_table('#datatable_article_trash',"Article")
+    $("#delete_article_trash").click(function(event) {
       /* Act on the event */
-      boardTable.delete(".flat2");
+      articleTrashTable.delete(".flat");
     });
-    boardTable.edit(".edit_board");
-    boardTable.create("#create_board");
-    $('#datatable_category').DataTable({
-      "scrollCollapse": true,
-      "paging":         false
-    });
-    $('#datatable_board').DataTable({
-      "scrollCollapse": true,
-      "paging":         false
-    });
-    $('input.flat2').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass: 'iradio_flat-green'
+    $("#active_article").click(function(event) {
+      /* Act on the event */
+      articleTrashTable.active(".flat");
     });
   });
   </script>
-  <link rel="stylesheet" href="/css/admin_table.css">
 </div>

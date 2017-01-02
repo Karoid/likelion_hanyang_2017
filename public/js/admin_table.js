@@ -38,46 +38,50 @@ function Admin_table(element, dbname){
 	this.dbname = dbname
 	this.selectedArray = [];
 }
-Admin_table.prototype.delete = function(checkboxClassName) {
+Admin_table.prototype.destroy = function(element,ajaxUrl) {
 	var table = this.tableElement
 	this.selectedArray = []
 	var selectedArray = this.selectedArray
 	var dbname = this.dbname
-	$(table).find(checkboxClassName).each(function(index, el) {
+	$(table).find(element).each(function(index, el) {
 		if (el.checked) {
 			selectedArray.push(el.id)
 		}
 	});
-	if (selectedArray.length && confirm(selectedArray.length + "개의 데이터를 삭제하시겠습니까?")) {
-		console.log(selectedArray);
+	if (selectedArray.length && confirm(selectedArray.length + "개의 데이터를 선택하시겠습니까?")) {
 		$.ajax({
 			statusCode: {
-	      500: function() {
-	        alert("형식을 맞추지 않아 실패");
+				500: function() {
+					alert("형식을 맞추지 않아 실패");
 				},
 				404: function(){
 					alert("서버와의 통신 실패")
 				}
-	    },
-			url: '/admin/delete_data',
+			},
+			url: ajaxUrl,
 			method: "post",
 			dataType: "json",
 			data: {data: selectedArray, db: dbname},
 			success: function(data){
 				if (data.notice = "success") {
-					$(table).find(checkboxClassName).each(function(index, el) {
-						if (selectedArray.indexOf(el.id) != -1) {
-							$(el).parents("tr").remove()
-						}
-					});
+					location.reload();
 				}else {
-					alert("삭제 실패")
+					alert("실패")
 				}
 			}
 		})
 	}else if(selectedArray.length == 0){
 		alert("데이터를 선택하세요")
 	}
+};
+Admin_table.prototype.delete = function(checkboxClassName) {
+	this.destroy(checkboxClassName,'/admin/delete_data')
+};
+Admin_table.prototype.inactive = function(checkboxClassName) {
+	this.destroy(checkboxClassName,'/admin/inactive_data')
+};
+Admin_table.prototype.active = function(checkboxClassName) {
+	this.destroy(checkboxClassName,'/admin/active_data')
 };
 Admin_table.prototype.edit = function(editButton, thisClass){
 	thisClass = thisClass || this
@@ -123,7 +127,6 @@ Admin_table.prototype.edit = function(editButton, thisClass){
 				selectedObject['data'][el.getAttribute("name")] = $(el).find("input").attr("id")
 			}
 		});
-		console.log(selectedObject);
 		$.ajax({
 			statusCode: {
 	      500: function() {
@@ -139,6 +142,8 @@ Admin_table.prototype.edit = function(editButton, thisClass){
 			data: selectedObject,
 			success: function(data){
 				if (data.notice = "success") {
+					thisElement.parents("tr").find("input[type=checkbox]").attr("id",data.id)
+					console.log(thisElement.parents("tr"));
 					thisElement.parents("tr").children().each(function(index, el) {
 						if (!el.className) {
 							el.innerHTML = selectedObject['data'][el.getAttribute("name")]
@@ -168,7 +173,15 @@ Admin_table.prototype.create = function(createButton) {
 		$(table).find("tbody").append($(table).find("tr").last()[0].outerHTML)
 		var lastTr = $(table).find("tr").last()
 		edit(lastTr.find("a")[0],thisClass)
-		lastTr.find(".a-center input").attr("id","")[0].disabled = false
+		lastTr.find("ins").click(function(event) {
+			lastTr.find(".a-center input").trigger('click')
+			if (lastTr.find(".a-center input")[0].checked) {
+				lastTr.addClass('selected').find(".icheckbox_flat-green").addClass('checked')
+			}else{
+				lastTr.removeClass('selected').find(".icheckbox_flat-green").removeClass('checked')
+			}
+		});
+		lastTr.find(".a-center input").attr("id","")
 
 		lastTr.find("a").trigger('click')
 		lastTr.find("input").val("")

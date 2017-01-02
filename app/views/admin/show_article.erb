@@ -43,21 +43,24 @@
 
           <tbody>
             <% @article.each do |article|%>
+            <% cache article do %>
             <tr class="even pointer">
               <td class="a-center ">
-                <input type="checkbox" class="flat" name="table_records">
+                <input type="checkbox" class="flat" name="table_records" id="<%=article.id%>">
               </td>
               <td class=" "><%=article.board.name%></td>
               <td class=" "><%=article.title%></td>
-              <td class=" "><%=article.member.senior_number%>기 <%= article.member.username%></td>
+              <td class=" "><%=article.member_name%></td>
               <td class=" "><%=article.created_at.strftime("%Y.%m.%d")%></td>
               <td class=" last"><a href="/board/<%=article.board.category.route%>/<%=article.board.route%>/<%=article.id%>" target="_blank">View</a>
               </td>
             </tr>
             <%end%>
+            <%end%>
           </tbody>
         </table>
       </div>
+      <button id="delete_article" class="btn btn-danger">휴지통으로</button>
     </div>
   </div>
   <div class="col-md-12 col-sm-12 col-xs-12">
@@ -106,11 +109,11 @@
             <% @article_trash.each do |article|%>
             <tr class="even pointer">
               <td class="a-center ">
-                <input type="checkbox" class="flat" name="table_records">
+                <input type="checkbox" class="flat" name="table_records" id="<%=article.id%>">
               </td>
               <td class=" "><%=article.board.name%></td>
               <td class=" "><%=article.title%></td>
-              <td class=" "><%=article.member.senior_number%>기 <%= article.member.username%></td>
+              <td class=" "><%=article.member_name%></td>
               <td class=" "><%=article.created_at.strftime("%Y.%m.%d")%></td>
               <td class=" last"><a href="/board/<%=article.board.category.route%>/<%=article.board.route%>/<%=article.id%>" target="_blank">View</a>
               </td>
@@ -118,9 +121,13 @@
             <%end%>
           </tbody>
         </table>
+        <button id="delete_article_trash" class="btn btn-danger">삭제</button>
+        <button id="active_article" class="btn btn-success">복구</button>
       </div>
     </div>
   </div>
+  <script src="/js/admin_table.js"></script>
+
   <script src="/js/datatables/jquery.dataTables.min.js"></script>
   <script src="/js/datatables/dataTables.bootstrap.js"></script>
   <script src="/js/datatables/dataTables.buttons.min.js"></script>
@@ -135,10 +142,47 @@
   <script src="/js/datatables/dataTables.responsive.min.js"></script>
   <script src="/js/datatables/responsive.bootstrap.min.js"></script>
   <script src="/js/datatables/dataTables.scroller.min.js"></script>
+  <style>
+  table th {
+    cursor: pointer;
+  }
+  table[role=grid]{
+    margin:0;
+  }
+  </style>
   <script type="text/javascript">
   $(document).ready(function() {
-    $('#datatable_article').DataTable();
-    $('#datatable_article_trash').DataTable();
+    var dt_article = $('#datatable_article').DataTable({
+        scrollY:        '50vh',
+        scrollCollapse: true,
+        paging:         false
+    });
+    var dt_article_trash = $('#datatable_article_trash').DataTable({
+        scrollY:        '50vh',
+        scrollCollapse: true,
+        paging:         false,
+        'responsive': {
+        'details': {
+           'type': 'column',
+           'target': 5
+        }
+      }
+    });
+
+    var articleTable = new Admin_table('#datatable_article',"Article")
+    $("#delete_article").click(function(event) {
+      /* Act on the event */
+      articleTable.inactive(".flat");
+    });
+    var articleTrashTable = new Admin_table('#datatable_article_trash',"Article")
+    $("#delete_article_trash").click(function(event) {
+      /* Act on the event */
+      articleTrashTable.delete(".flat");
+    });
+    $("#active_article").click(function(event) {
+      /* Act on the event */
+      articleTrashTable.active(".flat");
+    });
   });
   </script>
 </div>

@@ -22,7 +22,7 @@ class BoardController < ApplicationController
       end
       @article.title = params[:title]
       @article.content = params[:content]
-      @article.member_id = params[:member_id]
+      @article.member_id = current_member.id
       @article.member_name = "#{current_member.senior_number}기 #{current_member.username}"
       @article.active = true
       @article.save

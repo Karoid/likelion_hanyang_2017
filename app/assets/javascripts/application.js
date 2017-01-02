@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+
 //= require froala_editor.min.js
 // Include other plugins.
 //= require plugins/align.min.js

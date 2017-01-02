@@ -22,10 +22,13 @@ Rails.application.routes.draw do
   post 'board/:senior_number'+'/write' => 'board#sameage'+'_write', :constraints => { :senior_number =>  /[0-9]+(\%7C[0-9]+)*/}
   #admin routes
   get 'admin' => 'admin#index'
-  post 'admin/delete_data' => 'admin#delete_data'
-  post 'admin/edit_data' => 'admin#edit_data'
   get 'admin/category' => 'admin#show_category'
   get 'admin/article' => 'admin#show_article'
+  get 'admin/member' => 'admin#show_member'
+  post 'admin/delete_data' => 'admin#delete_data'
+  post 'admin/active_data' => 'admin#active_inactive_data', :bool => true
+  post 'admin/inactive_data' => 'admin#active_inactive_data', :bool => false
+  post 'admin/edit_data' => 'admin#edit_data'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
