@@ -47,7 +47,7 @@
             <% @nonMember.each do |member|%>
             <% cache member do %>
             <tr class="even pointer">
-              <td class="a-center ">
+              <td class="a-center " name="id">
                 <input type="checkbox" class="flat" name="table_records" id="<%=member.id%>">
               </td>
               <td class=" "><%=member.senior_number%></td>
@@ -55,8 +55,8 @@
               <td class=" "><%=member.major%></td>
               <td class=" "><%=member.email%></td>
               <td class=" "><%=member.tel%></td>
-              <td class=" "><%=member.role%></td>
-              <td class=" last"><a href="#datatable_nonmember">Edit</a>
+              <td class=" " name="role"><%=member.role%></td>
+              <td class=" last"><a href="#datatable_nonmember" class="edit_nonmember">Edit</a>
               </td>
             </tr>
             <%end%>
@@ -64,7 +64,7 @@
           </tbody>
         </table>
       </div>
-      <button id="delete_member" class="btn btn-danger">탈퇴</button>
+      <button id="delete_nonmember" class="btn btn-danger">탈퇴</button>
     </div>
   </div>
 
@@ -116,7 +116,7 @@
             <% @member.each do |member|%>
             <% cache member do %>
             <tr class="even pointer">
-              <td class="a-center ">
+              <td class="a-center " name="id">
                 <input type="checkbox" class="flat" name="table_records" id="<%=member.id%>">
               </td>
               <td class=" "><%=member.senior_number%></td>
@@ -124,8 +124,8 @@
               <td class=" "><%=member.major%></td>
               <td class=" "><%=member.email%></td>
               <td class=" "><%=member.tel%></td>
-              <td class=" "><%=member.role%></td>
-              <td class=" last"><a href="#datatable_member">Edit</a>
+              <td class=" " name="role"><%=member.role%></td>
+              <td class=" last"><a href="#datatable_member" class="edit_member">Edit</a>
               </td>
             </tr>
             <%end%>
@@ -134,8 +134,74 @@
         </table>
       </div>
       <button id="delete_member" class="btn btn-danger">탈퇴</button>
+      <button id="make_member_as_staff" class="btn btn-primary">스태프 임명</button>
     </div>
   </div>
+
+  <div class="col-md-6 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>임원, 관리자</h2>
+        <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Settings 1</a>
+              </li>
+              <li><a href="#">Settings 2</a>
+              </li>
+            </ul>
+          </li>
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="x_content">
+
+        <table id="datatable_staff" class="table table-striped responsive-utilities jambo_table dt-responsive nowrap" width="100%">
+          <thead>
+            <tr class="headings">
+              <th>
+                <input type="checkbox" id="check-all" class="flat" disabled>
+              </th>
+              <th class="column-title">기수 </th>
+              <th class="column-title">이름 </th>
+              <th class="column-title">임원 </th>
+              <th class="column-title">관리자 </th>
+              <th class="column-title no-link last"><span class="nobr">Action</span>
+              </th>
+              <th class="bulk-actions" colspan="7">
+                <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @staff.each do |member|%>
+            <% cache member do %>
+            <tr class="even pointer">
+              <td class="a-center " name="id">
+                <input type="checkbox" class="flat" name="table_records" id="<%=member.id%>">
+              </td>
+              <td class=" "><%=member.senior_number%></td>
+              <td class=" "><%=member.username%></td>
+              <td class=" " name="staff"><%=member.staff%></td>
+              <td class=" " name="admin"><%=member.admin%></td>
+              <td class=" last"><a href="#datatable_member" class="edit_staff">Edit</a>
+              </td>
+            </tr>
+            <%end%>
+            <%end%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
   <script src="/js/admin_table.js"></script>
 
   <script src="/js/datatables/jquery.dataTables.min.js"></script>
@@ -143,7 +209,6 @@
   <script src="/js/datatables/dataTables.buttons.min.js"></script>
   <script src="/js/datatables/buttons.bootstrap.min.js"></script>
   <script src="/js/datatables/jszip.min.js"></script>
-  <script src="/js/datatables/pdfmake.min.js"></script>
   <script src="/js/datatables/vfs_fonts.js"></script>
   <script src="/js/datatables/buttons.html5.min.js"></script>
   <script src="/js/datatables/buttons.print.min.js"></script>
@@ -162,12 +227,12 @@
   </style>
   <script type="text/javascript">
   $(document).ready(function() {
-    var dt_article = $('#datatable_article').DataTable({
+    var dt_nonmember = $('#datatable_nonmember').DataTable({
         scrollY:        '50vh',
         scrollCollapse: true,
         paging:         false
     });
-    var dt_article_trash = $('#datatable_article_trash').DataTable({
+    var dt_member = $('#datatable_member').DataTable({
         scrollY:        '50vh',
         scrollCollapse: true,
         paging:         false,
@@ -179,20 +244,25 @@
       }
     });
 
-    var articleTable = new Admin_table('#datatable_article',"Article")
-    $("#delete_article").click(function(event) {
+    var nonMemberTable = new Admin_table('#datatable_nonmember',"Member")
+    $("#delete_nonmember").click(function(event) {
       /* Act on the event */
-      articleTable.inactive(".flat");
+      nonMemberTable.delete(".flat");
     });
-    var articleTrashTable = new Admin_table('#datatable_article_trash',"Article")
-    $("#delete_article_trash").click(function(event) {
+    nonMemberTable.edit(".edit_nonmember")
+    var memberTable = new Admin_table('#datatable_member',"Member")
+    $("#delete_member").click(function(event) {
       /* Act on the event */
-      articleTrashTable.delete(".flat");
+      memberTable.delete(".flat");
     });
-    $("#active_article").click(function(event) {
-      /* Act on the event */
-      articleTrashTable.active(".flat");
+    memberTable.edit(".edit_member")
+    $("#make_member_as_staff").click(function(event) {
+      memberTable.destroy(".flat",'/admin/active_staff')
     });
+    var staffTable = new Admin_table('#datatable_staff',"Member")
+    staffTable.edit(".edit_staff")
+
   });
   </script>
+  <link rel="stylesheet" href="/css/admin_table.css">
 </div>

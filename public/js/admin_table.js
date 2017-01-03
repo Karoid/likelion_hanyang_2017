@@ -19,7 +19,7 @@ made by Karoid
 	<tbody>
 		<% @category.each do |category|%>
 		<tr class="even pointer">
-			<td class="a-center " name="id">                                # a-center라는 클래스를 가져야 함
+			<td class="a-center " name="id">                                # a-center라는 클래스를 가져야 함, name 값을 잊어먹지 말아야함
 				<input type="checkbox" class="flat" name="table_records" id="<%=category.id%>">  #id 값에 databasetable의 id값을 넣어놓는다
 			</td>
 			<td class=" " name="route"><%=category.route%></td>              #반드시 name의 값으로 테이블의 tuple의 값으로 넣어야 한다.
@@ -88,35 +88,36 @@ Admin_table.prototype.edit = function(editButton, thisClass){
 	var table = thisClass.tableElement
 	var dbname = thisClass.dbname
 	$(table).find(editButton).click(edit_event);
+
 	function edit_event() {
-	$(this).parents("tr").children().each(function(index, el) {
-		if (!el.className) {
-			var content = el.innerHTML
-			if (content == "true") {
-				el.innerHTML = "<input class='edit_input' type='checkbox' checked='"+content+"'>"
-			}else if (content == "false"){
-				el.innerHTML = "<input class='edit_input' type='checkbox'>"
-			}else if (!isNaN(parseInt(content))) {
-				el.innerHTML = "<input class='edit_input' type='number' value='"+content+"'>"
-			}else {
-				el.innerHTML = "<input class='edit_input' type='text' value='"+content+"'>"
+		$(this).parents("tr").children().each(function(index, el) {
+			if (!el.className && el.getAttribute("name")) {
+				var content = el.innerHTML
+				if (content == "true") {
+					el.innerHTML = "<input class='edit_input' type='checkbox' checked='"+content+"'>"
+				}else if (content == "false"){
+					el.innerHTML = "<input class='edit_input' type='checkbox'>"
+				}else if ($.isNumeric(content)) {
+					el.innerHTML = "<input class='edit_input' type='number' value='"+content+"'>"
+				}else {
+					el.innerHTML = "<input class='edit_input' type='text' value='"+content+"'>"
+				}
+			}else if($(el).hasClass('last')){
+				var id = ""
+				if (table[0] == "#") {
+					id = table;
+				}
+				el.innerHTML = "<a href='"+id+"' class='submit'>Submit</a>";
+				$(el).find('.submit').click(submit_edit);
 			}
-		}else if($(el).hasClass('last')){
-			var id = ""
-			if (table[0] == "#") {
-				id = table;
-			}
-			el.innerHTML = "<a href='"+id+"' class='submit'>Submit</a>";
-			$(el).find('.submit').click(submit_edit);
-		}
-	});
+		});
 	}
 
 	function submit_edit(){
 		var selectedObject = {data: {}, db: dbname}
 		var thisElement = $(this)
 		thisElement.parents("tr").children().each(function(index, el) {
-			if (!el.className) {
+			if (!el.className && el.getAttribute("name")) {
 				var inputbox = el.getElementsByTagName("input")[0]
 				if (inputbox.type != "checkbox") {
 					selectedObject['data'][el.getAttribute("name")] = el.getElementsByTagName("input")[0].value
@@ -145,7 +146,7 @@ Admin_table.prototype.edit = function(editButton, thisClass){
 					thisElement.parents("tr").find("input[type=checkbox]").attr("id",data.id)
 					console.log(thisElement.parents("tr"));
 					thisElement.parents("tr").children().each(function(index, el) {
-						if (!el.className) {
+						if (!el.className && el.getAttribute("name")) {
 							el.innerHTML = selectedObject['data'][el.getAttribute("name")]
 						}else if($(el).hasClass('last')){
 							var id = ""
@@ -154,6 +155,7 @@ Admin_table.prototype.edit = function(editButton, thisClass){
 							}
 							editButton = typeof editButton == "object" ? "."+editButton.className : editButton
 							el.innerHTML = "<a href='"+id+"' class='"+editButton.split(".")[1]+"'>Edit</a>";
+							$(el).find(editButton).click(edit_event);
 						}
 					});
 				}else {

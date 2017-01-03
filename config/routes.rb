@@ -26,8 +26,9 @@ Rails.application.routes.draw do
   get 'admin/article' => 'admin#show_article'
   get 'admin/member' => 'admin#show_member'
   post 'admin/delete_data' => 'admin#delete_data'
-  post 'admin/active_data' => 'admin#active_inactive_data', :bool => true
-  post 'admin/inactive_data' => 'admin#active_inactive_data', :bool => false
+  post 'admin/active_data' => 'admin#active_inactive_data', :bool => true, tuple: "active"
+  post 'admin/inactive_data' => 'admin#active_inactive_data', :bool => false, tuple: "active"
+  post 'admin/active_staff' => 'admin#active_inactive_data', :bool => true, tuple: "staff"
   post 'admin/edit_data' => 'admin#edit_data'
 
   # The priority is based upon order of creation: first created -> highest priority.

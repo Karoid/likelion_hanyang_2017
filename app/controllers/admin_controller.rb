@@ -23,6 +23,7 @@ class AdminController < ApplicationController
   def show_member
     @nonMember = Member.where(role: 0)
     @member = Member.where('role>0')
+    @staff = Member.where('admin="t" or staff="t"')
     authorize! :read, Category.where(route: "admin").take
   end
 
@@ -38,7 +39,7 @@ class AdminController < ApplicationController
 
   def active_inactive_data
     params[:data].each do |id|
-      params[:db].camelize.constantize.find(id).update_attributes(active: params[:bool])
+      params[:db].camelize.constantize.find(id).update_attributes(params[:tuple] => params[:bool])
     end
     respond_to do |format|
       format.json { render json: {notice: 'success'} }
