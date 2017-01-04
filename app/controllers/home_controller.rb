@@ -9,11 +9,13 @@ class HomeController < ApplicationController
       model = Board.where(route: params[:board]).first.articles
       authorize! :create, model.last
       article = model.new
+      article.member_name = "#{current_member.senior_number}기 #{current_member.username}"
       article.member_id = current_member.id
       article.board_id = Board.where(route: params[:board]).first.id
       article.active = false
       article.save
       params[:post_id] = article.id
+      params[:sended] = article.board.name + " 작성"
     end
   end
   def your_profile

@@ -14,8 +14,8 @@
 ActiveRecord::Schema.define(version: 20170103104340) do
 
   create_table "articles", force: :cascade do |t|
-    t.string   "title",                      null: false
-    t.text     "content",                    null: false
+    t.string   "title"
+    t.text     "content"
     t.string   "member_name",                null: false
     t.integer  "board_id",                   null: false
     t.integer  "member_id",                  null: false

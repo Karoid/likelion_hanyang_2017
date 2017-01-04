@@ -1,17 +1,6 @@
 <%= stylesheet_link_tag 'article'%>
 <%= javascript_include_tag 'application'%>
-<section id="main-slider" class="sub carousel">
-  <div class="black-glass"></div>
-    <div class="carousel-inner">
-        <div class="item active">
-            <div class="container">
-                <div class="carousel-content">
-                    <h1><%=params[:sended]%></h1>
-                </div>
-            </div>
-        </div><!--/.item-->
-    </div><!--/.carousel-inner-->
-</section><!--/#main-slider-->
+
 <div class="container box">
   <%if params[:post_id]%><!-- UPDATE POST-->
   <form name="update_article" action="/board/<%=params[:category]%>/<%=params[:board]%>/<%=params[:post_id]%>/write" method="post">

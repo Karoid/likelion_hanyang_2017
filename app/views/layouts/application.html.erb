@@ -12,6 +12,7 @@
   <link href="/css/font-awesome.min.css" rel="stylesheet">
   <link href="/css/prettyPhoto.css" rel="stylesheet">
   <link href="/css/main.css" rel="stylesheet">
+  <link href="/css/custom.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   <!--[if lt IE 9]>
   <script src="/js/html5shiv.js"></script>
@@ -23,62 +24,77 @@
   <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/ico/apple-touch-icon-72-precomposed.png">
   <link rel="apple-touch-icon-precomposed" href="/images/ico/apple-touch-icon-57-precomposed.png">
 </head>
-<body data-spy="scroll" data-target="#navbar" data-offset="0">
-  <header id="header" role="banner">
-      <div class="container">
-          <div id="navbar" class="navbar navbar-default">
-              <div class="navbar-header">
-                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                      <span class="sr-only">Toggle navigation</span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                  </button>
-                  <a class="navbar-brand" href="/"></a>
-                  <% if member_signed_in? %>
-                    <div style="float:left;padding:20px 14px"><a href="/profile" style="color:inherit"><%= current_member.senior_number %>기 <%= current_member.username %></a>
-                    <div><%= link_to "로그아웃", destroy_member_session_path, method: :get, data: { confirm: "Are you sure?" } %></div></div>
-                  <% else %>
-                    <div style="float:left;padding:30px"><%= link_to "로그인", new_member_session_path %></div>
-                  <% end %>
-              </div>
-              <div class="collapse navbar-collapse">
-                  <ul class="nav navbar-nav">
-                      <li class="hidden-sm hidden-xs"><a href="/"><i class="icon-home"></i></a></li>
-                      <%Category.where(default: nil).each do |category|%>
-                      <%if can? :read, category%>
-                        <div class="dropdown">
-                          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><%=category.name%>
-                          <span class="caret"></span></button>
-                          <ul class="dropdown-menu">
-                            <%category.boards.each do |board|%>
-                            <li><a href="/board/<%=category.route%>/<%=board.route%>"><%=board.name%></a></li>
-                            <%end%>
-                          </ul>
-                        </div>
-                      <%end%>
-                      <%end%>
-                      <%Category.where.not('default' => nil).each do |category|%>
-                      <%if can? :read, category%>
-                      <li><a href="<%=category.default%>"><%=category.name%></a></li>
-                      <%end%>
-                      <%end%>
-                  </ul>
-              </div>
-          </div>
-          <%= render partial: "shared/flash_messages", flash: flash %>
-      </div>
-  </header><!--/#header-->
-  <a href="javascript:$('html, body').animate({scrollTop:$(document).height()},600);" class="scroll_bottom visible-xs">
-    <span></span>
-    <span></span>
-  </a>
-  <%= yield %>
 
+<body>
+  <div id="index">
+    <!-- sidebar menu -->
+    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+      <div class="menu_section">
+        <ul class="nav side-menu">
+          <li><a href="/"><i class="icon icon-home"></i> Home</a>
+          <%Category.where(default: nil).each do |category|%>
+          <%if can? :read, category%>
+          <li>
+            <li><a><%=category.name%> <span class="icon icon-chevron-down"></span></a>
+            <ul class="nav child_menu" style="display: none">
+              <%category.boards.each do |board|%>
+              <li><a href="/board/<%=category.route%>/<%=board.route%>"><%=board.name%></a></li>
+              <%end%>
+            </ul>
+          </li>
+          <%end%>
+          <%end%>
+          <%Category.where.not('default' => nil).each do |category|%>
+            <%if can? :read, category%>
+            <li><a href="<%=category.default%>"><%=category.name%></a></li>
+            <%end%>
+          <%end%>
+          </ul>
+      </div>
+    </div>
+  </div>
+  <div id="header">
+    <div id="logo">
+      <h2> HUHS </h2>
+      Hanyang Hardware<br>and Software
+    </div>
+    <div id="title">
+      <% if @board%>
+      <%=@board.name%>
+      <%else%>
+      <%=params[:sended] || ""%>
+      <%end%>
+    </div>
+    <div id="log_in">
+      <% if member_signed_in? %>
+        <div style="float:left;padding:20px 14px"><a href="/profile" style="color:inherit"><%= current_member.senior_number %>기 <%= current_member.username %></a>
+        <div><%= link_to "로그아웃", destroy_member_session_path, method: :get, data: { confirm: "Are you sure?" } %></div></div>
+      <% else %>
+        <div style="float:left;padding:30px"><%= link_to "로그인", new_member_session_path %></div>
+      <% end %>
+    </div>
+  </div>
+
+  <div id="board">
+    <div id="article">
+      <%= render partial: "shared/flash_messages", flash: flash %>
+      <%= yield %>
+    </div>
+  </div>
+  <script src="/js/custom.js"></script>
   <script src="/js/bootstrap.min.js"></script>
   <script src="/js/jquery.isotope.min.js"></script>
   <script src="/js/jquery.prettyPhoto.js"></script>
   <script src="/js/main.js"></script>
+  <!--
+  <div class="collapse navbar-collapse">
+    </div>
+    -->
 
+    <script type="text/javascript">
+    	var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    	document.getElementById('board').setAttribute('style','height:'+(height-160)+'px;');
+    	document.getElementById('board').style.height = (height-160)+'px;';
+    </script>
 </body>
 </html>
