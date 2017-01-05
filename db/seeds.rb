@@ -48,6 +48,7 @@ def writegallery(doc,article_id)
   end
 end
 #Major
+Major.create(department: "미등록", name:"미등록", id: 0);
 Major.create(department: "공과대학", name:"건축학부");
 Major.create(department: "공과대학", name:"자원환경공학과");
 Major.create(department: "공과대학", name:"유기나노공학과");

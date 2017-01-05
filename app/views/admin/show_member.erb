@@ -52,7 +52,7 @@
               </td>
               <td class=" "><%=member.senior_number%></td>
               <td class=" "><%=member.username%></td>
-              <td class=" "><%=member.major%></td>
+              <td class=" "><%=member.major.name%></td>
               <td class=" "><%=member.email%></td>
               <td class=" "><%=member.tel%></td>
               <td class=" " name="role"><%=member.role%></td>
@@ -121,7 +121,7 @@
               </td>
               <td class=" "><%=member.senior_number%></td>
               <td class=" "><%=member.username%></td>
-              <td class=" "><%=member.major%></td>
+              <td class=" "><%=member.major.name%></td>
               <td class=" "><%=member.email%></td>
               <td class=" "><%=member.tel%></td>
               <td class=" " name="role"><%=member.role%></td>
@@ -201,6 +201,69 @@
       </div>
     </div>
   </div>
+  <div class="col-md-6 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>전공 관리</h2>
+        <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Settings 1</a>
+              </li>
+              <li><a href="#">Settings 2</a>
+              </li>
+            </ul>
+          </li>
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+
+      <div class="x_content">
+
+        <table id="datatable_major" class="table table-striped responsive-utilities jambo_table dt-responsive nowrap" width="100%">
+          <thead>
+            <tr class="headings">
+              <th>
+                <input type="checkbox" id="check-all" class="flat" disabled>
+              </th>
+              <th class="column-title">번호 </th>
+              <th class="column-title">학과명 </th>
+              <th class="column-title">대학명 </th>
+              <th class="column-title no-link last"><span class="nobr">Action</span>
+              </th>
+              <th class="bulk-actions" colspan="7">
+                <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @major.each do |major|%>
+            <% cache major do %>
+            <tr class="even pointer">
+              <td class="a-center " name="id">
+                <input type="checkbox" class="flat" name="table_records" id="<%=major.id%>">
+              </td>
+              <td class=" "><%=major.id%></td>
+              <td class=" " name="name"><%=major.name%></td>
+              <td class=" " name="department"><%=major.department%></td>
+              <td class=" last"><a href="#datatable_major" class="edit_major">Edit</a>
+              </td>
+            </tr>
+            <%end%>
+            <%end%>
+          </tbody>
+        </table>
+        <button id="delete_major" class="btn btn-danger">삭제</button>
+        <button id="create_major" class="btn btn-success">추가</button>
+      </div>
+    </div>
+  </div>
 
   <script src="/js/admin_table.js"></script>
 
@@ -243,6 +306,17 @@
         }
       }
     });
+    var dt_major = $('#datatable_major').DataTable({
+        scrollY:        '50vh',
+        scrollCollapse: true,
+        paging:         false,
+        'responsive': {
+        'details': {
+           'type': 'column',
+           'target': 5
+        }
+      }
+    });
 
     var nonMemberTable = new Admin_table('#datatable_nonmember',"Member")
     $("#delete_nonmember").click(function(event) {
@@ -261,7 +335,13 @@
     });
     var staffTable = new Admin_table('#datatable_staff',"Member")
     staffTable.edit(".edit_staff")
-
+    var majorTable = new Admin_table('#datatable_major',"Major")
+    majorTable.edit(".edit_major")
+    majorTable.create("#create_major");
+    $("#delete_major").click(function(event) {
+      /* Act on the event */
+      majorTable.delete(".flat");
+    });
   });
   </script>
   <link rel="stylesheet" href="/css/admin_table.css">

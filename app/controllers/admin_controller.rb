@@ -24,6 +24,7 @@ class AdminController < ApplicationController
     @nonMember = Member.where(role: 0)
     @member = Member.where('role>0')
     @staff = Member.where('admin="t" or staff="t"')
+    @major = Major.all
     authorize! :read, Category.where(route: "admin").take
   end
 
