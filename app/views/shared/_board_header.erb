@@ -1,0 +1,7 @@
+<h1 id="title">
+  <% if @board%>
+  <%=@board.name%>
+  <%else%>
+  <%=params[:sended] || ""%>
+  <%end%>
+</h1>

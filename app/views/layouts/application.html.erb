@@ -27,11 +27,24 @@
 
 <body>
   <div id="index">
+    <a href="/">
+    <div id="logo">
+      <h2> HUHS </h2>
+      Hanyang Hardware<br>and Software</a>
+    </div>
+    <div id="log_in">
+      <% if member_signed_in? %>
+        <div style="text-align:center;padding:20px 14px"><a href="/profile"><%= current_member.senior_number %>기 <%= current_member.username %></a>
+        <div><%= link_to "로그아웃", destroy_member_session_path, method: :get, data: { confirm: "Are you sure?" } %></div></div>
+      <% else %>
+        <div style="text-align:center;padding:30px"><%= link_to "로그인", new_member_session_path %></div>
+      <% end %>
+    </div>
     <!-- sidebar menu -->
     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
       <div class="menu_section">
         <ul class="nav side-menu">
-          <li><a href="/"><i class="icon icon-home"></i> Home</a>
+
           <%Category.where(default: nil).each do |category|%>
           <%if can? :read, category%>
           <li>
@@ -53,27 +66,6 @@
       </div>
     </div>
   </div>
-  <div id="header">
-    <div id="logo">
-      <h2> HUHS </h2>
-      Hanyang Hardware<br>and Software
-    </div>
-    <div id="title">
-      <% if @board%>
-      <%=@board.name%>
-      <%else%>
-      <%=params[:sended] || ""%>
-      <%end%>
-    </div>
-    <div id="log_in">
-      <% if member_signed_in? %>
-        <div style="float:left;padding:20px 14px"><a href="/profile" style="color:inherit"><%= current_member.senior_number %>기 <%= current_member.username %></a>
-        <div><%= link_to "로그아웃", destroy_member_session_path, method: :get, data: { confirm: "Are you sure?" } %></div></div>
-      <% else %>
-        <div style="float:left;padding:30px"><%= link_to "로그인", new_member_session_path %></div>
-      <% end %>
-    </div>
-  </div>
 
   <div id="board">
     <div id="article">
@@ -86,15 +78,5 @@
   <script src="/js/jquery.isotope.min.js"></script>
   <script src="/js/jquery.prettyPhoto.js"></script>
   <script src="/js/main.js"></script>
-  <!--
-  <div class="collapse navbar-collapse">
-    </div>
-    -->
-
-    <script type="text/javascript">
-    	var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-    	document.getElementById('board').setAttribute('style','height:'+(height-160)+'px;');
-    	document.getElementById('board').style.height = (height-160)+'px;';
-    </script>
 </body>
 </html>

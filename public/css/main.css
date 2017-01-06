@@ -9,15 +9,17 @@ html, body {
   height: 100vh;
   position: fixed;
   top: 0%;
-  background-color: #000000;
-  padding-top: 160px;
+  background-color: rgb(38,41,51);
+  color: white;
 }
-
+#index a{
+  color: white;
+}
 #header {
-  width: 95vw;
+  width: 100vw;
   height: 130px;
   position: fixed;
-  top: 30px;
+  top: 0;
   left: 50%;
   transform: translate(-50%, 0);
   background-color: rgba(87, 224, 221, 0.95);
@@ -49,20 +51,24 @@ html, body {
 #logo {
   color: white;
   text-align: center;
-  width: 17.5vw;
-  float: left;
+  width: 20vw;
+  float: none;
+  margin: 40px 0;
+}
+#logo a{
+  display:block;
 }
 
 #board {
   width: 80vw;
-  height: 500px;
-  margin: 160px 0px 0px 20vw;
+  height: 100vh;
+  margin: 0px 0px 0px 20vw;
   overflow: scroll;
 }
 
 #board #article {
   max-width: 1000px;
-  margin: 20px auto 0px auto;
+  margin: 0 auto;
 }
 
 #board #th {
@@ -109,6 +115,12 @@ html, body {
 #board .td_date {
   width: 150px;
   background-color: pink;
+}
+#title{
+  margin: 70px auto 30px;
+}
+#log_in{
+  background-color: rgb(30,34,41)
 }
 #main-slider{
   background-image: url(../images/slider-bg.jpg);

@@ -1,6 +1,6 @@
 <%= stylesheet_link_tag 'article'%>
 <%= javascript_include_tag 'application'%>
-
+<%= render partial: "shared/board_header"%>
 <div class="container box">
   <%if params[:post_id]%><!-- UPDATE POST-->
   <form name="update_article" action="/board/<%=params[:category]%>/<%=params[:board]%>/<%=params[:post_id]%>/write" method="post">
