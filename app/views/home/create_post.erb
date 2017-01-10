@@ -79,7 +79,9 @@
           },
           callbacks: {
               onImageUpload: function (files) {
-                  sendIMG($summernote, files[0]);
+                for (let num = 0; num<files.length; num++) {
+                  sendIMG($summernote, files[num]);
+                }
               }
           }
       });
