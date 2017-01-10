@@ -25,7 +25,7 @@
   </div>
   <hr>
   <!--본문 시작-->
-  <%=sanitize post.content%>
+  <%=post.content.html_safe%>
   <hr>
   <!-- 댓글 시작 -->
   <div class="comments">

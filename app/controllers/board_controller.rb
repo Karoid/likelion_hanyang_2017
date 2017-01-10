@@ -21,7 +21,7 @@ class BoardController < ApplicationController
         end
       end
       @article.title = params[:title]
-      @article.content = params[:content]
+      @article.content = Loofah.scrub_fragment(params[:content], :escape)
       @article.member_id = current_member.id
       @article.member_name = "#{current_member.senior_number}기 #{current_member.username}"
       @article.active = true

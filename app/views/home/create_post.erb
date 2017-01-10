@@ -1,13 +1,15 @@
-<%= stylesheet_link_tag 'article'%>
-<%= javascript_include_tag 'application'%>
+
+<!-- include summernote css/js-->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
 <%= render partial: "shared/board_header"%>
-<div class="container box">
   <%if params[:post_id]%><!-- UPDATE POST-->
   <form name="update_article" action="/board/<%=params[:category]%>/<%=params[:board]%>/<%=params[:post_id]%>/write" method="post">
   <input type="hidden" name="post_id" value="<%=params[:post_id]%>">
   <%else%><!--CREATE POST-->
   <form name="write_article" action="/board/<%=params[:category]%>/<%=params[:board]%>/write" method="post">
   <%end%>
+
   <div class="form-group has-feedback"><!--제목-->
     <input type="text" name="title" class="form-control" placeholder="제목" value="<%if params[:title] != nil%><%=params[:title]%><%end%>" required>
   </div>
@@ -20,24 +22,109 @@
   <input type="hidden" name="member_id" value="<%=current_member.id%>">
   <button type="submit" class="btn btn-default" onclick="validateForm()">작성</button>
 </form>
-</div>
-
+<style>
+.modal.in .modal-dialog{
+  left:0!important
+}
+</style>
 <script>
     $(function() {
-        $('#edit').froalaEditor({
-        heightMax: 1500,
-        imageUploadURL: '/upload_image',
-        imageUploadParam: 'file',
-        imageUploadParams: {
-          post_id: '<%= params[:post_id] %>',
-        },
-        fileUploadURL: '/upload_file',
-        fileUploadParam: 'file',
-        fileUploadParams: {
-          post_id: '<%= params[:post_id] %>',
-        }
-      })
+      var FileButton = function (context) {
+        var ui = $.summernote.ui;
+        //create dialog
+        var body = '<div class="form-group note-group-select-from-files">'+
+        '<label>Select from files</label>'+
+        '<input class="note-file-input form-control" type="file" name="files" multiple="multiple">'+
+        '</div>'
+        var $dialog = ui.dialog({
+          title: "Insert File",
+          body: body,
+          footer: '<button href="#" class="btn btn-primary note-file-btn disabled">Insert File</button>'
+        }).render().appendTo($(".note-editor.note-frame.panel.panel-default"));
+        $(".note-file-input").change(function(event) {
+          files = $(".note-file-input")[0].files
+          for (let num = 0; num<files.length; num++) {
+              sendFile($summernote, files[num])
+          }
+          ui.hideDialog($dialog)
+        });
+        // create button
+        var button = ui.button({
+          contents: '<i class="icon icon-file"/>',
+          tooltip: 'File',
+          click: function () {
+            ui.showDialog($dialog)
+          }
+        });
+
+        return button.render();   // return button as jquery object
+      }
+
+      var $summernote = $('#edit').summernote({
+          height: 500,
+          lang: 'ko-KR',
+          toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture','file', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']],
+          ],
+
+          buttons: {
+            file: FileButton
+          },
+          callbacks: {
+              onImageUpload: function (files) {
+                  sendIMG($summernote, files[0]);
+              }
+          }
+      });
+
     });
+  function sendIMG($summernote, file) {
+      var formData = new FormData();
+      formData.append("file", file);
+      formData.append("post_id", '<%= params[:post_id] %>');
+      $.ajax({
+          url: '/upload_image',
+          data: formData,
+          cache: false,
+          contentType: false,
+          processData: false,
+          type: 'POST',
+          success: function (data) {
+            var link = data.link
+              $summernote.summernote('insertImage', link, function ($image) {
+                  $image.attr('src', link);
+              });
+          }
+      });
+  }
+  function sendFile($summernote, file) {
+      var formData = new FormData();
+      formData.append("file", file);
+      formData.append("post_id", '<%= params[:post_id] %>');
+      $.ajax({
+          url: '/upload_file',
+          data: formData,
+          cache: false,
+          contentType: false,
+          processData: false,
+          type: 'POST',
+          success: function (data) {
+            var link = data.link
+              $summernote.summernote('createLink', {
+              text: '<i class="icon icon-file"/>'+file.name,
+              url: data.link,
+              newWindow: true
+            });
+          }
+      });
+  }
     function validateForm() {
       var x = document.forms["write_article"]["title"].value;
       if (x == null || x == "") {

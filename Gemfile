@@ -20,8 +20,6 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-#smart editor gem
-gem "wysiwyg-rails"
 #members login gem
 gem 'devise'
 # 권한설정
@@ -32,6 +30,8 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'acts_as_commentable_with_threading'
 #Parsing an HTML / XML Document
 gem 'nokogiri'
+#XSS Attack defence
+gem 'loofah', :git => 'https://github.com/flavorjones/loofah.git'
 #free remote storage service
 gem 'cloudinary'
 # Use ActiveModel has_secure_password

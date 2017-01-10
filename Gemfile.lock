@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/flavorjones/loofah.git
+  revision: 2b2b5aa184d6127ac666931112faa6370f01a389
+  specs:
+    loofah (2.1.0.rc1.20150817193255)
+      crass (~> 1.0.2)
+      nokogiri (>= 1.5.9)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -70,6 +78,7 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.2)
+    crass (1.0.2)
     debug_inspector (0.0.2)
     devise (4.2.0)
       bcrypt (~> 3.0)
@@ -82,8 +91,6 @@ GEM
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.9.14-x86-mingw32)
-    font-awesome-rails (4.7.0.0)
-      railties (>= 3.2, < 5.1)
     git-version-bump (0.15.1)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
@@ -101,8 +108,6 @@ GEM
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-    loofah (2.0.3)
-      nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
     meta_request (0.4.0)
@@ -232,9 +237,6 @@ GEM
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
     will_paginate (3.1.5)
-    wysiwyg-rails (2.3.5)
-      font-awesome-rails (~> 4.4, >= 4.4.0.0)
-      railties (>= 3.2, < 6.0)
 
 PLATFORMS
   ruby
@@ -250,6 +252,7 @@ DEPENDENCIES
   devise
   jbuilder (~> 2.0)
   jquery-rails
+  loofah!
   meta_request
   nokogiri
   pg
@@ -263,7 +266,6 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
   will_paginate (~> 3.1.0)
-  wysiwyg-rails
 
 BUNDLED WITH
    1.13.6
