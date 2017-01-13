@@ -16,7 +16,7 @@
   </div>
 
   <% if devise_mapping.rememberable? -%>
-    <div class="field">
+    <div class="field" style="margin: 0px 0 0 163px;">
       <%= f.check_box :remember_me %>
       <%= f.label :remember_me %>
     </div>
@@ -39,7 +39,7 @@
 	}
 
 	#login {
-		width: 280px;
+		width: 580px;
 		height: 320px;
 		margin: 100px auto;
 	}
@@ -48,24 +48,26 @@
 		margin: 0px auto;
 		color: #62E0DD;
 		text-align: center;
-		font-size: 16px;
+		font-size: 27px;
 	}
 	#login_logo span {
 		display: block;
-		font-size: 50px;
+		color: rgb(90, 210, 210);
+		font-size: 100px;
+		font-weight: bolder;
 	}
 
 	#submit_form {
-		width: 280px;
+		width: 100%;
 		margin-top: 30px;
 	}
   #submit_form input{
     transition: .3s;
   }
 	#submit_form .text {
-		width: 252px;
+		width: 272px;
 		height: 48px;
-    margin: 0 auto 13px;
+    margin: 0 auto 8px;
 		padding: 0px 13px;
 		border: 1px #79E8E6 solid;
 		display: block;
@@ -81,9 +83,9 @@
 		color: #ffffff;
 	}
 	#submit_form #button {
-		width: 261px;
+		width: 272px;
 		height: 50px;
-		margin: 25px auto;
+		margin: 70px auto 15px;
 		border: 1px #79E8E6 solid;
 		border-radius: 7px;
 		text-align: center;

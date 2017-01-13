@@ -1,17 +1,22 @@
 <!--게시글 목록 시작-->
+<% if (can? :create, @article.last)%>
+<div style="width: 100%;">
+<a href="/board/<%=@category.route%>/<%=@board.route%>/create" style="width: 100px; padding: 7px; margin: 0px auto 90px; display: block; text-align: center; font-size: 18px; border: 1px solid #dddddd;">새글 쓰기</a>
+</div>
+<%end%>
 <table class="table table-hover article_list">
   <thead>
-    <tr>
-      <th>#</th>
-      <th>제목</th>
-      <th>글쓴이</th>
-      <th>날짜</th>
+    <tr style="font-size: 20px;">
+      <td class="th" style="text-align: left;">#</td>
+      <td class="th" style="font-weight: bolder;text-align: left;">제목</td>
+      <td class="th">글쓴이</td>
+      <td class="th">날짜</td>
     </tr>
   </thead>
   <tbody>
     <%@article_page.each do |article|%>
     <tr class="<%if article.id == params[:id].to_i %>selected<%end%>">
-      <th scope="row"><%=article.id%></th>
+      <td scope="row"><%=article.id%></th>
       <td><a href="/board/<%=article.board.category.route%>/<%=article.board.route%>/<%=article.id%>"><%=article.title%></a></td>
       <td><%=article.member_name%></td>
       <td><span class='hidden-xs'><%=article.created_at.strftime("%Y.")%></span><%=article.created_at.strftime("%m.%d")%></td>
@@ -20,9 +25,23 @@
   </tbody>
 </table>
 <!--게시글 목록 끝-->
-<% if (can? :create, @article.last)%>
-<a href="/board/<%=@category.route%>/<%=@board.route%>/create" style="float:right">새글 쓰기</a>
-<%end%>
 <nav aria-label="Page navigation" style="text-align: center;">
-  <%= will_paginate @article_page, previous_label: "<", next_label: ">" %>
+  <%= will_paginate @article_page, previous_label: "◀", next_label: "▶" %>
 </nav>
+
+<style type="text/css">
+  nav div span, nav div em, nav div a {
+    border: none !important;
+  }
+  nav div span, nav div em:hover, nav div a:hover {
+    background-color: transparent !important;
+    color: #ddd !important
+  }
+  nav .previous_page, nav .next_page {
+    color: #ddd !important;
+  }
+  nav div em {
+    color: rgb(90, 210, 210) !important;
+  }
+
+</style>

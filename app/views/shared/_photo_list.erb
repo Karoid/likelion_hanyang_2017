@@ -1,6 +1,6 @@
 <div id="title_small">휴즈의 추억이 담긴 사진들이 모여 있는 사진첩입니다</div>
 <% if (can? :create, @article.last)%>
-	<a href="/board/<%=@category.route%>/<%=@board.route%>/create"><input type="button" id="write" value="사진 업로드"></a>
+	<a href="/board/<%=@category.route%>/<%=@board.route%>/create"><input type="button" id="write" value="사진 업로드" style="padding: 0;"></a>
 <%end%>
 <!--게시글 목록 시작-->
     <%@article_page.each do |article|%>
@@ -12,7 +12,7 @@
 				<%end%>
 			</div>
 			<div class="text">
-				<span><%=article.title%><br><%=article.created_at.strftime("%Y.%m.%d")%></span>
+				<span><span><%=article.title%></span><%=article.created_at.strftime("%Y.%m.%d")%></span>
 			</div>
 		</div>
 		</a>
@@ -78,5 +78,9 @@
 		text-align: center;
 		display: block;
 		color: #ffffff;
+	}
+
+	.text span span {
+		font-size: 25px;
 	}
 </style>
