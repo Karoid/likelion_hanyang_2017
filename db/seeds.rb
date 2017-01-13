@@ -32,8 +32,8 @@ end
 def writegallery(doc,article_id)
   if !(@article.content.include? "img") && doc.at('uploaded_count').text != '0'
     @attach.each do |att|
-      if att.at('upload_target_srl').text == doc.at('document_srl').text
-        fileName = att.at("uploaded_filename").text[1..-1].gsub('src="files/', 'src="/files/').gsub('src="./files/', 'src="/files/')
+      fileName = att.at("uploaded_filename").text[1..-1].gsub('src="files/', 'src="/files/').gsub('src="./files/', 'src="/files/')
+      if File.exist?(Dir.pwd+ "/public"+fileName) && att.at('upload_target_srl').text == doc.at('document_srl').text
         Uploadfile.create(
           article_id: article_id,
           public_id: nil,

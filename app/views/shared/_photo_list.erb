@@ -1,6 +1,6 @@
 <div id="title_small">휴즈의 추억이 담긴 사진들이 모여 있는 사진첩입니다</div>
 <% if (can? :create, @article.last)%>
-	<input type="button" id="write" href="/board/<%=@category.route%>/<%=@board.route%>/create" value="사진 업로드"></a>
+	<a href="/board/<%=@category.route%>/<%=@board.route%>/create"><input type="button" id="write" value="사진 업로드"></a>
 <%end%>
 <!--게시글 목록 시작-->
     <%@article_page.each do |article|%>
@@ -61,7 +61,7 @@
 	}
 
 	.photo img {
-		height: 150px;
+		width: 100%;
 	}
 
 	.text {

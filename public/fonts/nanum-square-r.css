@@ -14,3 +14,7 @@
     font-style: normal;
 
 }
+
+*, *:after, *:before{
+  font-family: "nanum-square-r","summernote", "FontAwesome","GLYPHICONS Halflings","PT Sans", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif!important;
+}
