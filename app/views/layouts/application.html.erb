@@ -34,8 +34,15 @@
     </div>
     <div id="log_in">
       <% if member_signed_in? %>
-        <div style="text-align:center;padding:20px 14px"><a href="/profile"><%= current_member.senior_number %>기 <%= current_member.username %></a>
-        <div><%= link_to "로그아웃", destroy_member_session_path, method: :get, data: { confirm: "Are you sure?" } %></div></div>
+        <div style="text-align:center;padding:20px 14px">
+          <div id="profile_wrapper">
+            <a id="profile_left"></a>
+            <div id="profile_right">
+              <a href="/profile"><%= current_member.senior_number %>기 <%= current_member.username %></a>
+              <div><%= link_to "로그아웃", destroy_member_session_path, method: :get, data: { confirm: "Are you sure?" } %></div>
+            </div>
+          </div>
+        </div>
       <% else %>
         <div style="text-align:center;padding:30px"><%= link_to "로그인", new_member_session_path %></div>
       <% end %>
