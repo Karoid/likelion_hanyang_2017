@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170103104340) do
+ActiveRecord::Schema.define(version: 20170117170353) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title"
@@ -64,8 +64,8 @@ ActiveRecord::Schema.define(version: 20170103104340) do
   add_index "comments", ["member_id"], name: "index_comments_on_member_id"
 
   create_table "majors", force: :cascade do |t|
-    t.string "name"
-    t.string "department"
+    t.string "name",       null: false
+    t.string "department", null: false
   end
 
   create_table "members", force: :cascade do |t|
@@ -92,6 +92,16 @@ ActiveRecord::Schema.define(version: 20170103104340) do
 
   add_index "members", ["email"], name: "index_members_on_email", unique: true
   add_index "members", ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
+
+  create_table "statistics", force: :cascade do |t|
+    t.string  "name",         null: false
+    t.integer "member_id",    null: false
+    t.string  "target_model"
+    t.integer "target_id"
+    t.date    "created_at",   null: false
+  end
+
+  add_index "statistics", ["name", "member_id", "target_model", "target_id", "created_at"], name: "index_statistics", unique: true
 
   create_table "uploadfiles", force: :cascade do |t|
     t.integer  "article_id",    null: false

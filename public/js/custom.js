@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-var URL = window.location,
+var URL = window.location.href.split(/\/\d/g)[0],
     $BODY = $('body'),
     $MENU_TOGGLE = $('#menu_toggle'),
     $SIDEBAR_MENU = $('#sidebar-menu'),
@@ -377,3 +377,13 @@ if (typeof NProgress != 'undefined') {
     jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
 
 })(jQuery,'smartresize');
+
+//Pagenation
+$(function () {
+  var params = window.location.href.split("?")[1]
+  if (params) {
+    if (!!params.match(/page=/g).length) {
+      $("#board").animate({ scrollTop: $("#article").height() }, 0);
+    }
+  }
+});

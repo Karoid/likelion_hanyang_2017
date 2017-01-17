@@ -884,6 +884,10 @@ html, body{
   width: 70px;
   text-align: center;
 }
+.article_list thead>tr>th:nth-child(5),
+.article_list tbody>tr>td:nth-child(5){
+  text-align: center;
+}
 .scroll_bottom{
   padding-top: 40px;
   position: fixed;
