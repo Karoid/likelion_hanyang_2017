@@ -17,7 +17,7 @@
       <%=if current_member.staff then"<br>임원진".html_safe end%>
       <%=if current_member.admin then "<br>사이트 관리자".html_safe end%>
     </h2>
-
+    <a href="/members/edit">정보 수정하기</a>
   </header>
 
   <!-- bit of a bio; who are you? -->
@@ -174,26 +174,6 @@
   text-align: center;
   position: relative;
   margin: 25px 30px;
-  }
-
-  .profile-card header a:after {
-  position: absolute;
-  content: "";
-  bottom: 3px;
-  right: 3px;
-  width: 20px;
-  height: 20px;
-  border: 4px solid #FFFFFF;
-  -webkit-transform: scale(0);
-  transform: scale(0);
-  background: -webkit-linear-gradient(top, #2196F3 0%, #2196F3 50%, #FFC107 50%, #FFC107 100%);
-  background: linear-gradient(#2196F3 0%, #2196F3 50%, #FFC107 50%, #FFC107 100%);
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-  -webkit-animation: scaleIn 0.3s 3.5s ease forwards;
-  animation: scaleIn 0.3s 3.5s ease forwards;
   }
 
   .profile-card header a > img {

@@ -2,7 +2,7 @@ html, body{
   margin: 0px;
   padding: 0px;
 }
-
+img{max-width: 100%;}
 #index {
   width: 20vw;
   height: 100vh;
@@ -64,7 +64,12 @@ html, body{
 #logo a{
   display:block;
 }
-
+.alert{
+  position: fixed;
+  z-index: 999;
+  width: 70vw;
+  margin: 20px 5vw;
+}
 /*
     add: left_bar profile image;
 */
