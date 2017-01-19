@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   post 'admin/inactive_data' => 'admin#active_inactive_data', :bool => false, tuple: "active"
   post 'admin/active_staff' => 'admin#active_inactive_data', :bool => true, tuple: "staff"
   post 'admin/edit_data' => 'admin#edit_data'
+  post 'admin/stat/:name' => 'admin#getStatistic'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

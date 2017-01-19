@@ -101,8 +101,6 @@ ActiveRecord::Schema.define(version: 20170117170353) do
     t.date    "created_at",   null: false
   end
 
-  add_index "statistics", ["name", "member_id", "target_model", "target_id", "created_at"], name: "index_statistics", unique: true
-
   create_table "uploadfiles", force: :cascade do |t|
     t.integer  "article_id",    null: false
     t.string   "public_id"

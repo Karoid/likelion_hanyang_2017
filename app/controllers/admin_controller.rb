@@ -66,4 +66,15 @@ class AdminController < ApplicationController
     end
     authorize! :read, Category.where(route: "admin").take
   end
+
+  def getStatistic
+    result = []
+    hash = Statistic.where(name: params[:name], created_at: 1.week.ago..Date.today).group(:created_at).count
+    hash = hash.sort_by { |key,value| key }
+    hash.map { |key,value| result.push({day: key, "value": value}) }
+    respond_to do |format|
+      format.json { render json: value }
+    end
+    authorize! :read, Category.where(route: "admin").take
+  end
 end
