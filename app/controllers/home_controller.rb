@@ -22,15 +22,26 @@ class HomeController < ApplicationController
     @comment = Comment.where(member_id:current_member.id)
     @article = Article.where(member_id: current_member.id)
   end
+  def edit_profile_image
+    params[:post_id] = 0
+    sended_msg = Cloudinary::Uploader.upload(params[:file],{use_filename: true,unique_filename: false,overwrite:true,folder: "member/#{current_member.id}"})
+    upload_write2model(sended_msg)
+    current_member.image_url = sended_msg['url']
+    current_member.save
+    render json: {}
+  end
+  def image_crop
+
+  end
   #파일 업로드
   def upload_image
-    sended_msg = Cloudinary::Uploader.upload(params[:file],{unique_filename: false,folder: params[:post_id]})
+    sended_msg = Cloudinary::Uploader.upload(params[:file],{use_filename: true,folder: params[:post_id]})
     upload_write2model(sended_msg)
 
      render json: {:link => sended_msg['url']}
   end
   def upload_file
-    sended_msg = Cloudinary::Uploader.upload(params[:file],{resource_type: 'raw',unique_filename: false,folder: params[:post_id]})
+    sended_msg = Cloudinary::Uploader.upload(params[:file],{resource_type: 'raw',use_filename: true,folder: params[:post_id]})
     upload_write2model(sended_msg)
 
     render json: {:link => sended_msg['url']}
