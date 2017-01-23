@@ -118,8 +118,8 @@ Major.create(department: "간호학부", name:"간호학과");
 Major.create(department: "산업융합학부", name:"응용시스템전공");
 Major.create(department: "산업융합학부", name:"정보융합전공");
 #Member
-admin_user = Member.create( username: "관리자", email: 'huhs@huhs.net', password: 'kk1111', admin: true, role:2)
-Member.create(username: "정승호", email: 'shj5508@naver.com',senior_number:34, password: 'kk1111', admin: false, role:2)
+Member.create(username: "관리자", email: 'huhs@huhs.net', password: 'kk1111',tel:'01000000000', admin: true, role:2)
+Member.create(username: "정승호", email: 'shj5508@naver.com',senior_number:34, password: 'kk1111',tel:'01000000000', admin: false, role:2)
   #Test Data
   Member.create(username: "송성국", email: '133@huhs.net',senior_number:33, password: 'kk1111', admin: false, role:0);
   Member.create(username: "송정안", email: '132@huhs.net',senior_number:32, password: 'kk1111', admin: false, role:0);

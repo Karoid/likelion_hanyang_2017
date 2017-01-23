@@ -17,7 +17,7 @@
 
   <div class="field form-group">
     <label for="senior_number">기수</label><br />
-    <input type="number" name="member[senior_number]" min="1" max="100" step="1">기
+    <%= f.number_field :senior_number,min: 1, max: 100, autofocus: true %>기
   </div>
 
   <div class="field form-group">
@@ -27,13 +27,13 @@
 
   <div class="field form-group">
     <label for="tel">학부생일때 제1전공</label><br />
-    <%= f.text_field :major, autofocus: true %>
+    <%= f.select :major_id, Major.all.collect {|p| [ p.name, p.id ] } %>
   </div>
 
   <div class="field form-group">
     <%= f.label :password %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <em>(<%= @minimum_password_length %> 자 이하)</em>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "off" %>
   </div>

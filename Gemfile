@@ -34,6 +34,8 @@ gem 'nokogiri'
 gem 'loofah', :git => 'https://github.com/flavorjones/loofah.git'
 #free remote storage service
 gem 'cloudinary'
+#edit db in browser /rails/db
+gem 'rails_db'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -56,8 +58,6 @@ group :development do
   gem 'sqlite3'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
-  #edit db in browser /rails/db
-  gem 'rails_db'
   #Supporting gem for Rails Panel (Google Chrome extension for Rails development).
   gem 'meta_request'
   gem 'better_errors'

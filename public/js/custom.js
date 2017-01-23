@@ -116,7 +116,7 @@ $(function () {
         $BOX_PANEL.remove();
     });
 });
-
+/*
 // Tooltip
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
@@ -137,17 +137,8 @@ if ($(".js-switch")[0]) {
     });
 }
 
-// iCheck
-if ($("input.flat")[0]) {
-    $(document).ready(function () {
-        $('input.flat').iCheck({
-            checkboxClass: 'icheckbox_flat-green',
-            radioClass: 'iradio_flat-green'
-        });
-    });
-}
-
 // Starrr
+/*
 var __slice = [].slice;
 
 (function ($, window) {
@@ -252,7 +243,6 @@ var __slice = [].slice;
 $(function () {
     return $(".starrr").starrr();
 });
-
 $(document).ready(function () {
 
     $('#stars').on('starrr:change', function (e, value) {
@@ -349,7 +339,7 @@ if (typeof NProgress != 'undefined') {
  * $(window).smartresize(function(){
  *     // code here
  * });
- */
+
 (function($,sr){
     // debouncing function from John Hann
     // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
@@ -377,7 +367,7 @@ if (typeof NProgress != 'undefined') {
     jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
 
 })(jQuery,'smartresize');
-
+*/
 //Pagenation
 $(function () {
   var params = window.location.href.split("?")[1]
