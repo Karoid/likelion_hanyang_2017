@@ -7,8 +7,11 @@ html, body{
   padding: 0px;
 }
 img{max-width: 100%;}
-a{text-decoration: none}
+a{color: #5A738E;text-decoration: none}
 a, a:after, a:before, a:hover, a:focus{text-decoration: none}
+a, a:visited, a:focus, a:active, :visited, :focus, :active, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus {
+    outline: 0;
+}
 /*1. layout에 있는 왼쪽 네비게이션 바*/
 #index {
   width: 20vw;
@@ -118,16 +121,17 @@ a, a:after, a:before, a:hover, a:focus{text-decoration: none}
   text-shadow: 1px 1px #000;
 }
 .menu_section >ul {
-  margin-top: 10px;
+  margin-top: 30px;
 }
 .profile_pic {
   width: 35%;
   float: left;
 }
 .main_menu span.icon {
-  float: right;
+  position: absolute;
+  right: 15px;
   text-align: center;
-  margin-top: 5px;
+  margin-top: 7px;
   font-size: 10px;
   min-width: inherit;
   color: #C4CFDA;

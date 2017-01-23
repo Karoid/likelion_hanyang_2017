@@ -53,7 +53,7 @@ table tr .th {
     display: inline-block!important;
   }
 }
-/*4. 글 안에 있는 댓글  631번째 줄*/
+/*4. 글 안에 있는 댓글 */
 .comments input,.comments textarea {
   outline: none;
   border: none;
@@ -160,4 +160,18 @@ table tr .th {
 }
 .comment-actions li:hover {
   color: #0095ff;
+}
+/*페이지 네이션*/
+nav div span, nav div em, nav div a {
+  border: none !important;
+}
+nav div span, nav div em:hover, nav div a:hover {
+  background-color: transparent !important;
+  color: #ddd !important
+}
+nav .previous_page, nav .next_page {
+  color: #ddd !important;
+}
+nav div em {
+  color: rgb(90, 210, 210) !important;
 }

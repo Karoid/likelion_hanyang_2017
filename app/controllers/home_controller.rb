@@ -2,6 +2,22 @@ class HomeController < ApplicationController
   #http://stackoverflow.com/questions/16021449/parse-xml-to-ruby-objects-and-create-attribute-methods-dynamically
   #make xml to object
   def index
+   @last_3_record = Board.where(route:"gallery").take.articles.reverse
+   @last_3_image = {}
+   k = 0
+   @last_3_record.each do |record|
+     urls = []
+     @files = Uploadfile.where(article_id: record.id)
+     if k<3 && @files.length >0
+       @files.each_with_index do |file,index|
+         if index<4
+           urls.push(file.url)
+         end
+       end
+       @last_3_image[record.title] = urls
+       k += 1
+     end
+   end
   end
   def create_post
     if !params[:post_id]
