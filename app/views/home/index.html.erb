@@ -140,46 +140,30 @@
                     <div class="carousel-inner">
                         <div class="item active">
                             <div class="row">
+                              <% @staff.each do |staff| %>
+                              <%if staff.admin%>
                                 <div class="col-sm-4 col-xs-12">
                                     <div class="member">
-                                        <p><img class="img-responsive img-thumbnail img-circle" src="/images/team1.jpg" alt="" ></p>
-                                        <h3>Agnes Smith<small class="designation">CEO &amp; Founder</small></h3>
+                                        <p><img class="img-responsive img-thumbnail img-circle" src="<%=staff.image_url%>" alt="" ></p>
+                                        <h3><%=staff.username%><small class="designation">CEO &amp; Founder</small></h3>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 col-xs-6">
-                                    <div class="member">
-                                        <p><img class="img-responsive img-thumbnail img-circle" src="/images/team2.jpg" alt="" ></p>
-                                        <h3>Donald Ford<small class="designation">Senior Vice President</small></h3>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4 col-xs-6">
-                                    <div class="member">
-                                        <p><img class="img-responsive img-thumbnail img-circle" src="/images/team3.jpg" alt="" ></p>
-                                        <h3>Karen Richardson<small class="designation">Assitant Vice President</small></h3>
-                                    </div>
-                                </div>
+                                <%end%>
+                                <%end%>
                             </div>
                         </div>
                         <div class="item">
                           <div class="row">
-                              <div class="col-sm-4 col-xs-6">
-                                  <div class="member">
-                                      <p><img class="img-responsive img-thumbnail img-circle" src="/images/team1.jpg" alt="" ></p>
-                                      <h3>Agnes Smith<small class="designation">CEO &amp; Founder</small></h3>
-                                  </div>
-                              </div>
-                              <div class="col-sm-4 col-xs-6">
-                                  <div class="member">
-                                      <p><img class="img-responsive img-thumbnail img-circle" src="/images/team2.jpg" alt="" ></p>
-                                      <h3>Donald Ford<small class="designation">Senior Vice President</small></h3>
-                                  </div>
-                              </div>
+                            <% @staff.each do |staff| %>
+                            <%if !staff.admin%>
                               <div class="col-sm-4 col-xs-12">
                                   <div class="member">
-                                      <p><img class="img-responsive img-thumbnail img-circle" src="/images/team3.jpg" alt="" ></p>
-                                      <h3>Karen Richardson<small class="designation">Assitant Vice President</small></h3>
+                                      <p><img class="img-responsive img-thumbnail img-circle" src="<%=staff.image_url%>" alt="" ></p>
+                                      <h3><%=staff.username%><small class="designation">CEO &amp; Founder</small></h3>
                                   </div>
                               </div>
+                              <%end%>
+                              <%end%>
                           </div>
                         </div>
                     </div>

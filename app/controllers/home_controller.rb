@@ -2,6 +2,7 @@ class HomeController < ApplicationController
   #http://stackoverflow.com/questions/16021449/parse-xml-to-ruby-objects-and-create-attribute-methods-dynamically
   #make xml to object
   def index
+  begin
    @last_3_record = Board.where(route:"gallery").take.articles.reverse
    @last_3_image = {}
    k = 0
@@ -18,6 +19,11 @@ class HomeController < ApplicationController
        k += 1
      end
    end
+   rescue
+     @last_3_record
+     @last_3_image = {}
+   end
+   @staff = Member.where(staff:true).order(:admin)
   end
   def create_post
     if !params[:post_id]

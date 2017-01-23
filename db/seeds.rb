@@ -121,26 +121,26 @@ Major.create(department: "산업융합학부", name:"정보융합전공");
 Member.create(username: "관리자", email: 'huhs@huhs.net', password: 'kk1111',tel:'01000000000', admin: true, role:2)
 Member.create(username: "정승호", email: 'shj5508@naver.com',senior_number:34, password: 'kk1111',tel:'01000000000', admin: false, role:2)
   #Test Data
-  Member.create(username: "송성국", email: '133@huhs.net',senior_number:33, password: 'kk1111', admin: false, role:0);
-  Member.create(username: "송정안", email: '132@huhs.net',senior_number:32, password: 'kk1111', admin: false, role:0);
-  Member.create(username: "송태용", email: '131@huhs.net',senior_number:31, password: 'kk1111', admin: false, role:0);
-  Member.create(username: "송승훈", email: '130@huhs.net',senior_number:30, password: 'kk1111', admin: false, role:0);
-  Member.create(username: "송주성", email: '129@huhs.net',senior_number:29, password: 'kk1111', admin: false, role:0);
-  Member.create(username: "송태호", email: '128@huhs.net',senior_number:33, password: 'kk1111', admin: false, role:0);
-  Member.create(username: "송고인", email: '127@huhs.net',senior_number:32, password: 'kk1111', admin: false, role:0);
-  Member.create(username: "송용석", email: '126@huhs.net',senior_number:31, password: 'kk1111', admin: false, role:0);
-  Member.create(username: "송상오", email: '125@huhs.net',senior_number:30, password: 'kk1111', admin: false, role:0);
-  Member.create(username: "송성호", email: '124@huhs.net',senior_number:29, password: 'kk1111', admin: false, role:0);
-  Member.create(username: "김성국", email: '33@huhs.net',senior_number:33, password: 'kk1111', admin: false, role:1);
-  Member.create(username: "권정안", email: '32@huhs.net',senior_number:32, password: 'kk1111', admin: false, role:3);
-  Member.create(username: "이태용", email: '31@huhs.net',senior_number:31, password: 'kk1111', admin: false, role:3);
-  Member.create(username: "이승훈", email: '30@huhs.net',senior_number:30, password: 'kk1111', admin: false, role:3);
-  Member.create(username: "용주성", email: '29@huhs.net',senior_number:29, password: 'kk1111', admin: false, role:3);
-  Member.create(username: "신태호", email: '28@huhs.net',senior_number:33, password: 'kk1111', admin: false, role:1);
-  Member.create(username: "성고인", email: '27@huhs.net',senior_number:32, password: 'kk1111', admin: false, role:3);
-  Member.create(username: "장용석", email: '26@huhs.net',senior_number:31, password: 'kk1111', admin: false, role:3);
-  Member.create(username: "유상오", email: '25@huhs.net',senior_number:30, password: 'kk1111', admin: false, role:3);
-  Member.create(username: "신성호", email: '24@huhs.net',senior_number:29, password: 'kk1111', admin: false, role:3);
+  Member.create(username: "송성국", email: '133@huhs.net',senior_number:33, password: 'kk1111',tel:'01000000000', admin: false, role:0);
+  Member.create(username: "송정안", email: '132@huhs.net',senior_number:32, password: 'kk1111',tel:'01000000000', admin: false, role:0);
+  Member.create(username: "송태용", email: '131@huhs.net',senior_number:31, password: 'kk1111',tel:'01000000000', admin: false, role:0);
+  Member.create(username: "송승훈", email: '130@huhs.net',senior_number:30, password: 'kk1111',tel:'01000000000', admin: false, role:0);
+  Member.create(username: "송주성", email: '129@huhs.net',senior_number:29, password: 'kk1111',tel:'01000000000', admin: false, role:0);
+  Member.create(username: "송태호", email: '128@huhs.net',senior_number:33, password: 'kk1111',tel:'01000000000', admin: false, role:0);
+  Member.create(username: "송고인", email: '127@huhs.net',senior_number:32, password: 'kk1111',tel:'01000000000', admin: false, role:0);
+  Member.create(username: "송용석", email: '126@huhs.net',senior_number:31, password: 'kk1111',tel:'01000000000', admin: false, role:0);
+  Member.create(username: "송상오", email: '125@huhs.net',senior_number:30, password: 'kk1111',tel:'01000000000', admin: false, role:0);
+  Member.create(username: "송성호", email: '124@huhs.net',senior_number:29, password: 'kk1111',tel:'01000000000', admin: false, role:0);
+  Member.create(username: "김성국", email: '33@huhs.net',senior_number:33, password: 'kk1111',tel:'01000000000', admin: false, role:1);
+  Member.create(username: "권정안", email: '32@huhs.net',senior_number:32, password: 'kk1111',tel:'01000000000', admin: false, role:3);
+  Member.create(username: "이태용", email: '31@huhs.net',senior_number:31, password: 'kk1111',tel:'01000000000', admin: false, role:3);
+  Member.create(username: "이승훈", email: '30@huhs.net',senior_number:30, password: 'kk1111',tel:'01000000000', admin: false, role:3);
+  Member.create(username: "용주성", email: '29@huhs.net',senior_number:29, password: 'kk1111',tel:'01000000000', admin: false, role:3);
+  Member.create(username: "신태호", email: '28@huhs.net',senior_number:33, password: 'kk1111',tel:'01000000000', admin: false, role:1);
+  Member.create(username: "성고인", email: '27@huhs.net',senior_number:32, password: 'kk1111',tel:'01000000000', admin: false, role:3);
+  Member.create(username: "장용석", email: '26@huhs.net',senior_number:31, password: 'kk1111',tel:'01000000000', admin: false, role:3);
+  Member.create(username: "유상오", email: '25@huhs.net',senior_number:30, password: 'kk1111',tel:'01000000000', admin: false, role:3);
+  Member.create(username: "신성호", email: '24@huhs.net',senior_number:29, password: 'kk1111',tel:'01000000000', admin: false, role:3);
 #Category
 Category.create(route: 'introduce', name: '휴즈 소개')
 Category.create(route: 'huhslife', name: '게시판')
