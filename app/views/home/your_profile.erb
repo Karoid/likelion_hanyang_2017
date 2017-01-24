@@ -11,24 +11,23 @@
 			<div id="wrapper">
 				<div id="profile_left">
 					<div id="photo">
-						<div id="image"></div>
+						<img src="<%=current_member.image_url%>" id="image" alt="">
 					</div>
 					<div id="explain">
 						<div id="name"><%=current_member.username%></div>
 						<hr>
 						<div id="detail_wrapper">
 							<div class="detail">학과: <%=current_member.major.name%></div>
-							<div class="detail">학번: 15</div>
+							<div class="detail">학번: <%=(1980 + current_member.senior_number)%100%></div>
 							<div class="detail">기수: <%=current_member.senior_number%></div>
-							<div class="detail">생년월일: 1996.03.25</div>
 							<div class="detail">스터디: X</div>
 							<div class="detail">특이사항: X</div>
 							<div class="detail">연락처: <%=current_member.tel%></div>
-							<input type="button" id="edit" value="프로필 수정">
+							<a href="/members/edit"><input type="button" id="edit" value="프로필 수정"></a>
 						</div>
 					</div>
 				</div>
-				<div id="profile_right">
+				<div id="profile_right_part">
 					<div id="container">
 						<div id="container_title">
 							<span>활동 내역</span>
@@ -81,37 +80,20 @@
 							</div>
 						</div>
 					</div>
-					<div id="board">
+					<div id="profile_board">
 						<div id="tap">
-							<div class="tap_button button_clicked" id="button_1">댓글</div>
-							<div class="tap_button vertical_line" id="button_2">게시글</div>
+							<div class="tap_button button_clicked" id="button_1">게시글</div>
+							<div class="tap_button vertical_line" id="button_2">댓글</div>
 							<div class="tap_button vertical_line" id="button_3">출석</div>
 						</div>
 						<table>
-							<tr>
-								<td class="table_1">☆</td>
-								<td class="table_2"><a href="#">네! 알겠습니다. 내일동방에서 봐요!!<a/></td>
-								<td class="table_3"><a href="#">원문보기<a/></td>
-								<td class="table_4">16.12.30</td>
-							</tr>
-							<tr>
-								<td class="table_1">☆</td>
-								<td class="table_2"><a href="#">네! 알겠습니다. 내일동방에서 봐요!!<a/></td>
-								<td class="table_3"><a href="#">원문보기<a/></td>
-								<td class="table_4">16.12.30</td>
-							</tr>
-							<tr>
-								<td class="table_1">☆</td>
-								<td class="table_2"><a href="#">네! 알겠습니다. 내일동방에서 봐요!!<a/></td>
-								<td class="table_3"><a href="#">원문보기<a/></td>
-								<td class="table_4">16.12.30</td>
-							</tr>
-							<tr>
-								<td class="table_1">☆</td>
-								<td class="table_2"><a href="#">네! 알겠습니다. 내일동방에서 봐요!!<a/></td>
-								<td class="table_3"><a href="#">원문보기<a/></td>
-								<td class="table_4">16.12.30</td>
-							</tr>
+							<%@article.each do |x|%>
+			        <tr>
+			          <td class="table_1"><%=@article.index(x)+1%></th>
+			          <td class="table_2"><a href="/board/<%=x.board.category.route%>/<%=x.board.route%>/<%=x.id%>"><%=x.title%></a></td>
+			          <td class="table_4"><span class='hidden-xs'><%=x.created_at.strftime("%Y.")%></span><%=x.created_at.strftime("%m.%d")%></td>
+			        </tr>
+			        <%end%>
 						</table>
 						<nav aria-label="Page navigation" style="text-align: center;">
 							<div class="pagination">
@@ -129,7 +111,11 @@
 		</div>
 
 <style type="text/css">
-
+	*, *:before,*:after{
+		box-sizing: content-box;
+		-webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+	}
 	#html {
 		width: 1267px;
 		max-width: 1267px;
@@ -172,7 +158,7 @@
 
 	#page #profile_left {
 		width: 280px;
-		height: 600px;
+		height: 640px;
 		float: left;
 	}
 	#page #profile_left #photo {
@@ -181,13 +167,13 @@
 		padding: 10px;
 		border: 2px solid #dddddd;
 		border-radius: 5px;
+		margin:0 auto;
 	}
 	#page #profile_left #photo #image {
-		width: 254px;
-		height: 254px;
+		width: 258px;
+		height: 258px;
 		border: 2px solid #ffffff;
 		border-radius: 5px;
-		background: url("http://www.aspirehire.co.uk/aspirehire-co-uk/_img/profile.svg") no-repeat center;
 	}
 
 	#page #profile_left #explain {
@@ -229,10 +215,9 @@
 		display: inline-block;
 	}
 
-	#page #profile_right {
+	#page #profile_right_part {
 		float: left;
 		margin-left: 30px;
-    width:0
 	}
 	#container {
 		width: 800px;
@@ -278,7 +263,8 @@
 	#container #graph #graph_right {
 		width: 710px;
 		height: 240px;
-		    position: absolute;
+	  position: relative;
+		float: left;
 	}
 	#container #graph #graph_right .stick {
 		width: 33px;
@@ -306,34 +292,34 @@
 		top: 12px;
 	}
 
-	#page #board {
+	#page #profile_board {
 		width: 800px;
 		margin-top: 15px;
 		padding: 20px 45px;
 	}
-	#page #board #tap {
+	#page #profile_board #tap {
 		width: 880px;
 		margin-bottom: 13px;
 	}
-	#board #tap .tap_button {
+	#profile_board #tap .tap_button {
 		padding: 2px 17px;
 		font-size: 15px;
 		display: inline-block;
 		text-align: center;
 		cursor: pointer;
 	}
-	#board #tap .button_clicked {
+	#profile_board #tap .button_clicked {
 		color: rgb(90, 210, 210);
 	}
-	#board table {
+	#profile_board table {
 		width: 100%;
 		margin-top: 25px;
 	}
-	#board table tr td {
+	#profile_board table tr td {
 		padding: 2px 0;
 		border-bottom: 1px solid #dddddd;
 	}
-	#board nav {
+	#profile_board nav {
 		margin-top: 20px;
 	}
 
@@ -353,7 +339,7 @@
 		/* Internet Explorer */
 		filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 	}
-
+	.hidden-xs{display: inline-block!important;}
 </style>
 
 <script type="text/javascript">
