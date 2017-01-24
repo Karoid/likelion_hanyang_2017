@@ -1,22 +1,25 @@
 <div id="title_small">휴즈의 추억이 담긴 사진들이 모여 있는 사진첩입니다</div>
 <% if (can? :create, @article.last)%>
-	<a href="/board/<%=@category.route%>/<%=@board.route%>/create"><input type="button" id="write" value="사진 업로드" style="padding: 0;"></a>
+	<input type="button" id="write" value="사진 업로드" style="padding: 0;" onclick="location.href='/board/<%=@category.route%>/<%=@board.route%>/create'">
 <%end%>
 <!--게시글 목록 시작-->
-    <%@article_page.each do |article|%>
-		<a href="/board/<%=article.board.category.route%>/<%=article.board.route%>/<%=article.id%>">
-		<div class="container1 <%if article.id == params[:id].to_i %>selected<%end%>">
-			<div class="photo">
-				<%if article.uploadfiles.take%>
-				<img src="<%=article.uploadfiles.take.url%>" align="center">
-				<%end%>
-			</div>
-			<div class="text">
-				<span><span><%=article.title%></span><%=article.created_at.strftime("%Y.%m.%d")%></span>
-			</div>
-		</div>
-		</a>
-    <%end%>
+	<div id="wrapper">
+	    <%@article_page.each do |article|%>
+			<a href="/board/<%=article.board.category.route%>/<%=article.board.route%>/<%=article.id%>">
+				<div class="container1 <%if article.id == params[:id].to_i %>selected<%end%>">
+					<div class="photo">
+						<%if article.uploadfiles.take%>
+							<img src="<%=article.uploadfiles.take.url%>" align="center">
+						<%end%>
+					</div>
+					<div class="text">
+						<span><span><%=article.title%></span><%=article.created_at.strftime("%Y.%m.%d")%></span>
+					</div>
+				</div>
+			</a>
+	    <%end%>
+	    <br style="clear: both;">
+	</div>
 		<hr style="clear:both">
 <!--게시글 목록 끝-->
 <nav aria-label="Page navigation" style="text-align: center;">
@@ -26,9 +29,17 @@
 <style type="text/css">
 	#title_small {
 		width: 100%;
-		margin: 0px auto;
 		font-size: 16px;
 		text-align: center;
+	}
+
+	#wrapper {
+		margin: 0px auto;
+	}
+	#wrapper a {
+		margin: 0 10px 5px 0;
+		display: block;
+		float: left;
 	}
 
 	#write {
@@ -45,11 +56,9 @@
 	.container1 {
 		width: 190px;
 		height: 190px;
-		margin: 0px 10px 10px 0px;
 		border: 1px solid #aaaaaa;
 		background-color: #dddddd;
 		display: inline-block;
-		float: left;
 		position: relative;
 	}
 
@@ -58,10 +67,12 @@
 		height: 100%;
 		padding: 0px;
 		display: block;
+		overflow: hidden;
 	}
 
 	.photo img {
 		width: 100%;
+		height: auto;
 	}
 
 	.text {
