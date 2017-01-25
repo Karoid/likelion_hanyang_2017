@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/css/board.css">
 <!--게시글 목록 시작-->
 <% if (can? :create, @article.last)%>
 <div style="width: 100%;">
@@ -11,15 +12,17 @@
       <td class="th" style="font-weight: bolder;text-align: left;">제목</td>
       <td class="th">글쓴이</td>
       <td class="th">날짜</td>
+      <td style="font-size:15px;line-height:35px;border-bottom: 1px solid #000000;text-align:center"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></td>
     </tr>
   </thead>
   <tbody>
     <%@article_page.each do |article|%>
     <tr class="<%if article.id == params[:id].to_i %>selected<%end%>">
-      <td scope="row" class="td_number"><%=article.id%></th>
+      <td class="td_number" scope="row"><%=article.id%></th>
       <td class="td_title"><a href="/board/<%=article.board.category.route%>/<%=article.board.route%>/<%=article.id%>"><%=article.title%></a></td>
       <td class="td_name"><%=article.member_name%></td>
       <td class="td_date"><span class='hidden-xs'><%=article.created_at.strftime("%Y.")%></span><%=article.created_at.strftime("%m.%d")%></td>
+      <td><%=Statistic.where(name: "read_article", target_id: article.id).length%></td>
     </tr>
     <%end%>
   </tbody>

@@ -12,7 +12,6 @@
   <link href="/css/font-awesome.min.css" rel="stylesheet">
   <link href="/css/prettyPhoto.css" rel="stylesheet">
   <link href="/css/main.css" rel="stylesheet">
-  <link href="/css/custom.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   <!--[if lt IE 9]>
   <script src="/js/html5shiv.js"></script>
@@ -37,7 +36,7 @@
       <% if member_signed_in? %>
         <div style="text-align:center;padding:10px 14px">
           <div id="profile_wrapper">
-            <a id="profile_left"></a>
+            <div id="profile_left" style="background:url(<%=current_member.image_url%>);background-size: auto 100%;"></div>
             <div id="profile_right">
               <a href="/profile"><%= current_member.senior_number %>기 <%= current_member.username %></a>
               <div><%= link_to "로그아웃", destroy_member_session_path, method: :get, data: { confirm: "Are you sure?" } %></div>
@@ -76,8 +75,8 @@
   </div>
 
   <div id="board">
+    <%= render partial: "shared/flash_messages", flash: flash %>
     <div id="article">
-      <%= render partial: "shared/flash_messages", flash: flash %>
       <%= yield %>
     </div>
   </div>

@@ -19,7 +19,8 @@
     <button type="submit" class="glyphicon glyphicon-remove" aria-hidden="true" style="border:none;background:none" data-confirm="삭제 하시겠습니까?"></button>
   </form>
   <% end %>
-  <div style="float:right">
+  <div style="float:right; margin-top:15px">
+    조회수: <%=Statistic.where(name: "read_article", target_id: params[:id]).length%>  /
     <span class='hidden-xs' style="display:inline-block!important"><%=post.created_at.strftime("%Y.")%></span>
     <%=post.created_at.strftime("%m.%d")%>
   </div>
@@ -32,7 +33,7 @@
     <%if post.board.show_comment%>
   		<div class="comment-wrap">
   				<div class="photo">
-  						<div class="avatar" style="background-image: url('https://s3.amazonaws.com/uifaces/faces/twitter/dancounsell/128.jpg')"></div>
+  						<div class="avatar" style="background-image: url('<%=current_member.image_url%>')"></div>
   				</div>
   				<div class="comment-block">
   						<form action="/comment/c/<%=post.id%>" method="post">
@@ -48,7 +49,7 @@
       <%post.comment_threads.each do |comment|%>
   		<div class="comment-wrap">
   				<div class="photo">
-  						<div class="avatar" style="background-image: url('https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg')"></div>
+  						<div class="avatar" style="background-image: url('<%=comment.member.image_url%>')"></div>
   				</div>
   				<div class="comment-block">
   						<p class="comment-text"><%=comment.body%></p>

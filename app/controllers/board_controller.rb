@@ -49,6 +49,9 @@ class BoardController < ApplicationController
       end
       if @board.show_last
         params[:id] = @article.last.id
+        if current_member
+          Statistic.create(name:"read_article", member_id: current_member.id, target_model: Article, target_id: params[:id])
+        end
         @thisArticle = @article.find(params[:id])
         render template: "board/showArticle"
       end
@@ -58,6 +61,7 @@ class BoardController < ApplicationController
     end
     def showArticle
       showBoard
+      Statistic.create(name:"read_article", member_id: current_member.id, target_model: Article, target_id: params[:id])
       @thisArticle = @article.find(params[:id])
     end
 

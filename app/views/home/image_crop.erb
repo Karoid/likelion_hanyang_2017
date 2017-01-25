@@ -1,0 +1,107 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js" charset="utf-8"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.css">
+<div class="middle">
+  <%if params[:url]=='new'%>
+  <h1 id="title">프로필 사진 설정</h1>
+  <img src="" width="100%" alt="Image preview..." class="unseen" id="image">
+  <%else%>
+  <h1 id="title">사진 수정</h1>
+  <img src="<%=params[:url]%>" width="100%" alt="Image preview..." id="image">
+  <%end%>
+  <button name="button" id="crop" class="hidden">자르기</button>
+  <div id="submit_group" class="hidden">
+    <button name="button" id="restore">복구</button>
+    <button name="button" id="submit_img">제출</button>
+  </div>
+</div>
+<input class="file_sel" type="file" onchange="previewFile()"><br>
+<style>
+  .file_sel{ position: absolute; left: 50%;top:50%;transform: translateY(-50%);z-index: 10}
+  #title{margin-top: 0;}
+  #image{max-width: 80vh; margin:0 auto;display: block;z-index: 20}
+  .unseen{opacity: 0;}
+  .middle{
+    position: absolute;top:50%;transform: translateY(-50%);width: 80vw;
+  }
+  button{
+    border: none;
+    height:50px;
+  }
+  #crop{
+    width:100%;
+    background-color: #1ea72e;
+    color:white;
+  }
+  #restore{
+    width:50%;
+    background-color: #0074d9;
+    color: #fff;
+    float:left
+  }
+  #submit_img{
+    width:50%;
+    background-color: #1ea72e;
+    color: #fff;
+  }
+  #submit_group{
+    display: block;
+    margin:0 auto;
+    max-width: 80vh
+  }
+</style>
+<script type="text/javascript">
+var init_src
+var cropper
+var blob
+var image = document.getElementById('image');
+function previewFile() {
+  var preview = document.querySelector('img');
+  var file    = document.querySelector('input[type=file]').files[0];
+  var reader  = new window.FileReader();
+  document.getElementsByClassName("file_sel")[0].setAttribute("class","unseen")
+  document.getElementById("crop").removeAttribute("class")
+  reader.addEventListener("load", function () {
+    preview.src = reader.result;
+    cropper = new Cropper(image, {aspectRatio: 1});
+  }, false);
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+}
+
+document.getElementById("crop").addEventListener("click",function(){
+  image.removeAttribute("class")
+  this.setAttribute("class","hidden")
+  document.getElementById("submit_group").removeAttribute("class")
+  init_src = image.src
+  cropper.getCroppedCanvas().toBlob(function(made_blob){blob = made_blob})
+  image.src = cropper.getCroppedCanvas().toDataURL()
+  cropper.destroy()
+})
+document.getElementById("restore").addEventListener("click",function(){
+  document.getElementById("crop").removeAttribute("class")
+  document.getElementById("submit_group").setAttribute("class","hidden")
+  image.src = init_src
+  cropper = new Cropper(image, {aspectRatio: 1});
+})
+
+document.getElementById("submit_img").addEventListener("click",function(){
+  var formData = new FormData();
+  formData.append('file', blob);
+  // Use `jQuery.ajax` method
+  $.ajax('/edit_profile_image', {
+    method: "POST",
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function () {
+      window.location = "/profile"
+    },
+    error: function () {
+      console.log('Upload error');
+    }
+  });
+})
+
+</script>
