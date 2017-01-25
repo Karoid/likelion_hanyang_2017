@@ -24,6 +24,17 @@ a, a:visited, a:focus, a:active, :visited, :focus, :active, .btn:focus, .btn:act
 #index a{
   color: white;
 }
+#index #res_menu {
+  width: 40px;
+  height: 40px;
+  margin: 28px 0 0 15px;
+  padding: 0;
+  background-color: #ffffff;
+  float: left;
+  display: none;
+}
+
+
 #header {
   width: 100vw;
   height: 130px;
@@ -253,7 +264,6 @@ a, a:visited, a:focus, a:active, :visited, :focus, :active, .btn:focus, .btn:act
   margin: 0 auto;
 }
 
-/* <<<<<<< HEAD        -- 2017.01.25 conflict */
 #title{
   margin: 60px auto 30px auto;
   text-align: center;

@@ -22,7 +22,7 @@
       <td class="td_title"><a href="/board/<%=article.board.category.route%>/<%=article.board.route%>/<%=article.id%>"><%=article.title%></a></td>
       <td class="td_name"><%=article.member_name%></td>
       <td class="td_date"><span class='hidden-xs'><%=article.created_at.strftime("%Y.")%></span><%=article.created_at.strftime("%m.%d")%></td>
-      <td><%=Statistic.where(name: "read_article", target_id: article.id).length%></td>
+      <td class="td_page_view"><%=Statistic.where(name: "read_article", target_id: article.id).length%></td>
     </tr>
     <%end%>
   </tbody>
@@ -84,6 +84,9 @@
       position: absolute !important;
       top: 22px !important;
       left: 25px !important;
+    }
+    .td_page_view {
+      display: none;
     }
 
     nav {
