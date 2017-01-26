@@ -34,6 +34,7 @@ class BoardController < ApplicationController
       @board = @category.boards.where(route: params[:board]).take
       @article = @board.articles.where(active: true)
       authorize! :read, @article.last
+      #페이지네이션
       perpage = 10
       if params[:page]
         page = params[:page]
@@ -43,10 +44,13 @@ class BoardController < ApplicationController
         page=1
       end
       @article_page = @article.paginate(:page => page, :per_page => perpage).order('id DESC')
-      @navigation = ""
-      @category.boards.each do |board|
-        @navigation += "<a href='/board/#{params[:category]}/#{board.route}'>#{board.name}</a> "
+      #Json 요청으로 목록 받아올때
+      if params[:json]
+        respond_to do |format|
+          format.json { render json: make_object_to_json(@article_page) }
+        end
       end
+      #페이지네이션 끝
       if @board.show_last
         params[:id] = @article.last.id
         if current_member
@@ -79,5 +83,18 @@ class BoardController < ApplicationController
       authorize! :delete, @comment
       @comment.destroy
       redirect_to :back
+    end
+
+    private
+    def make_object_to_json(object)
+      #AJAX를 위해 view 담기
+      @article_page_json = []
+      object.each do |value|
+        hash = {}
+        hash = value.attributes
+        hash[:view] = Statistic.where(name: "read_article", target_id: value.id).length
+        @article_page_json.push(hash)
+      end
+      return @article_page_json
     end
 end

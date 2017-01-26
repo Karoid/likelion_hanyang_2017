@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/css/board.css">
 		<div id="page">
 			<div id="main_title">
 				<strong>User Report</strong>
@@ -18,7 +19,9 @@
 							<div class="detail">스터디: X</div>
 							<div class="detail">특이사항: X</div>
 							<div class="detail">연락처: <%=current_member.tel%></div>
-							<a href="/members/edit"><input type="button" id="edit" value="프로필 수정"></a>
+							<center>
+								<a href="/members/edit"><input type="button" id="edit" value="프로필 수정"></a>
+							</center>
 						</div>
 					</div>
 				</div>
@@ -49,7 +52,9 @@
 			        </tr>
 			        <%end%>
 						</table>
-						<%= will_paginate @article, :usage => params[:usage] %>
+						<nav style="text-align: center;">
+							<%= will_paginate @article, :usage => params[:usage], previous_label: "◀", next_label: "▶" %>
+						</nav>
 					</div>
 				</div>
 			</div>
@@ -564,44 +569,49 @@
 			}
 		})
 	});
-
-
-	// Bar chart
-	Morris.Bar({
-    element: 'graph',
-    data: [
-      { "period": "Jan", "Hours worked": 80 },
-      { "period": "Feb", "Hours worked": 125 },
-      { "period": "Mar", "Hours worked": 176 },
-      { "period": "Apr", "Hours worked": 224 },
-      { "period": "May", "Hours worked": 265 },
-      { "period": "Jun", "Hours worked": 314 },
-      { "period": "Jul", "Hours worked": 347 },
-      { "period": "Aug", "Hours worked": 287 },
-      { "period": "Sep", "Hours worked": 240 },
-      { "period": "Oct", "Hours worked": 211 }
-    ],
-    xkey: 'period',
-    hideHover: 'auto',
-    barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
-    ykeys: ['Hours worked', 'sorned'],
-    labels: ['Hours worked', 'SORN'],
-    xLabelAngle: 60,
-    resize: true
-  });
 </script>
 <!-- Datepicker -->
 <script type="text/javascript">
     $(document).ready(function() {
-
       var cb = function(start, end, label) {
-        console.log(start.toISOString(), end.toISOString(), label);
+        //console.log(start.toISOString(), end.toISOString(), label);
+				$.ajax({
+					url: '/profile_statistic',
+					type: 'post',
+					dataType: 'json',
+					data: {startDate: start.toISOString(), endDate: end.toISOString()},
+					success: function(data){
+						console.log(data)
+						if(data != {}){
+							var arr = new Array()
+							$.each(data,function(key, value) {
+								arr.push({ "period" : key, "activity": value.length})
+							});
+							console.log(arr);
+							$('#graph').empty()
+							Morris.Bar({
+								element: 'graph',
+								data: arr,
+								xkey: 'period',
+								hideHover: 'auto',
+								barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+								ykeys: ['activity', 'sorned'],
+								labels: ['activity', ''],
+								xLabelAngle: 60,
+								resize: true
+							});
+						}
+					},
+					error: function(err){
+						console.error(error);
+					}
+				})
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         //alert("Callback has fired: [" + start.format('MMMM D, YYYY') + " to " + end.format('MMMM D, YYYY') + ", label = " + label + "]");
       }
 
       var optionSet1 = {
-        startDate: moment().subtract(29, 'days'),
+        startDate: moment().subtract(6, 'month').startOf('month'),
         endDate: moment(),
         dateLimit: {
           days: 60
@@ -612,12 +622,10 @@
         timePickerIncrement: 1,
         timePicker12Hour: true,
         ranges: {
-          'Today': [moment(), moment()],
-          'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month': [moment().startOf('month'), moment().endOf('month')],
-          'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+          '최근 한 달': [moment().startOf('month'), moment().endOf('month')],
+					'최근 3 달': [moment().subtract(3, 'month').startOf('month'), moment().endOf('month')],
+					'최근 6 달': [moment().subtract(6, 'month').startOf('month'), moment().endOf('month')],
+          '올해' : [moment().startOf('year'), moment().endOf('year')]
         },
         opens: 'left',
         buttonClasses: ['btn btn-default'],
@@ -631,8 +639,8 @@
           fromLabel: 'From',
           toLabel: 'To',
           customRangeLabel: 'Custom',
-          daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-          monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+          daysOfWeek: ['일', '월', '화', '수', '목', '금', '토'],
+          monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
           firstDay: 1
         }
       };
@@ -659,5 +667,6 @@
       $('#destroy').click(function() {
         $('#reportrange').data('daterangepicker').remove();
       });
+			cb(optionSet1.startDate, optionSet1.endDate, "")
     });
   </script>
