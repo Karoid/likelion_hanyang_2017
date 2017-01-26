@@ -41,8 +41,20 @@ class HomeController < ApplicationController
     end
   end
   def your_profile
-    @comment = Comment.where(member_id:current_member.id)
-    @article = Article.where(member_id: current_member.id)
+    perpage = 5
+    if params[:usage] == "comment"
+      @article = Comment.where(member_id: current_member.id).paginate(:page => params[:page], :per_page => perpage).order('id DESC')
+      @route = Proc.new{ |x| "/board/#{x.commentable.board.category.route}/#{x.commentable.board.route}/#{x.commentable.id}"}
+      @title = Proc.new{ |x| x.body}
+    elsif params[:usage] == "attendence"
+      @article = Statistic.where(name: "sign_in").paginate(:page => params[:page], :per_page => perpage).order('id DESC')
+      @route = Proc.new{ |x| "#"}
+      @title = Proc.new{ |x| "#{x.created_at} 출석!"}
+    else
+      @article = Article.where(member_id: current_member.id).paginate(:page => params[:page], :per_page => perpage).order('id DESC')
+      @route = Proc.new{ |x| "/board/#{x.board.category.route}/#{x.board.route}/#{x.id}"}
+      @title = Proc.new{ |x| x.title}
+    end
   end
   def edit_profile_image
     params[:post_id] = 0
