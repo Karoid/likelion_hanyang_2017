@@ -27,7 +27,7 @@
 
 <body>
   <div id="index">
-  <button id="res_menu" onclick="alert('1')">a</button>
+  <button id="res_menu" onclick="menu_clicked()"></button>
     <div id="logo">
       <a href="/">
         <h2> HUHS </h2>
@@ -99,7 +99,6 @@
       position: fixed;
     }
     #res_menu {
-      border: none;
       display: block !important;
     }
     #logo {
@@ -144,7 +143,37 @@
       color: #ffffff;
     }
     #sidebar-menu {
+      width: 100vw;
+      height: 100vh;
       display: none;
+      background-color: #ffffff;
+      position: absolute;
+      top: 100px;
+      z-index: 9999;
+      transition: height 1s ease;
+    }
+    .menu_section {
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+    }
+    .menu_section a, a:hover {
+      margin: 0 !important;
+      color: #000000 !important;
+      font-size: 40px !important;
+    }
+    .current-page a {
+      color: rgb(90, 210, 210) !important;
+    }
+    .child_menu li {
+      padding: 0 !important;
+    }
+    .child_menu li a {
+      font-size: 20px !important;
+      text-align: center;
+    }
+    .icon {
+      display: none !important;
     }
 
     #board {
@@ -162,3 +191,23 @@
     }
   }
 </style>
+
+<script type="text/javascript">
+  var menu_active = false;
+
+  function menu_clicked()
+  {
+    var side_menu = document.getElementById('sidebar-menu');
+
+    if(!menu_active)
+    {
+      side_menu.style.display = 'block';
+    }
+    else
+    {
+      side_menu.style.display = 'none';
+    }
+
+    menu_active = !menu_active;
+  }
+</script>
