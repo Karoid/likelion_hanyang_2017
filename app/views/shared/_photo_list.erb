@@ -13,7 +13,7 @@
 						<%end%>
 					</div>
 					<div class="text">
-						<span><span><%=article.title%></span><%=article.created_at.strftime("%Y.%m.%d")%></span>
+						<span><span><%=truncate(article.title, :length => 20)%></span><%=article.created_at.strftime("%Y.%m.%d")%></span>
 					</div>
 				</div>
 			</a>
@@ -83,6 +83,9 @@
 		top: 0%;
 		left: 0%;
 		display: table;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		word-break: keep-all;
 	}
 	.text span {
 		width: 188px;
@@ -94,5 +97,14 @@
 
 	.text span span {
 		font-size: 25px;
+	}
+	@media only screen and (max-width: 768px) {
+		#wrapper a{
+			margin: 0 1vw 1vw 0;
+		}
+		#wrapper a .container1{
+			width:48vw;
+			height: 48vw;
+		}
 	}
 </style>

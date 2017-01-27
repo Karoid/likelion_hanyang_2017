@@ -94,7 +94,29 @@
 </html>
 
 <style type="text/css">
-  @media only screen and (max-width: 768px) {
+  @media only screen and (min-width: 781px) and (max-width: 1140px) {
+    #logo {
+      font-size: 13px;
+    }
+    #logo h2 {
+      font-size: 50px;
+    }
+    #profile_left {
+      width: 50px;
+      height: 50px;
+    }
+    #profile_right {
+      margin: 10px 0 0 10px;
+    }
+    #profile_right a {
+      font-size: 14px;
+    }
+    #profile_right div a {
+      font-size: 12px;
+    }
+  }
+
+  @media only screen and (max-width: 780px) {
     #index {
       width: 100%;
       height: 100px;
@@ -110,7 +132,6 @@
       margin: 100px auto 0;
     }
     #res_menu {
-      border: none;
       display: block !important;
     }
     #logo {
@@ -157,6 +178,19 @@
     }
     #sidebar-menu {
       display: none;
+      transition: height 1s ease;
+    }
+    .current-page a {
+      color: rgb(90, 210, 210) !important;
+    }
+    .child_menu li {
+      padding: 0 !important;
+    }
+    .child_menu li a {
+      text-align: center;
+    }
+    .icon {
+      display: none !important;
     }
     #sidebar-menu.on{
       display: block;

@@ -5,7 +5,7 @@
 <a href="/board/<%=@category.route%>/<%=@board.route%>/create" style="width: 100px; padding: 7px; margin: 0px auto; display: block; text-align: center; font-size: 18px; border: 1px solid #dddddd;">새글 쓰기</a>
 </div>
 <%end%>
-<table class="table table-hover article_list" style="max-width: 950px; margin: 90px auto;">
+<table class="table table-hover article_list" style="max-width: 950px; margin: 90px auto 0;">
   <thead>
     <tr style="font-size: 20px;">
       <td class="th" style="text-align: left;">#</td>
@@ -141,10 +141,10 @@ false;
 /* 모바일 무한 스크롤 */
 var page = parseInt($("nav div em").html())
 $("#board").scroll(function() {
-  console.log($("#board").scrollTop(), $("#article").height()- $("#board").height()+109);
-    if ($("#board").scrollTop() >= $("#article").height() - $("#board").height() +109) {
+  console.log($("#board").scrollTop(),Math.round($("#board").scrollTop()), $("#article").height()- $(window).height()+100);
+    if (Math.round($("#board").scrollTop()) >= $("#article").height() - $(window).height()+99) {
       console.log(++page);
-loading = $('<div id="loading" style="display: none;"><span><img src="http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif" alt="cargando..."/></span></div>');
+loading = $('<div id="loading" class="load" style="display: none;"><span><img src="http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif" alt="cargando..."/></span></div>');
 $('table.article_list').after(loading);
 loading.fadeIn();
 $.ajax({
@@ -167,6 +167,7 @@ $.ajax({
         '</tr>'
       });
       $('table.article_list tbody').append(html);
+      $('.load').remove()
       return loading.remove();
     });
   })

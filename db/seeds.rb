@@ -119,8 +119,9 @@ Major.create(department: "산업융합학부", name:"응용시스템전공");
 Major.create(department: "산업융합학부", name:"정보융합전공");
 #Member
 Member.create(username: "관리자", email: 'huhs@huhs.net', password: 'kk1111',tel:'01000000000', admin: true, role:2)
-Member.create(username: "정승호", email: 'shj5508@naver.com',senior_number:34, password: 'kk1111',tel:'01000000000', admin: false, role:2)
+#Member.create(username: "정승호", email: 'shj5508@naver.com',senior_number:34, password: 'kk1111',tel:'01000000000', admin: false, role:2)
   #Test Data
+=begin
   Member.create(username: "송성국", email: '133@huhs.net',senior_number:33, password: 'kk1111',tel:'01000000000', admin: false, role:0);
   Member.create(username: "송정안", email: '132@huhs.net',senior_number:32, password: 'kk1111',tel:'01000000000', admin: false, role:0);
   Member.create(username: "송태용", email: '131@huhs.net',senior_number:31, password: 'kk1111',tel:'01000000000', admin: false, role:0);
@@ -141,6 +142,7 @@ Member.create(username: "정승호", email: 'shj5508@naver.com',senior_number:34
   Member.create(username: "장용석", email: '26@huhs.net',senior_number:31, password: 'kk1111',tel:'01000000000', admin: false, role:3);
   Member.create(username: "유상오", email: '25@huhs.net',senior_number:30, password: 'kk1111',tel:'01000000000', admin: false, role:3);
   Member.create(username: "신성호", email: '24@huhs.net',senior_number:29, password: 'kk1111',tel:'01000000000', admin: false, role:3);
+=end
 #Category
 Category.create(route: 'introduce', name: '휴즈 소개')
 Category.create(route: 'huhslife', name: '게시판')
@@ -155,7 +157,7 @@ Category.where(route: 'huhslife').take.boards.create(route: 'notice', name: '공
 Category.where(route: 'huhslife').take.boards.create(route: 'free', name: '자유 게시판', show_last: false, read_level:1, write_level:1)
 Category.where(route: 'huhslife').take.boards.create(route: 'member', name: '회원 게시판', show_last: false, read_level:1, write_level:1)
 Category.where(route: 'huhslife').take.boards.create(route: 'graduate', name: 'HAS 게시판', show_last: false, read_level:3, write_level:3)
-Category.where(route: 'huhslife').take.boards.create(route: 'sameage', name: '기수별 게시판', show_last: false, read_level:1, write_level:1)
+Category.where(route: 'huhslife').take.boards.create(route: 'problems', name: '디버깅 게시판', show_last: false, read_level:1, write_level:1)
 Category.where(route: 'photo').take.boards.create(route: 'gallery', name: '사진첩', show_last: false, template: "board/showPhoto", read_level:1, write_level:2)
 #Article
 Board.where(route: 'history').take.articles.create(

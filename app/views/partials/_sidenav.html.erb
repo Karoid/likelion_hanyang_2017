@@ -13,7 +13,7 @@
       <!-- menu profile quick info -->
       <div class="profile">
         <div class="profile_pic">
-          <%= image_tag "/assets/images/img.jpg", :class => "img-circle profile_img"  %>
+          <%= image_tag current_member.image_url, :class => "img-circle profile_img"  %>
         </div>
         <div class="profile_info">
           <span>Welcome,</span>
@@ -36,11 +36,11 @@
           <ul class="nav side-menu">
             <li><a><i class="fa fa-home"></i> 통계(미완성) <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu" style="display: none">
-                <li><a href="/assets/index.html">Dashboard</a>
+                <li><a href="#">Dashboard</a>
                 </li>
-                <li><a href="/assets/index2.html">Dashboard2</a>
+                <li><a href="#">Dashboard2</a>
                 </li>
-                <li><a href="/assets/index3.html">Dashboard3</a>
+                <li><a href="#">Dashboard3</a>
                 </li>
               </ul>
             </li>
@@ -53,7 +53,7 @@
                 <li><a href="/admin/article">게시글 관리</a>
                 </li>
                 <li><a href="/admin/member">회원관리</a>
-                </li>
+                </li><!--
                 <li><a href="/assets/form.html">General Form</a>
                 </li>
                 <li><a href="/assets/form_advanced.html">Advanced Components</a>
@@ -65,9 +65,10 @@
                 <li><a href="/assets/form_upload.html">Form Upload</a>
                 </li>
                 <li><a href="/assets/form_buttons.html">Form Buttons</a>
-                </li>
+                </li>-->
               </ul>
             </li>
+            <!--
             <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu" style="display: none">
                 <li><a href="/assets/general_elements.html">General Elements</a>
@@ -112,8 +113,10 @@
                 </li>
               </ul>
             </li>
+          -->
           </ul>
         </div>
+        <!--
         <div class="menu_section">
           <h3>Live On</h3>
           <ul class="nav side-menu">
@@ -166,7 +169,7 @@
             </li>
           </ul>
         </div>
-
+      -->
       </div>
       <!-- /sidebar menu -->
 

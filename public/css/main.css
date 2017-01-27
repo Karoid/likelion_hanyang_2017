@@ -30,6 +30,7 @@ a, a:visited, a:focus, a:active, :visited, :focus, :active, .btn:focus, .btn:act
   height: 40px;
   margin: 28px 0 0 15px;
   padding: 0;
+  border: none;
   background-color: #ffffff;
   float: left;
   display: none;
@@ -157,7 +158,7 @@ a, a:visited, a:focus, a:active, :visited, :focus, :active, .btn:focus, .btn:act
   margin-bottom: 6px;
 }
 .nav.side-menu> li > a:hover {
-  color: #F2F5F7 !important;
+  color: #F2F5F7;
 }
 .nav.side-menu>li>a:hover, .nav>li>a:focus {
   text-decoration: none;
