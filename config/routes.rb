@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'create' => 'home#create_post'
   post 'create' => 'home#create_post'
   get 'profile' => 'home#your_profile'
+  post 'profile_statistic' => 'home#profile_statistic'
   post 'edit_profile_image' => 'home#edit_profile_image'
   get 'image_crop/:url' => 'home#image_crop'
   #file management

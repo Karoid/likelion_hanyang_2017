@@ -1,558 +1,672 @@
-<aside class="profile-card">
-  <header>
-    <!-- here’s the avatar -->
-    <a target="_blank" href="/image_crop/new">
-      <img src="<%=current_member.image_url%>" class="hoverZoomLink">
-    </a>
+<link rel="stylesheet" href="/css/board.css">
+		<div id="page">
+			<div id="main_title">
+				<strong>User Report</strong>
+			</div>
+			<hr>
+			<div id="wrapper">
+				<div id="profile_left">
+					<div id="photo">
+						<img src="<%=current_member.image_url%>" id="image" alt="">
+					</div>
+					<div id="explain">
+						<div id="name"><%=current_member.username%></div>
+						<hr>
+						<div id="detail_wrapper">
+							<div class="detail">학과: <%=current_member.major.name%></div>
+							<div class="detail">학번: <%=(1980 + current_member.senior_number)%100%></div>
+							<div class="detail">기수: <%=current_member.senior_number%></div>
+							<div class="detail">스터디: X</div>
+							<div class="detail">특이사항: X</div>
+							<div class="detail">연락처: <%=current_member.tel%></div>
+							<center>
+								<a href="/members/edit"><input type="button" id="edit" value="프로필 수정"></a>
+							</center>
+						</div>
+					</div>
+				</div>
+				<div id="profile_right_part">
+					<div id="container">
+						<div id="container_title">
+							<h3>활동 내역</h3>
+							<div id="reportrange" class="pull-right" style="margin-top: 5px; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #E6E9ED">
+								<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+								<span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
+							</div>
+						</div>
+						<div id="graph">
+						</div>
+					</div>
+					<div id="profile_board">
+						<div id="tap">
+							<a href="/profile?usage=article" class="tap_button vertical_line button_clicked" >게시글</a>
+							<a href="/profile?usage=comment" class="tap_button vertical_line">댓글</a>
+							<a href="/profile?usage=attendence" class="tap_button vertical_line">출석</a>
+						</div>
+						<table id="article_list">
+							<%@article.each do |x|%>
+			        <tr>
+			          <td class="table_1"><%=x.id%></th>
+			          <td class="table_2"><a href='<%=@route.call(x)%>'><%=@title.call(x)%></a></td>
+			          <td class="table_4"><span class='hidden-xs'><%=x.created_at.strftime("%Y.")%></span><%=x.created_at.strftime("%m.%d")%></td>
+			        </tr>
+			        <%end%>
+						</table>
+						<nav style="text-align: center;">
+							<%= will_paginate @article, :usage => params[:usage], previous_label: "◀", next_label: "▶" %>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    <!-- the username -->
-    <h1>
-      <%=current_member.username%>
-    </h1>
+<style type="text/css">
+	*, *:before,*:after{
+		box-sizing: content-box;
+		-webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+	}
+	#html {
+		width: 1267px;
+		max-width: 1267px;
+		background-color: #eeeeee;
+		display: inline-block;
+	}
 
-    <!-- and role or location -->
-    <h2>
-      <%@role = ["외부인: 가입 미승인 상태","준회원: 휴즈 신입회원, 및 정회원 승격 이전","정회원: 휴즈의 자랑스러운 회원","졸업생:이미 학교를 졸업한 HAS 소속 회원"]%>
-      <%=@role[current_member.role]%>
-      <%=if current_member.staff then"<br>임원진".html_safe end%>
-      <%=if current_member.admin then "<br>사이트 관리자".html_safe end%>
-    </h2>
-    <a href="/members/edit">정보 수정하기</a>
-  </header>
+	#page {
+		background-color: #ffffff
+	}
 
-  <!-- bit of a bio; who are you? -->
-  <div class="profile-bio">
-    <div class="row">
-      <div class="col-md-4">
-        <h3>댓글</h3>
-        <table class="table table-hover article_list">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>내용</th>
-            <th>날짜</th>
-          </tr>
-        </thead>
-        <tbody>
-        <%@comment.each do |x|%>
-        <tr>
-          <th scope="row"><%=@comment.index(x)+1%></th>
-          <td><a href="#"><%=x.body%></a></td>
-          <td><span class='hidden-xs'><%=x.created_at.strftime("%Y.")%></span><%=x.created_at.strftime("%m.%d")%></td>
-        </tr>
-        <%end%>
-        </tbody>
-      </table>
-      </div>
-      <div class="col-md-4">
-        <h3>게시글</h3>
-        <table class="table table-hover article_list">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>내용</th>
-            <th>날짜</th>
-          </tr>
-        </thead>
-        <tbody>
-        <%@article.each do |x|%>
-        <tr>
-          <th scope="row"><%=@article.index(x)+1%></th>
-          <td><a href="/board/<%=x.board.category.route%>/<%=x.board.route%>/<%=x.id%>"><%=x.title%></a></td>
-          <td><span class='hidden-xs'><%=x.created_at.strftime("%Y.")%></span><%=x.created_at.strftime("%m.%d")%></td>
-        </tr>
-        <%end%>
-        </tbody>
-      </table>
-      </div>
-      <div class="col-md-4">
-        dd
-      </div>
-    </div>
+	#page #main_title {
+		width: 1220px;
+		margin: 20px 0 0 30px;
+	}
+	#page #main_title strong {
+		margin-left: 7px;
+		color: #000000;
+		font-size: 20px;
+		display: inline-block;
+	}
 
-  </div>
-</aside>
-<style>
-  html {
-  height: 100%;
-  }
+	#page hr {
+		width: 170px;
+		height: 2px;
+		margin: 0px;
+		background-color: rgb(90, 210, 210);
+		border: none;
+	}
 
-  body {
-  overflow: hidden;
-  background: #bcdee7 url("../img/bg.jpg") no-repeat center center fixed;
-  background-size: cover;
-  position: fixed;
-  padding: 0px;
-  margin: 0px;
-  width: 100%;
-  height: 100%;
-  font: normal 14px/1.618em "Roboto", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  }
+	#page #wrapper {
+		margin: 40px 0 0;
+		width:100%;
+		height:auto;
+	}
 
-  body:before {
-  content: "";
-  height: 0px;
-  padding: 0px;
-  border: 130em solid #313440;
-  position: absolute;
-  left: 50%;
-  top: 100%;
-  z-index: 2;
-  display: block;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  -webkit-animation: puff 0.5s 1.8s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards, borderRadius 0.2s 2.3s linear forwards;
-  animation: puff 0.5s 1.8s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards, borderRadius 0.2s 2.3s linear forwards;
-  }
+	#page #profile_left {
+		width: 20vw;
+		height: 640px;
+		float: left;
+		margin: 0 2.5vw;
+	}
+	#page #profile_left #photo {
+		padding: 10px;
+		border: 2px solid #dddddd;
+		border-radius: 5px;
+		margin:0 auto;
+	}
+	#page #profile_left #photo #image {
+		border: 2px solid #ffffff;
+		border-radius: 5px;
+	}
 
-  h1,
-  h2 {
-  font-weight: 500;
-  margin: 0px 0px 5px 0px;
-  }
+	#page #profile_left #explain {
+		width: 100%;
+		margin-top: 10px;
+		color: #000000;
+	}
+	#page #profile_left #explain #name {
+		margin-top: 40px;
+		text-align: center;
+		font-size: 27px;
+	}
+	#page #profile_left #explain hr {
+		width: 180px;
+		margin: -2px auto 40px;
+	}
+	#page #profile_left #explain #detail_wrapper {
+		width: 200px;
+		margin: 0px auto;
+	}
+	#page #profile_left #explain .detail {
+		margin-bottom: 5px;
+		display: block;
+		font-size: 15px;
+	}
+	#page #profile_left #explain #edit {
+		margin-top: 8px;
+		width: 100px;
+		padding: 2px;
+		border: 1px solid #dddddd;
+		background-color: #ffffff;
+		font-size: 14px;
+	}
+	#page #profile_left #explain #edit:hover {
+		cursor: pointer;
+	}
+	#page #profile_left #explain #edit span {
+		margin-top: 2px;
+		display: inline-block;
+	}
 
-  h1 {
-  font-size: 24px;
-  }
+	#page #profile_right_part {
+		float: left;
+		width: 54vw;
+	}
+	#container {
+		height: 380px;
+		margin: 30px 45px 50px;
+	}
+	#container #container_title {
+		background-color: rgb(220, 248, 248);
+		margin-bottom: 16px;
+	}
+	#container #container_title h3 {
+		font-size: 38px;
+		margin:0;
+		display: inline-block;
+		padding: 5px;
+	}
+	#container #container_title select {
+		width: 270px;
+		height: 24px;
+		margin-right: 10px;
+		float: right;
+		display: inline-block;
+	}
 
-  h2 {
-  font-size: 16px;
-  }
+	#container #graph {
+		height: 280px;
+		margin-bottom: 40px;
+		padding: 25px 20px 15px;
+		background-color: #ffffff;
+	}
+	#container #graph #graph_left {
+		width: 40px;
+		height: 240px;
+		float: left;
+		position: relative;
+	}
+	#container #graph #graph_left .number {
+		width: 22px;
+		margin-right: 7px;
+		text-align: right;
+		font-size: 12px;
+		position: absolute;
+	}
+	#container #graph #graph_right {
+		width: 710px;
+		height: 240px;
+	  position: relative;
+		float: left;
+	}
+	#container #graph #graph_right .stick {
+		width: 33px;
+		background-color: green;
+		position: absolute;
+		bottom: 0%;
+	}
+	#container #graph #graph_right .line {
+		width: 100%;
+		height: 1px;
+		background-color: #cccccc;
+		position: absolute;
+	}
+	#container #graph #graph_footer {
+		width: 750px;
+		height: 40px;
+		clear: both;
+		float: right;
+		position: relative;
+	}
+	#container #graph #graph_footer .month {
+		width: 33px;
+		text-align: center;
+		position: absolute;
+		top: 12px;
+	}
 
-  p {
-  margin: 0px;
-  }
+	#page #profile_board {
+		margin-top: 15px;
+		padding: 20px 45px;
+	}
+	#page #profile_board #tap {
+		margin-bottom: 13px;
+	}
+	#profile_board #tap .tap_button {
+		padding: 2px 17px;
+		font-size: 15px;
+		display: inline-block;
+		text-align: center;
+		cursor: pointer;
+	}
+	#profile_board #tap .button_clicked {
+		color: rgb(90, 210, 210);
+	}
+	#profile_board table {
+		width: 100%;
+		margin-top: 25px;
+	}
+	#profile_board table tr td {
+		padding: 2px 0;
+		border-bottom: 1px solid #dddddd;
+	}
+	#profile_board nav {
+		margin-top: 20px;
+	}
 
-  .profile-card {
-  background: #FFB300;
-  width: 80vw;
-  height: 70vh;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 2;
-  overflow: scroll;
-  opacity: 0;
-  margin-top: 70px;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  -webkit-box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);
-  -webkit-animation: init 0.5s 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards, moveDown 1s 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards, moveUp 1s 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, materia 0.5s 2.7s cubic-bezier(0.86, 0, 0.07, 1) forwards;
-  animation: init 0.5s 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards, moveDown 1s 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards, moveUp 1s 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, materia 0.5s 2.7s cubic-bezier(0.86, 0, 0.07, 1) forwards;
-  }
-  .profile-card::-webkit-scrollbar {
-    display: none;
-  }
-  .profile-card header {
-  width: 179px;
-  height: 280px;
-  padding: 40px 20px 30px 20px;
-  display: inline-block;
-  float: left;
-  border-right: 2px dashed #EEEEEE;
-  background: #FFFFFF;
-  color: #000000;
-  margin-top: 50px;
-  opacity: 0;
-  text-align: center;
-  -webkit-animation: moveIn 1s 3.1s ease forwards;
-  animation: moveIn 1s 3.1s ease forwards;
-  }
+	.vertical_line {
+		border-left: 1px solid #000000;
+	}
 
-  .profile-card header h1 {
-  color: #FF5722;
-  }
+	.rotate {
+		/* Safari */
+		-webkit-transform: rotate(-45deg);
+		/* Firefox */
+		-moz-transform: rotate(-45deg);
+		/* IE */
+		-ms-transform: rotate(-45deg);
+		/* Opera */
+		-o-transform: rotate(-45deg);
+		/* Internet Explorer */
+		filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+	}
+	.hidden-xs{display: inline-block!important;}
+	.morris-hover.morris-default-style {
+    padding: 6px;
+    color: #666;
+    background: rgba(243, 242, 243, 0.8);
+    border: solid 2px rgba(195, 194, 196, 0.8);
+    font-family: sans-serif;
+    font-size: 12px;
+    text-align: center;
+		position: absolute;
+	}
 
-  .profile-card header a {
-  display: inline-block;
-  text-align: center;
-  position: relative;
-  margin: 25px 30px;
-  }
+	/* *********  calender dropdown  **************************** */
 
-  .profile-card header a > img {
-  width: 120px;
-  max-width: 100%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  -webkit-transition: -webkit-box-shadow 0.3s ease;
-  transition: box-shadow 0.3s ease;
-  -webkit-box-shadow: 0px 0px 0px 8px rgba(0, 0, 0, 0.06);
-  box-shadow: 0px 0px 0px 8px rgba(0, 0, 0, 0.06);
-  }
+	.daterangepicker.dropdown-menu {
+	  font-size: 13px;
+	  padding: 0;
+	  overflow: hidden;
+	}
+	.daterangepicker.picker_1 {
+	  background: #34495E;
+	  color: #ECF0F1;
+	}
+	.daterangepicker.picker_1 table.table-condensed thead tr:first-child {
+	  background: #1ABB9C;
+	}
+	.daterangepicker table.table-condensed thead tr:first-child th {
+	  line-height: 28px;
+	  text-align: center;
+	}
+	.daterangepicker.picker_1 table.table-condensed thead tr {
+	  background: #213345;
+	}
+	.daterangepicker table.table-condensed thead tr {
+	  line-height: 14px;
+	}
+	.daterangepicker table.table-condensed tbody tr:first-child td {
+	  padding-top: 10px;
+	}
+	.daterangepicker table.table-condensed th:first-child, .daterangepicker table.table-condensed td:first-child {
+	  padding-left: 12px
+	}
+	.daterangepicker table.table-condensed th:last-child, .daterangepicker table.table-condensed td:last-child {
+	  padding-right: 12px
+	}
+	.table-condensed>thead>tr>th, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>tbody>tr>td, .table-condensed>tfoot>tr>td {
+	  padding: 5px 7px;
+	  text-align: center;
+	}
+	.daterangepicker table.table-condensed tbody tr:last-child td {
+	  padding-bottom: 10px;
+	}
+	.daterangepicker.picker_2 table.table-condensed thead tr:first-child {
+	  color: inherit;
+	}
+	.daterangepicker.picker_2 table.table-condensed thead tr {
+	  color: #1ABB9C;
+	}
+	.daterangepicker.picker_3 table.table-condensed thead tr:first-child {
+	  background: #1ABB9C;
+	  color: #ECF0F1;
+	}
+	.daterangepicker.picker_4 table.table-condensed tbody td {
+	  background: #ECF0F1;
+	  color: #34495E;
+	  border: 1px solid #fff;
+	  padding: 4px 7px;
+	}
+	.daterangepicker.picker_4 table.table-condensed tbody td.active {
+	  background: #536A7F;
+	  color: #fff;
+	}
+	.daterangepicker.picker_4 table.table-condensed thead tr:first-child {
+	  background: #34495E;
+	  color: #ECF0F1;
+	}
+	.xdisplay_input {
+	  width: 240px;
+	  overflow: hidden;
+	  padding: 0;
+	}
+	.xdisplay {
+	  background-color: #fff;
+	  -webkit-background-clip: padding-box;
+	  background-clip: padding-box;
+	  border: 1px solid #ccc;
+	  margin-bottom: 20px;
+	  border: 1px solid rgba(0, 0, 0, .15);
+	  border-radius: 4px;
+	  width: 230px;
+	  overflow: hidden;
+	  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+	  box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+	}
+	.daterangepicker.opensright .ranges, .daterangepicker.opensright .calendar, .daterangepicker.openscenter .ranges, .daterangepicker.openscenter .calendar {
+	  float: right;
+	}
+	.daterangepicker.dropdown-menu .calendar {}
+	.daterangepicker table {
+	  width: 100%;
+	  margin: 0;
+	}
+	.daterangepicker td, .daterangepicker th {
+	  text-align: center;
+	  width: 20px;
+	  height: 20px;
+	  cursor: pointer;
+	  white-space: nowrap;
+	}
+	.daterangepicker td.off {
+	  color: #999;
+	}
+	.daterangepicker td.disabled {
+	  color: #999;
+	}
+	.daterangepicker td.available:hover, .daterangepicker th.available:hover {
+	  background: #eee;
+	  color: #34495E;
+	}
+	.daterangepicker td.in-range {
+	  background: #E4E7EA;
+	  -webkit-border-radius: 0;
+	  -moz-border-radius: 0;
+	  border-radius: 0;
+	}
+	.daterangepicker td.available + td.start-date {
+	  -webkit-border-radius: 4px 0 0 4px;
+	  -moz-border-radius: 4px 0 0 4px;
+	  border-radius: 4px 0 0 4px;
+	}
+	.daterangepicker td.in-range + td.end-date {
+	  -webkit-border-radius: 0 4px 4px 0;
+	  -moz-border-radius: 0 4px 4px 0;
+	  border-radius: 0 4px 4px 0;
+	}
+	.daterangepicker td.start-date.end-date {
+	  -webkit-border-radius: 4px !important;
+	  -moz-border-radius: 4px !important;
+	  border-radius: 4px !important;
+	}
+	.daterangepicker td.active, .daterangepicker td.active:hover {
+	  background-color: #536A7F;
+	  color: #fff;
+	}
+	.daterangepicker td.week, .daterangepicker th.week {
+	  font-size: 80%;
+	  color: #ccc;
+	}
+	.daterangepicker select.monthselect, .daterangepicker select.yearselect {
+	  font-size: 12px;
+	  padding: 1px;
+	  height: auto;
+	  margin: 0;
+	  cursor: default;
+	  height: 30px;
+	  border: 1px solid #ADB2B5;
+	  line-height: 30px;
+	  border-radius: 0px !important;
+	}
+	.daterangepicker select.monthselect {
+	  margin-right: 2%;
+	  width: 56%;
+	}
+	.daterangepicker select.yearselect {
+	  width: 40%;
+	}
+	.daterangepicker select.hourselect, .daterangepicker select.minuteselect, .daterangepicker select.ampmselect {
+	  width: 50px;
+	  margin-bottom: 0;
+	}
+	.daterangepicker_start_input {
+	  float: left;
+	}
+	.daterangepicker_end_input {
+	  float: left;
+	  padding-left: 11px;
+	}
+	.daterangepicker th.month {
+	  width: auto;
+	}
+	.daterangepicker .daterangepicker_start_input label, .daterangepicker .daterangepicker_end_input label {
+	  color: #333;
+	  display: block;
+	  font-size: 11px;
+	  font-weight: normal;
+	  height: 20px;
+	  line-height: 20px;
+	  margin-bottom: 2px;
+	  text-shadow: #fff 1px 1px 0px;
+	  text-transform: uppercase;
+	  width: 74px;
+	}
+	.daterangepicker .ranges input {
+	  font-size: 11px;
+	}
+	.daterangepicker .ranges .input-mini {
+	  background-color: #eee;
+	  border: 1px solid #ccc;
+	  border-radius: 4px;
+	  color: #555;
+	  display: block;
+	  font-size: 11px;
+	  height: 30px;
+	  line-height: 30px;
+	  vertical-align: middle;
+	  margin: 0 0 10px 0;
+	  padding: 0 6px;
+	  width: 74px;
+	}
+	.daterangepicker .ranges .input-mini:hover {
+	  cursor: pointer;
+	}
+	.daterangepicker .ranges ul {
+	  list-style: none;
+	  margin: 0;
+	  padding: 0;
+	}
+	.daterangepicker .ranges li {
+	  font-size: 13px;
+	  background: #f5f5f5;
+	  border: 1px solid #f5f5f5;
+	  color: #536A7F;
+	  padding: 3px 12px;
+	  margin-bottom: 8px;
+	  -webkit-border-radius: 5px;
+	  -moz-border-radius: 5px;
+	  border-radius: 5px;
+	  cursor: pointer;
+	}
+	.daterangepicker .ranges li.active, .daterangepicker .ranges li:hover {
+	  background: #536A7F;
+	  border: 1px solid #536A7F;
+	  color: #fff;
+	}
+	.daterangepicker .calendar {
+	  display: none;
+	  max-width: 270px;
+	}
+	.daterangepicker.show-calendar .calendar {
+	  display: block;
+	}
+	.daterangepicker .calendar.single .calendar-date {
+	  border: none;
+	}
+	.daterangepicker.single .ranges, .daterangepicker.single .calendar {
+	  float: none;
+	}
+	.daterangepicker .ranges {
+	  width: 160px;
+	  text-align: left;
+	  margin: 4px;
+	}
+	.daterangepicker .ranges .range_inputs>div {
+	  float: left;
+	}
+	.daterangepicker .ranges .range_inputs>div:nth-child(2) {
+	  padding-left: 11px;
+	}
+	.daterangepicker.opensleft .ranges, .daterangepicker.opensleft .calendar {
+	  float: left;
+	  margin: 4px;
+	}
 
-  .profile-card header a:hover > img {
-  -webkit-box-shadow: 0px 0px 0px 12px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 0px 0px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  .profile-card .profile-bio {
-  width: 175px;
-  height: 180px;
-  display: inline-block;
-  float: right;
-  padding: 50px 20px 30px 20px;
-  background: #FFFFFF;
-  color: #333333;
-  margin-top: 50px;
-  text-align: center;
-  opacity: 0;
-  -webkit-animation: moveIn 1s 3.1s ease forwards;
-  animation: moveIn 1s 3.1s ease forwards;
-  }
-
-  .profile-social-links {
-  width: 218px;
-  display: inline-block;
-  float: right;
-  margin: 0px;
-  padding: 15px 20px;
-  background: #FFFFFF;
-  margin-top: 50px;
-  text-align: center;
-  opacity: 0;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-animation: moveIn 1s 3.1s ease forwards;
-  animation: moveIn 1s 3.1s ease forwards;
-  }
-
-  .profile-social-links li {
-  list-style: none;
-  margin: -5px 0px 0px 0px;
-  padding: 0px;
-  float: left;
-  width: 25%;
-  text-align: center;
-  }
-
-  .profile-social-links li a {
-  display: inline-block;
-  color: red;
-  width: 24px;
-  height: 24px;
-  padding: 6px;
-  position: relative;
-  overflow: hidden!important;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  }
-
-  .profile-social-links li a i {
-  position: relative;
-  z-index: 1;
-  }
-
-  .profile-social-links li a img,
-  .profile-social-links li a svg {
-  width: 24px;
-  }
-
-  @-webkit-keyframes init {
-  0% {
-    width: 0px;
-    height: 0px;
-  }
-  100% {
-    width: 56px;
-    height: 56px;
-    margin-top: 0px;
-    opacity: 1;
-  }
-  }
-
-  @keyframes init {
-  0% {
-    width: 0px;
-    height: 0px;
-  }
-  100% {
-    width: 56px;
-    height: 56px;
-    margin-top: 0px;
-    opacity: 1;
-  }
-  }
-
-  @-webkit-keyframes puff {
-  0% {
-    top: 100%;
-    height: 0px;
-    padding: 0px;
-  }
-  100% {
-    top: 50%;
-    height: 100%;
-    padding: 0px 100%;
-  }
-  }
-
-  @keyframes puff {
-  0% {
-    top: 100%;
-    height: 0px;
-    padding: 0px;
-  }
-  100% {
-    top: 50%;
-    height: 100%;
-    padding: 0px 100%;
-  }
-  }
-
-  @-webkit-keyframes borderRadius {
-  0% {
-    -webkit-border-radius: 50%;
-  }
-  100% {
-    -webkit-border-radius: 0px;
-  }
-  }
-
-  @keyframes borderRadius {
-  0% {
-    -webkit-border-radius: 50%;
-  }
-  100% {
-    border-radius: 0px;
-  }
-  }
-
-  @-webkit-keyframes moveDown {
-  0% {
-    top: 50%;
-  }
-  50% {
-    top: 40%;
-  }
-  100% {
-    top: 100%;
-  }
-  }
-
-  @keyframes moveDown {
-  0% {
-    top: 50%;
-  }
-  50% {
-    top: 40%;
-  }
-  100% {
-    top: 100%;
-  }
-  }
-
-  @-webkit-keyframes moveUp {
-  0% {
-    background: #FFB300;
-    top: 100%;
-  }
-  50% {
-    top: 40%;
-  }
-  100% {
-    top: 50%;
-    background: #E0E0E0;
-  }
-  }
-
-  @keyframes moveUp {
-  0% {
-    background: #FFB300;
-    top: 100%;
-  }
-  50% {
-    top: 40%;
-  }
-  100% {
-    top: 50%;
-    background: #E0E0E0;
-  }
-  }
-
-  @-webkit-keyframes materia {
-  0% {
-    background: #E0E0E0;
-  }
-  50% {
-    -webkit-border-radius: 4px;
-  }
-  100% {
-    width: 440px;
-    height: 280px;
-    background: #FFFFFF;
-    -webkit-border-radius: 4px;
-  }
-  }
-
-  @keyframes materia {
-  0% {
-    background: #E0E0E0;
-  }
-  50% {
-    border-radius: 4px;
-  }
-  100% {
-    width: 440px;
-    height: 280px;
-    background: #FFFFFF;
-    border-radius: 4px;
-  }
-  }
-
-  @-webkit-keyframes moveIn {
-  0% {
-    margin-top: 50px;
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-    margin-top: -20px;
-  }
-  }
-
-  @keyframes moveIn {
-  0% {
-    margin-top: 50px;
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-    margin-top: -20px;
-  }
-  }
-
-  @-webkit-keyframes scaleIn {
-  0% {
-    -webkit-transform: scale(0);
-  }
-  100% {
-    -webkit-transform: scale(1);
-  }
-  }
-
-  @keyframes scaleIn {
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-  }
-  }
-
-  @-webkit-keyframes ripple {
-  0% {
-    transform: scale3d(0, 0, 0);
-  }
-  50%,
-  100% {
-    -webkit-transform: scale3d(1, 1, 1);
-  }
-  100% {
-    opacity: 0;
-  }
-  }
-
-  @keyframes ripple {
-  0% {
-    transform: scale3d(0, 0, 0);
-  }
-  50%,
-  100% {
-    transform: scale3d(1, 1, 1);
-  }
-  100% {
-    opacity: 0;
-  }
-  }
-
-  @media screen and (min-aspect-ratio: 4/3) {
-  body {
-    background-size: cover;
-  }
-  body:before {
-    width: 0px;
-  }
-  @ -webkit-keyframes puff {
-    0% {
-      top: 100%;
-      width: 0px;
-      padding-bottom: 0px;
-    }
-    100% {
-      top: 50%;
-      width: 100%;
-      padding-bottom: 100%;
-    }
-  }
-  @keyframes puff {
-    0% {
-      top: 100%;
-      width: 0px;
-      padding-bottom: 0px;
-    }
-    100% {
-      top: 50%;
-      width: 100%;
-      padding-bottom: 100%;
-    }
-  }
-  }
-
-  @media screen and (min-height: 480px) {
-  .profile-card header {
-    width: auto;
-    height: auto;
-    padding: 30px 20px;
-    display: block;
-    float: none;
-    border-right: none;
-  }
-  .profile-card .profile-bio {
-    width: auto;
-    height: auto;
-    padding: 15px 20px 30px 20px;
-    display: block;
-    float: none;
-  }
-  .profile-social-links {
-    width: 100%;
-    display: block;
-    float: none;
-  }
-  @ -webkit-keyframes materia {
-    0% {
-      background: #E0E0E0;
-    }
-    50% {
-      -webkit-border-radius: 4px;
-    }
-    100% {
-      width: 80vw;
-      height: 70vh;
-      background: #FFFFFF;
-      -webkit-border-radius: 4px;
-    }
-  }
-  @keyframes materia {
-    0% {
-      background: #E0E0E0;
-    }
-    50% {
-      border-radius: 4px;
-    }
-    100% {
-      width: 80vw;
-      height: 70vh;
-      background: #FFFFFF;
-      border-radius: 4px;
-    }
-  }
-  }
+	/* *********  /calender dropdown  **************************** */
 </style>
+<script src="js/moris/morris.min.js" charset="utf-8"></script>
+<script src="js/moris/raphael-min.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/moment/moment.min.js"></script>
+<script src="js/datepicker/daterangepicker.js" charset="utf-8"></script>
+<script type="text/javascript">
+
+	$.urlParam = function(name, url){
+		var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(url);
+		try {
+			return results[1];
+		} catch (err) {
+			return 'article';
+		}
+	}
+	$(document).ready(function() {
+		var i = 0
+		$(".tap_button").each(function(index, el) {
+			if($.urlParam('usage',window.location.href) == $.urlParam('usage',this.href)){
+				$(this).addClass('button_clicked')
+			}else{
+				$(this).removeClass('button_clicked')
+			}
+		})
+	});
+</script>
+<!-- Datepicker -->
+<script type="text/javascript">
+    $(document).ready(function() {
+      var cb = function(start, end, label) {
+        //console.log(start.toISOString(), end.toISOString(), label);
+				$.ajax({
+					url: '/profile_statistic',
+					type: 'post',
+					dataType: 'json',
+					data: {startDate: start.toISOString(), endDate: end.toISOString()},
+					success: function(data){
+						console.log(data)
+						if(data != {}){
+							var arr = new Array()
+							$.each(data,function(key, value) {
+								arr.push({ "period" : key, "activity": value.length})
+							});
+							console.log(arr);
+							$('#graph').empty()
+							Morris.Bar({
+								element: 'graph',
+								data: arr,
+								xkey: 'period',
+								hideHover: 'auto',
+								barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+								ykeys: ['activity', 'sorned'],
+								labels: ['activity', ''],
+								xLabelAngle: 60,
+								resize: true
+							});
+						}
+					},
+					error: function(err){
+						console.error(error);
+					}
+				})
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        //alert("Callback has fired: [" + start.format('MMMM D, YYYY') + " to " + end.format('MMMM D, YYYY') + ", label = " + label + "]");
+      }
+
+      var optionSet1 = {
+        startDate: moment().subtract(6, 'month').startOf('month'),
+        endDate: moment(),
+        dateLimit: {
+          days: 60
+        },
+        showDropdowns: true,
+        showWeekNumbers: true,
+        timePicker: false,
+        timePickerIncrement: 1,
+        timePicker12Hour: true,
+        ranges: {
+          '최근 한 달': [moment().startOf('month'), moment().endOf('month')],
+					'최근 3 달': [moment().subtract(3, 'month').startOf('month'), moment().endOf('month')],
+					'최근 6 달': [moment().subtract(6, 'month').startOf('month'), moment().endOf('month')],
+          '올해' : [moment().startOf('year'), moment().endOf('year')]
+        },
+        opens: 'left',
+        buttonClasses: ['btn btn-default'],
+        applyClass: 'btn-small btn-primary',
+        cancelClass: 'btn-small',
+        format: 'MM/DD/YYYY',
+        separator: ' to ',
+        locale: {
+          applyLabel: 'Submit',
+          cancelLabel: 'Clear',
+          fromLabel: 'From',
+          toLabel: 'To',
+          customRangeLabel: 'Custom',
+          daysOfWeek: ['일', '월', '화', '수', '목', '금', '토'],
+          monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+          firstDay: 1
+        }
+      };
+      $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+      $('#reportrange').daterangepicker(optionSet1, cb);
+      $('#reportrange').on('show.daterangepicker', function() {
+        console.log("show event fired");
+      });
+      $('#reportrange').on('hide.daterangepicker', function() {
+        console.log("hide event fired");
+      });
+      $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
+        console.log("apply event fired, start/end dates are " + picker.startDate.format('MMMM D, YYYY') + " to " + picker.endDate.format('MMMM D, YYYY'));
+      });
+      $('#reportrange').on('cancel.daterangepicker', function(ev, picker) {
+        console.log("cancel event fired");
+      });
+      $('#options1').click(function() {
+        $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
+      });
+      $('#options2').click(function() {
+        $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
+      });
+      $('#destroy').click(function() {
+        $('#reportrange').data('daterangepicker').remove();
+      });
+			cb(optionSet1.startDate, optionSet1.endDate, "")
+    });
+  </script>

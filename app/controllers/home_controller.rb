@@ -2,6 +2,7 @@ class HomeController < ApplicationController
   #http://stackoverflow.com/questions/16021449/parse-xml-to-ruby-objects-and-create-attribute-methods-dynamically
   #make xml to object
   def index
+  begin
    @last_3_record = Board.where(route:"gallery").take.articles.reverse
    @last_3_image = {}
    k = 0
@@ -18,6 +19,11 @@ class HomeController < ApplicationController
        k += 1
      end
    end
+   rescue
+     @last_3_record
+     @last_3_image = {}
+   end
+   @staff = Member.where(staff:true).order(:admin)
   end
   def create_post
     if !params[:post_id]
@@ -35,8 +41,29 @@ class HomeController < ApplicationController
     end
   end
   def your_profile
-    @comment = Comment.where(member_id:current_member.id)
-    @article = Article.where(member_id: current_member.id)
+    perpage = 5
+    if params[:usage] == "comment"
+      @article = Comment.where(member_id: current_member.id).paginate(:page => params[:page], :per_page => perpage).order('id DESC')
+      @route = Proc.new{ |x| "/board/#{x.commentable.board.category.route}/#{x.commentable.board.route}/#{x.commentable.id}"}
+      @title = Proc.new{ |x| x.body}
+    elsif params[:usage] == "attendence"
+      @article = Statistic.where(name: "sign_in").paginate(:page => params[:page], :per_page => perpage).order('id DESC')
+      @route = Proc.new{ |x| "#"}
+      @title = Proc.new{ |x| "#{x.created_at} 출석!"}
+    else
+      @article = Article.where(member_id: current_member.id).paginate(:page => params[:page], :per_page => perpage).order('id DESC')
+      @route = Proc.new{ |x| "/board/#{x.board.category.route}/#{x.board.route}/#{x.id}"}
+      @title = Proc.new{ |x| x.title}
+    end
+    Article.where(active: false,content: nil).destroy_all
+  end
+  def profile_statistic
+    startDate = Time.parse(params[:startDate]).to_date
+    endDate = Time.parse(params[:endDate]).to_date
+    result = Statistic.where(member_id:current_member.id, created_at: startDate..endDate).group_by{ |u| u.created_at.beginning_of_month.strftime("%Y년 %m월") }
+    respond_to do |format|
+      format.json {render json: result}
+    end
   end
   def edit_profile_image
     params[:post_id] = 0
