@@ -531,3 +531,19 @@ textarea#message {
     -o-transform: scale(1);
   }
 }
+@media only screen and (max-width: 768px) {
+  #main-slider{
+    padding:46.2px 0;
+    height:200px;
+    background-position: center 0px;
+  }
+  #main-slider .item.active h1{
+    font-size: 25px;
+  }
+  #main-slider .item.active h1 span {
+    font-size: 35px;
+  }
+  #contact .container{
+    background-color: #222222;
+  }
+}

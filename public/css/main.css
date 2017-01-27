@@ -260,21 +260,6 @@ a, a:visited, a:focus, a:active, :visited, :focus, :active, .btn:focus, .btn:act
   margin: 0px 0px 0px 20vw;
   overflow: scroll;
 }
-#board::-webkit-scrollbar {
-    position: absolute;
-    width: 10px;
-}
-#board::-webkit-scrollbar-track {
-    background-color: #fff;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-}
-
-#board::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    background: #6d6d6d;
-}
 #board #article {
   margin: 0 auto;
 }

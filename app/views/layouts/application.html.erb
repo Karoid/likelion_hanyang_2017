@@ -27,7 +27,11 @@
 
 <body>
   <div id="index">
-  <button id="res_menu" onclick="alert('1')">a</button>
+    <div class="menu-toggle">
+		<div class="one"></div>
+		<div class="two"></div>
+		<div class="three"></div>
+	  </div>
     <div id="logo">
       <a href="/">
         <h2> HUHS </h2>
@@ -56,8 +60,7 @@
 
           <%Category.where(default: nil).each do |category|%>
           <%if can? :read, category%>
-          <li>
-            <li><a><%=category.name%> <span class="icon icon-chevron-down"></span></a>
+          <li><a><%=category.name%> <span class="icon icon-chevron-down"></span></a>
             <ul class="nav child_menu" style="display: none">
               <%category.boards.each do |board|%>
               <li><a href="/board/<%=category.route%>/<%=board.route%>"><%=board.name%></a></li>
@@ -98,12 +101,10 @@
       background-color: rgb(90, 210, 210);
       position: fixed;
       z-index: 999;
+      overflow: visible;
     }
     .alert{
       top:100px;
-    }
-    #main-slider{
-      background-size: auto 100%;
     }
     #board #article {
       margin: 100px auto 0;
@@ -157,7 +158,32 @@
     #sidebar-menu {
       display: none;
     }
-
+    #sidebar-menu.on{
+      display: block;
+      margin-top: 100px;
+      height:100vh;
+      height:calc(100vh - 100px);
+      overflow-y: scroll;
+      background: white;
+    }
+    #sidebar-menu a, #sidebar-menu a:hover, #sidebar-menu a:active {
+      color:black!important;
+    }
+    .menu_section>ul{
+      margin:0;
+    }
+    .menu_section>ul>li{
+      border-bottom:rgb(242,242,242) solid .5px;
+    }
+    .menu_section>ul.nav.side-menu>li>a{
+      font-size: 22px;
+      padding: 20px 15px;
+      font-weight: bolder;
+    }
+    #sidebar-menu .menu_section>ul>li.active>a{
+      color:rgb(136,233,230)!important;
+      text-shadow: none;
+    }
     #board {
       width: 100%;
       margin: 0;
@@ -165,11 +191,54 @@
     .box {
       padding: 0 !important;
     }
+    .menu-toggle {
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      cursor: pointer;
+      color: #fff;
+    }
+    .one,
+    .two,
+    .three {
+      width: 100%;
+      height: 2px;
+      background: #fff;
+      margin: 10px auto;
+      backface-visibility: hidden;
+      -moz-transition-duration: 0.3s;
+      -o-transition-duration: 0.3s;
+      -webkit-transition-duration: 0.3s;
+      transition-duration: 0.3s;
+    }
+    .menu-toggle.on .one {
+      -moz-transform: rotate(45deg) translate(7px, 7px);
+      -ms-transform: rotate(45deg) translate(7px, 7px);
+      -webkit-transform: rotate(45deg) translate(7px, 7px);
+      transform: rotate(45deg) translate(7px, 7px);
+    }
+    .menu-toggle.on .three {
+      -moz-transform: rotate(-45deg) translate(8px, -10px);
+      -ms-transform: rotate(-45deg) translate(8px, -10px);
+      -webkit-transform: rotate(-45deg) translate(8px, -10px);
+      transform: rotate(-45deg) translate(8px, -10px);
+    }
+    .menu-toggle.on .two {
+      opacity: 0;
+    }
   }
-
   @media only screen and (max-width: 370px) {
     #log_in #profile_left {
       display: none;
     }
   }
 </style>
+<script type="text/javascript">
+$(".menu-toggle").on('click', function() {
+  $(this).toggleClass("on");
+  $('#sidebar-menu').toggleClass("on");
+  $("nav ul").toggleClass('hidden');
+});
+</script>
