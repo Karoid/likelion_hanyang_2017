@@ -91,7 +91,7 @@ Admin_table.prototype.edit = function(editButton, thisClass){
 
 	function edit_event() {
 		$(this).parents("tr").children().each(function(index, el) {
-			if (!el.className && el.getAttribute("name")) {
+			if (!el.classList.length && el.getAttribute("name")) {
 				var content = el.innerHTML
 				if (content == "true") {
 					el.innerHTML = "<input class='edit_input' type='checkbox' checked='"+content+"'>"
@@ -117,7 +117,7 @@ Admin_table.prototype.edit = function(editButton, thisClass){
 		var selectedObject = {data: {}, db: dbname}
 		var thisElement = $(this)
 		thisElement.parents("tr").children().each(function(index, el) {
-			if (!el.className && el.getAttribute("name")) {
+			if (!el.classList.length && el.getAttribute("name")) {
 				var inputbox = el.getElementsByTagName("input")[0]
 				if (inputbox.type != "checkbox") {
 					selectedObject['data'][el.getAttribute("name")] = el.getElementsByTagName("input")[0].value
@@ -146,7 +146,7 @@ Admin_table.prototype.edit = function(editButton, thisClass){
 					thisElement.parents("tr").find("input[type=checkbox]").attr("id",data.id)
 					console.log(thisElement.parents("tr"));
 					thisElement.parents("tr").children().each(function(index, el) {
-						if (!el.className && el.getAttribute("name")) {
+						if (!el.classList.length && el.getAttribute("name")) {
 							el.innerHTML = selectedObject['data'][el.getAttribute("name")]
 						}else if($(el).hasClass('last')){
 							var id = ""

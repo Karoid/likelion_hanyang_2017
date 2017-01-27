@@ -19,7 +19,7 @@ class AdminController < ApplicationController
   def show_member
     @nonMember = Member.where(role: 0)
     @member = Member.where('role>0')
-    @staff = Member.where('admin="t" or staff="t"')
+    @staff = Member.where(staff: true, admin:false) + Member.where(staff: false, admin:true) + Member.where(staff: true, admin:true) 
     @major = Major.all
     authorize! :read, Category.where(route: "admin").take
   end
