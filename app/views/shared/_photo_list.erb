@@ -6,7 +6,7 @@
 	<div id="wrapper">
 	    <%@article_page.each do |article|%>
 			<a href="/board/<%=article.board.category.route%>/<%=article.board.route%>/<%=article.id%>">
-				<div class="container1 <%if article.id == params[:id].to_i %>selected<%end%>">
+				<div class="container1">
 					<div class="photo">
 						<%if article.uploadfiles.take%>
 							<img src="<%=article.uploadfiles.take.url%>" align="center">
@@ -34,12 +34,11 @@
 	}
 
 	#wrapper {
-		margin: 0px auto;
+		text-align: center;
 	}
 	#wrapper a {
 		margin: 0 10px 5px 0;
-		display: block;
-		float: left;
+		display: inline-block;
 	}
 
 	#write {
