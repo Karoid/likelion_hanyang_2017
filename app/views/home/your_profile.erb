@@ -6,7 +6,7 @@
 			<hr>
 			<div id="wrapper">
 				<div id="profile_left">
-					<div id="photo">
+					<div id="photo" onclick="location.href='/image_crop/new'" style="cursor:pointer">
 						<img src="<%=current_member.image_url%>" id="image" alt="">
 					</div>
 					<div id="explain">
@@ -78,7 +78,6 @@
 	}
 
 	#page #main_title {
-		width: 1220px;
 		margin: 20px 0 0 30px;
 	}
 	#page #main_title strong {
@@ -281,6 +280,27 @@
 		filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 	}
 	.hidden-xs{display: inline-block!important;}
+	@media only screen and (max-width: 768px) {
+		#page #profile_left{
+			width:100%;
+			margin:0;
+			height:700px;
+			clear:both;
+		}
+		#page #profile_right_part{
+			width:100%;
+			clear:both;
+		}
+		#container{
+			margin:30px 0;
+		}
+		#container #container_title{
+			margin-bottom: 45px;
+		}
+		#container #graph{
+			padding:0
+		}
+	}
 	.morris-hover.morris-default-style {
     padding: 6px;
     color: #666;
