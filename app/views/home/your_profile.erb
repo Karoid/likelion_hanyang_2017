@@ -1,16 +1,12 @@
+<link rel="stylesheet" href="/css/board.css">
 		<div id="page">
 			<div id="main_title">
 				<strong>User Report</strong>
-				<div id="button">
-					<input type="button">
-					<input type="button">
-					<input type="button">
-				</div>
 			</div>
 			<hr>
 			<div id="wrapper">
 				<div id="profile_left">
-					<div id="photo">
+					<div id="photo" onclick="location.href='/image_crop/new'" style="cursor:pointer">
 						<img src="<%=current_member.image_url%>" id="image" alt="">
 					</div>
 					<div id="explain">
@@ -23,61 +19,22 @@
 							<div class="detail">스터디: X</div>
 							<div class="detail">특이사항: X</div>
 							<div class="detail">연락처: <%=current_member.tel%></div>
-							<a href="/members/edit"><input type="button" id="edit" value="프로필 수정"></a>
+							<center>
+								<a href="/members/edit"><input type="button" id="edit" value="프로필 수정"></a>
+							</center>
 						</div>
 					</div>
 				</div>
 				<div id="profile_right_part">
 					<div id="container">
 						<div id="container_title">
-							<span>활동 내역</span>
-							<select>
-								<option value="1">111</option>
-								<option value="2">222</option>
-								<option value="3">333</option>
-							</select>
+							<h3>활동 내역</h3>
+							<div id="reportrange" class="pull-right" style="margin-top: 5px; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #E6E9ED">
+								<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+								<span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
+							</div>
 						</div>
 						<div id="graph">
-							<div id="graph_left">
-								<div class="number">400</div>
-								<div class="number">300</div>
-								<div class="number">200</div>
-								<div class="number">100</div>
-								<div class="number">0</div>
-							</div>
-							<div id="graph_right">
-								<hr class="line" value="400">
-								<hr class="line" value="300">
-								<hr class="line" value="200">
-								<hr class="line" value="100">
-								<hr class="line" value="0">
-								<div id="m1" class="stick" value="30"></div>
-								<div id="m2" class="stick" value="60"></div>
-								<div id="m3" class="stick" value="90"></div>
-								<div id="m4" class="stick" value="120"></div>
-								<div id="m5" class="stick" value="150"></div>
-								<div id="m6" class="stick" value="180"></div>
-								<div id="m7" class="stick" value="210"></div>
-								<div id="m8" class="stick" value="240"></div>
-								<div id="m9" class="stick" value="270"></div>
-								<div id="m10" class="stick" value="300"></div>
-								<div id="m11" class="stick" value="330"></div>
-								<div id="m12" class="stick" value="360"></div>
-							</div>
-							<div id="graph_footer">
-								<div class="month rotate">Jan</div>
-								<div class="month rotate">Feb</div>
-								<div class="month rotate">Mar</div>
-								<div class="month rotate">Apr</div>
-								<div class="month rotate">May</div>
-								<div class="month rotate">Jun</div>
-								<div class="month rotate">Jul</div>
-								<div class="month rotate">Ang</div>
-								<div class="month rotate">Sep</div>
-								<div class="month rotate">Oct</div>
-								<div class="month rotate">Sep</div>
-								<div class="month rotate">Dec</div>
-							</div>
 						</div>
 					</div>
 					<div id="profile_board">
@@ -95,17 +52,9 @@
 			        </tr>
 			        <%end%>
 						</table>
-						<%= will_paginate @article, :usage => params[:usage] %>
-						<!--<nav id="article_pagination" aria-label="Page navigation" style="text-align: center;">
-							<div class="pagination">
-								<a href="#">◀︎</a>
-								<a href="#">1</a>
-								<a href="#" class="selected">2</a>
-								<a href="#">3</a>
-								<a href="#">4</a>
-								<a href="#">►</a>
-							</div>
-						</nav>-->
+						<nav style="text-align: center;">
+							<%= will_paginate @article, :usage => params[:usage], previous_label: "◀", next_label: "▶" %>
+						</nav>
 					</div>
 				</div>
 			</div>
@@ -125,13 +74,10 @@
 	}
 
 	#page {
-		max-width: 1300px;
-		height: 700px;
 		background-color: #ffffff
 	}
 
 	#page #main_title {
-		width: 1220px;
 		margin: 20px 0 0 30px;
 	}
 	#page #main_title strong {
@@ -139,10 +85,6 @@
 		color: #000000;
 		font-size: 20px;
 		display: inline-block;
-	}
-	#page #main_title #button {
-		margin-right: 17px;
-		float: right;
 	}
 
 	#page hr {
@@ -154,25 +96,24 @@
 	}
 
 	#page #wrapper {
-		margin: 40px 0px 0px 33px;
+		margin: 40px 0 0;
+		width:100%;
+		height:auto;
 	}
 
 	#page #profile_left {
-		width: 280px;
+		width: 20vw;
 		height: 640px;
 		float: left;
+		margin: 0 2.5vw;
 	}
 	#page #profile_left #photo {
-		width: 258px;
-		height: 258px;
 		padding: 10px;
 		border: 2px solid #dddddd;
 		border-radius: 5px;
 		margin:0 auto;
 	}
 	#page #profile_left #photo #image {
-		width: 258px;
-		height: 258px;
 		border: 2px solid #ffffff;
 		border-radius: 5px;
 	}
@@ -218,20 +159,21 @@
 
 	#page #profile_right_part {
 		float: left;
-		margin-left: 30px;
+		width: 54vw;
 	}
 	#container {
-		width: 800px;
 		height: 380px;
-		padding: 30px 45px 50px;
-		background-color: rgb(220, 248, 248);
+		margin: 30px 45px 50px;
 	}
 	#container #container_title {
-		height: 40px;
-		margin-bottom: 30px;
+		background-color: rgb(220, 248, 248);
+		margin-bottom: 16px;
 	}
-	#container #container_title span {
+	#container #container_title h3 {
 		font-size: 38px;
+		margin:0;
+		display: inline-block;
+		padding: 5px;
 	}
 	#container #container_title select {
 		width: 270px;
@@ -242,7 +184,6 @@
 	}
 
 	#container #graph {
-		width: 750px;
 		height: 280px;
 		margin-bottom: 40px;
 		padding: 25px 20px 15px;
@@ -294,12 +235,10 @@
 	}
 
 	#page #profile_board {
-		width: 800px;
 		margin-top: 15px;
 		padding: 20px 45px;
 	}
 	#page #profile_board #tap {
-		width: 880px;
 		margin-bottom: 13px;
 	}
 	#profile_board #tap .tap_button {
@@ -341,45 +280,304 @@
 		filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 	}
 	.hidden-xs{display: inline-block!important;}
+	@media only screen and (max-width: 768px) {
+		#page #profile_left{
+			width:100%;
+			margin:0;
+			height:700px;
+			clear:both;
+		}
+		#page #profile_right_part{
+			width:100%;
+			clear:both;
+		}
+		#container{
+			margin:30px 0;
+		}
+		#container #container_title{
+			margin-bottom: 45px;
+		}
+		#container #graph{
+			padding:0
+		}
+	}
+	.morris-hover.morris-default-style {
+    padding: 6px;
+    color: #666;
+    background: rgba(243, 242, 243, 0.8);
+    border: solid 2px rgba(195, 194, 196, 0.8);
+    font-family: sans-serif;
+    font-size: 12px;
+    text-align: center;
+		position: absolute;
+	}
+
+	/* *********  calender dropdown  **************************** */
+
+	.daterangepicker.dropdown-menu {
+	  font-size: 13px;
+	  padding: 0;
+	  overflow: hidden;
+	}
+	.daterangepicker.picker_1 {
+	  background: #34495E;
+	  color: #ECF0F1;
+	}
+	.daterangepicker.picker_1 table.table-condensed thead tr:first-child {
+	  background: #1ABB9C;
+	}
+	.daterangepicker table.table-condensed thead tr:first-child th {
+	  line-height: 28px;
+	  text-align: center;
+	}
+	.daterangepicker.picker_1 table.table-condensed thead tr {
+	  background: #213345;
+	}
+	.daterangepicker table.table-condensed thead tr {
+	  line-height: 14px;
+	}
+	.daterangepicker table.table-condensed tbody tr:first-child td {
+	  padding-top: 10px;
+	}
+	.daterangepicker table.table-condensed th:first-child, .daterangepicker table.table-condensed td:first-child {
+	  padding-left: 12px
+	}
+	.daterangepicker table.table-condensed th:last-child, .daterangepicker table.table-condensed td:last-child {
+	  padding-right: 12px
+	}
+	.table-condensed>thead>tr>th, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>tbody>tr>td, .table-condensed>tfoot>tr>td {
+	  padding: 5px 7px;
+	  text-align: center;
+	}
+	.daterangepicker table.table-condensed tbody tr:last-child td {
+	  padding-bottom: 10px;
+	}
+	.daterangepicker.picker_2 table.table-condensed thead tr:first-child {
+	  color: inherit;
+	}
+	.daterangepicker.picker_2 table.table-condensed thead tr {
+	  color: #1ABB9C;
+	}
+	.daterangepicker.picker_3 table.table-condensed thead tr:first-child {
+	  background: #1ABB9C;
+	  color: #ECF0F1;
+	}
+	.daterangepicker.picker_4 table.table-condensed tbody td {
+	  background: #ECF0F1;
+	  color: #34495E;
+	  border: 1px solid #fff;
+	  padding: 4px 7px;
+	}
+	.daterangepicker.picker_4 table.table-condensed tbody td.active {
+	  background: #536A7F;
+	  color: #fff;
+	}
+	.daterangepicker.picker_4 table.table-condensed thead tr:first-child {
+	  background: #34495E;
+	  color: #ECF0F1;
+	}
+	.xdisplay_input {
+	  width: 240px;
+	  overflow: hidden;
+	  padding: 0;
+	}
+	.xdisplay {
+	  background-color: #fff;
+	  -webkit-background-clip: padding-box;
+	  background-clip: padding-box;
+	  border: 1px solid #ccc;
+	  margin-bottom: 20px;
+	  border: 1px solid rgba(0, 0, 0, .15);
+	  border-radius: 4px;
+	  width: 230px;
+	  overflow: hidden;
+	  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+	  box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+	}
+	.daterangepicker.opensright .ranges, .daterangepicker.opensright .calendar, .daterangepicker.openscenter .ranges, .daterangepicker.openscenter .calendar {
+	  float: right;
+	}
+	.daterangepicker.dropdown-menu .calendar {}
+	.daterangepicker table {
+	  width: 100%;
+	  margin: 0;
+	}
+	.daterangepicker td, .daterangepicker th {
+	  text-align: center;
+	  width: 20px;
+	  height: 20px;
+	  cursor: pointer;
+	  white-space: nowrap;
+	}
+	.daterangepicker td.off {
+	  color: #999;
+	}
+	.daterangepicker td.disabled {
+	  color: #999;
+	}
+	.daterangepicker td.available:hover, .daterangepicker th.available:hover {
+	  background: #eee;
+	  color: #34495E;
+	}
+	.daterangepicker td.in-range {
+	  background: #E4E7EA;
+	  -webkit-border-radius: 0;
+	  -moz-border-radius: 0;
+	  border-radius: 0;
+	}
+	.daterangepicker td.available + td.start-date {
+	  -webkit-border-radius: 4px 0 0 4px;
+	  -moz-border-radius: 4px 0 0 4px;
+	  border-radius: 4px 0 0 4px;
+	}
+	.daterangepicker td.in-range + td.end-date {
+	  -webkit-border-radius: 0 4px 4px 0;
+	  -moz-border-radius: 0 4px 4px 0;
+	  border-radius: 0 4px 4px 0;
+	}
+	.daterangepicker td.start-date.end-date {
+	  -webkit-border-radius: 4px !important;
+	  -moz-border-radius: 4px !important;
+	  border-radius: 4px !important;
+	}
+	.daterangepicker td.active, .daterangepicker td.active:hover {
+	  background-color: #536A7F;
+	  color: #fff;
+	}
+	.daterangepicker td.week, .daterangepicker th.week {
+	  font-size: 80%;
+	  color: #ccc;
+	}
+	.daterangepicker select.monthselect, .daterangepicker select.yearselect {
+	  font-size: 12px;
+	  padding: 1px;
+	  height: auto;
+	  margin: 0;
+	  cursor: default;
+	  height: 30px;
+	  border: 1px solid #ADB2B5;
+	  line-height: 30px;
+	  border-radius: 0px !important;
+	}
+	.daterangepicker select.monthselect {
+	  margin-right: 2%;
+	  width: 56%;
+	}
+	.daterangepicker select.yearselect {
+	  width: 40%;
+	}
+	.daterangepicker select.hourselect, .daterangepicker select.minuteselect, .daterangepicker select.ampmselect {
+	  width: 50px;
+	  margin-bottom: 0;
+	}
+	.daterangepicker_start_input {
+	  float: left;
+	}
+	.daterangepicker_end_input {
+	  float: left;
+	  padding-left: 11px;
+	}
+	.daterangepicker th.month {
+	  width: auto;
+	}
+	.daterangepicker .daterangepicker_start_input label, .daterangepicker .daterangepicker_end_input label {
+	  color: #333;
+	  display: block;
+	  font-size: 11px;
+	  font-weight: normal;
+	  height: 20px;
+	  line-height: 20px;
+	  margin-bottom: 2px;
+	  text-shadow: #fff 1px 1px 0px;
+	  text-transform: uppercase;
+	  width: 74px;
+	}
+	.daterangepicker .ranges input {
+	  font-size: 11px;
+	}
+	.daterangepicker .ranges .input-mini {
+	  background-color: #eee;
+	  border: 1px solid #ccc;
+	  border-radius: 4px;
+	  color: #555;
+	  display: block;
+	  font-size: 11px;
+	  height: 30px;
+	  line-height: 30px;
+	  vertical-align: middle;
+	  margin: 0 0 10px 0;
+	  padding: 0 6px;
+	  width: 74px;
+	}
+	.daterangepicker .ranges .input-mini:hover {
+	  cursor: pointer;
+	}
+	.daterangepicker .ranges ul {
+	  list-style: none;
+	  margin: 0;
+	  padding: 0;
+	}
+	.daterangepicker .ranges li {
+	  font-size: 13px;
+	  background: #f5f5f5;
+	  border: 1px solid #f5f5f5;
+	  color: #536A7F;
+	  padding: 3px 12px;
+	  margin-bottom: 8px;
+	  -webkit-border-radius: 5px;
+	  -moz-border-radius: 5px;
+	  border-radius: 5px;
+	  cursor: pointer;
+	}
+	.daterangepicker .ranges li.active, .daterangepicker .ranges li:hover {
+	  background: #536A7F;
+	  border: 1px solid #536A7F;
+	  color: #fff;
+	}
+	.daterangepicker .calendar {
+	  display: none;
+	  max-width: 270px;
+	}
+	.daterangepicker.show-calendar .calendar {
+	  display: block;
+	}
+	.daterangepicker .calendar.single .calendar-date {
+	  border: none;
+	}
+	.daterangepicker.single .ranges, .daterangepicker.single .calendar {
+	  float: none;
+	}
+	.daterangepicker .ranges {
+	  width: 160px;
+	  text-align: left;
+	  margin: 4px;
+	}
+	.daterangepicker .ranges .range_inputs>div {
+	  float: left;
+	}
+	.daterangepicker .ranges .range_inputs>div:nth-child(2) {
+	  padding-left: 11px;
+	}
+	.daterangepicker.opensleft .ranges, .daterangepicker.opensleft .calendar {
+	  float: left;
+	  margin: 4px;
+	}
+
+	/* *********  /calender dropdown  **************************** */
 </style>
-
+<script src="js/moris/morris.min.js" charset="utf-8"></script>
+<script src="js/moris/raphael-min.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/moment/moment.min.js"></script>
+<script src="js/datepicker/daterangepicker.js" charset="utf-8"></script>
 <script type="text/javascript">
-	var numberArray = document.getElementsByClassName('number');
-	for(var i=0, t=-3; i<numberArray.length; i++)
-	{
-		var number = numberArray[i];
-		number.style.top = t + '%';
-		t += 25;
-	}
 
-	var lineArray = document.getElementsByClassName('line');
-	for(var i=0, t=0; i<lineArray.length; i++)
-	{
-		var line = lineArray[i];
-		line.style.top = t + '%';
-		t += 25;
-	}
-
-	var graphMAXHeight = document.getElementById('graph_right').clientHeight;
-	var graphStickArray = document.getElementsByClassName('stick');
-	for(var i=0, left=16; i<graphStickArray.length; i++)
-	{
-		var graphStick = graphStickArray[i];
-		graphStick.style.left = left + 'px';
-		left += 58;
-		graphStick.style.height = graphStick.getAttribute('value')*graphMAXHeight/400 + 'px';
-	}
-
-	var monthArray = document.getElementsByClassName('month');
-	for(var i=0, left=57; i<monthArray.length; i++)
-	{
-		var month = monthArray[i];
-		month.style.left = left + 'px';
-		left += 58;
-	}
 	$.urlParam = function(name, url){
 		var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(url);
-		return results[1] || 0;
+		try {
+			return results[1];
+		} catch (err) {
+			return 'article';
+		}
 	}
 	$(document).ready(function() {
 		var i = 0
@@ -392,3 +590,103 @@
 		})
 	});
 </script>
+<!-- Datepicker -->
+<script type="text/javascript">
+    $(document).ready(function() {
+      var cb = function(start, end, label) {
+        //console.log(start.toISOString(), end.toISOString(), label);
+				$.ajax({
+					url: '/profile_statistic',
+					type: 'post',
+					dataType: 'json',
+					data: {startDate: start.toISOString(), endDate: end.toISOString()},
+					success: function(data){
+						console.log(data)
+						if(data != {}){
+							var arr = new Array()
+							$.each(data,function(key, value) {
+								arr.push({ "period" : key, "activity": value.length})
+							});
+							console.log(arr);
+							$('#graph').empty()
+							Morris.Bar({
+								element: 'graph',
+								data: arr,
+								xkey: 'period',
+								hideHover: 'auto',
+								barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+								ykeys: ['activity', 'sorned'],
+								labels: ['activity', ''],
+								xLabelAngle: 60,
+								resize: true
+							});
+						}
+					},
+					error: function(err){
+						console.error(error);
+					}
+				})
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        //alert("Callback has fired: [" + start.format('MMMM D, YYYY') + " to " + end.format('MMMM D, YYYY') + ", label = " + label + "]");
+      }
+
+      var optionSet1 = {
+        startDate: moment().subtract(6, 'month').startOf('month'),
+        endDate: moment(),
+        dateLimit: {
+          days: 60
+        },
+        showDropdowns: true,
+        showWeekNumbers: true,
+        timePicker: false,
+        timePickerIncrement: 1,
+        timePicker12Hour: true,
+        ranges: {
+          '최근 한 달': [moment().startOf('month'), moment().endOf('month')],
+					'최근 3 달': [moment().subtract(3, 'month').startOf('month'), moment().endOf('month')],
+					'최근 6 달': [moment().subtract(6, 'month').startOf('month'), moment().endOf('month')],
+          '올해' : [moment().startOf('year'), moment().endOf('year')]
+        },
+        opens: 'left',
+        buttonClasses: ['btn btn-default'],
+        applyClass: 'btn-small btn-primary',
+        cancelClass: 'btn-small',
+        format: 'MM/DD/YYYY',
+        separator: ' to ',
+        locale: {
+          applyLabel: 'Submit',
+          cancelLabel: 'Clear',
+          fromLabel: 'From',
+          toLabel: 'To',
+          customRangeLabel: 'Custom',
+          daysOfWeek: ['일', '월', '화', '수', '목', '금', '토'],
+          monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+          firstDay: 1
+        }
+      };
+      $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+      $('#reportrange').daterangepicker(optionSet1, cb);
+      $('#reportrange').on('show.daterangepicker', function() {
+        console.log("show event fired");
+      });
+      $('#reportrange').on('hide.daterangepicker', function() {
+        console.log("hide event fired");
+      });
+      $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
+        console.log("apply event fired, start/end dates are " + picker.startDate.format('MMMM D, YYYY') + " to " + picker.endDate.format('MMMM D, YYYY'));
+      });
+      $('#reportrange').on('cancel.daterangepicker', function(ev, picker) {
+        console.log("cancel event fired");
+      });
+      $('#options1').click(function() {
+        $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
+      });
+      $('#options2').click(function() {
+        $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
+      });
+      $('#destroy').click(function() {
+        $('#reportrange').data('daterangepicker').remove();
+      });
+			cb(optionSet1.startDate, optionSet1.endDate, "")
+    });
+  </script>

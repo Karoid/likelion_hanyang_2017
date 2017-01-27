@@ -55,6 +55,15 @@ class HomeController < ApplicationController
       @route = Proc.new{ |x| "/board/#{x.board.category.route}/#{x.board.route}/#{x.id}"}
       @title = Proc.new{ |x| x.title}
     end
+    Article.where(active: false,content: nil).destroy_all
+  end
+  def profile_statistic
+    startDate = Time.parse(params[:startDate]).to_date
+    endDate = Time.parse(params[:endDate]).to_date
+    result = Statistic.where(member_id:current_member.id, created_at: startDate..endDate).group_by{ |u| u.created_at.beginning_of_month.strftime("%Y년 %m월") }
+    respond_to do |format|
+      format.json {render json: result}
+    end
   end
   def edit_profile_image
     params[:post_id] = 0
