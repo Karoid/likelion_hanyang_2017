@@ -135,4 +135,9 @@
       $(inputTextArray).attr('class', "text text_login");
     }
 	}
+
+	$('.text').on('focus', function() {
+	  document.body.scrollTop = $(this).offset().top;
+		console.log("top");
+	});
 </script>

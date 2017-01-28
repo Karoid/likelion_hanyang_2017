@@ -40,7 +40,7 @@
     </div>
     <div id="log_in">
       <% if member_signed_in? %>
-        <div style="text-align:center;padding:10px 14px">
+        <div style="text-align:center;padding:10px 14px" class="logged_on">
           <div id="profile_wrapper">
             <div id="profile_left" style="background:url(<%=current_member.image_url%>);background-size: auto 100%;"></div>
             <div id="profile_right">
@@ -157,7 +157,7 @@
       background-color: rgb(90, 210, 210);
       float: right;
     }
-    #log_in div:first-child {
+    #log_in div.logged_on {
       padding: 0px !important;
     }
     #log_in #profile_wrapper {

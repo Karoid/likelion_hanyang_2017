@@ -33,7 +33,7 @@
   <div class="field form-group">
     <%= f.label :password %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> 자 이하)</em>
+    <em>(<%= @minimum_password_length %> 자 이상)</em>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "off" %>
   </div>
