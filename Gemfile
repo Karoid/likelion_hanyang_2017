@@ -61,6 +61,8 @@ group :development do
   #Supporting gem for Rails Panel (Google Chrome extension for Rails development).
   gem 'meta_request'
   gem 'better_errors'
+
+  gem "rock_scissor_papper", :path => "../rock_scissor_papper"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -6,6 +6,11 @@ GIT
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
 
+PATH
+  remote: ../rock_scissor_papper
+  specs:
+    rock_scissor_papper (0.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -267,6 +272,7 @@ DEPENDENCIES
   pg
   rails (= 4.2.5.1)
   rails_db
+  rock_scissor_papper!
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   sqlite3

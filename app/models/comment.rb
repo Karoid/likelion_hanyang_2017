@@ -30,7 +30,7 @@ class Comment < ActiveRecord::Base
 
   # Helper class method to lookup all comments assigned
   # to all commentable types for a given member.
-  scope :find_comments_by_member, lambda { |member|
+  scope :find_comments_by_user, lambda { |member|
     where(:member_id => member.id).order('created_at DESC')
   }
 
