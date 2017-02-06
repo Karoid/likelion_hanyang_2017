@@ -7,9 +7,9 @@ GIT
       nokogiri (>= 1.5.9)
 
 PATH
-  remote: ../rock_scissor_papper
+  remote: ../rock_scissors_paper
   specs:
-    rock_scissor_papper (0.1.0)
+    rock_scissors_paper (0.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -272,7 +272,7 @@ DEPENDENCIES
   pg
   rails (= 4.2.5.1)
   rails_db
-  rock_scissor_papper!
+  rock_scissors_paper!
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   sqlite3
