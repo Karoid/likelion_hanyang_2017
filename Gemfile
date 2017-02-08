@@ -62,7 +62,7 @@ group :development do
   gem 'meta_request'
   gem 'better_errors'
 
-  gem "rock_scissors_paper", :path => "../rock_scissors_paper", :git => 'https://github.com/Karoid/rock_scissors_paper.git'
+  gem "rock_scissors_paper", :path => "../rock_scissors_paper"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
