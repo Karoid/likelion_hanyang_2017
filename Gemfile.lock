@@ -1,4 +1,9 @@
 GIT
+  remote: https://github.com/Karoid/rock_scissors_paper.git
+  revision: 09a99b2d26652aa9dfeaeb931a7791a94b2d26e1
+  specs:
+
+GIT
   remote: https://github.com/flavorjones/loofah.git
   revision: 2b2b5aa184d6127ac666931112faa6370f01a389
   specs:
