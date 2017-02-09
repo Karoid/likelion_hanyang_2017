@@ -36,6 +36,8 @@ gem 'loofah', :git => 'https://github.com/flavorjones/loofah.git'
 gem 'cloudinary'
 #edit db in browser /rails/db
 gem 'rails_db'
+
+gem "rock_scissors_paper":git => 'https://github.com/Karoid/rock_scissors_paper'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -62,7 +64,6 @@ group :development do
   gem 'meta_request'
   gem 'better_errors'
 
-  gem "rock_scissors_paper", :path => "../rock_scissors_paper"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

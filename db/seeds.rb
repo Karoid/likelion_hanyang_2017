@@ -147,6 +147,7 @@ Member.create(username: "관리자", email: 'huhs@huhs.net', password: 'kk1111',
 Category.create(route: 'introduce', name: '휴즈 소개')
 Category.create(route: 'huhslife', name: '게시판')
 Category.create(route: 'photo', name: '사진첩', default: "/board/photo/gallery")
+Category.create(route: 'addone', name: '가위바위보',read_level:1, default: "/game/rsp")
 Category.create(route: 'admin', name: '관리자 페이지',read_level:100 , default: "/admin")
 #Board
 Category.where(route: 'introduce').take.boards.create(route: 'history', name: '연혁', show_last: true,show_comment:false)
