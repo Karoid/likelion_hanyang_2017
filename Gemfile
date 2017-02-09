@@ -37,7 +37,7 @@ gem 'cloudinary'
 #edit db in browser /rails/db
 gem 'rails_db'
 
-gem "rock_scissors_paper":git => 'https://github.com/Karoid/rock_scissors_paper'
+gem "rock_scissors_paper", :git => 'https://github.com/Karoid/rock_scissors_paper'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
