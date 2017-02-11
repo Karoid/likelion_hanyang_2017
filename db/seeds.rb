@@ -147,7 +147,7 @@ Member.create(username: "관리자", email: 'huhs@huhs.net', password: 'kk1111',
 Category.create(route: 'introduce', name: '휴즈 소개')
 Category.create(route: 'huhslife', name: '게시판')
 Category.create(route: 'photo', name: '사진첩', default: "/board/photo/gallery")
-Category.create(route: 'addone', name: '가위바위보',read_level:1, default: "/game/rsp")
+Category.create(route: 'addon', name: '편의기능',read_level:1)
 Category.create(route: 'admin', name: '관리자 페이지',read_level:100 , default: "/admin")
 #Board
 Category.where(route: 'introduce').take.boards.create(route: 'history', name: '연혁', show_last: true,show_comment:false)
@@ -160,6 +160,7 @@ Category.where(route: 'huhslife').take.boards.create(route: 'member', name: '회
 Category.where(route: 'huhslife').take.boards.create(route: 'graduate', name: 'HAS 게시판', show_last: false, read_level:3, write_level:3)
 Category.where(route: 'huhslife').take.boards.create(route: 'problems', name: '디버깅 게시판', show_last: false, read_level:1, write_level:1)
 Category.where(route: 'photo').take.boards.create(route: 'gallery', name: '사진첩', show_last: false, template: "board/showPhoto", read_level:1, write_level:2)
+Category.where(route: 'addon').take.boards.create(route: 'rsp', name: '가위바위보', show_last: true, template: "/game/rsp", read_level:1, write_level:100)
 #Article
 Board.where(route: 'history').take.articles.create(
 content: '<p>HUHS history</p><p><br></p><p>1982년 &nbsp;10월 28일 제 1회 정기집회, 창립일</p><p>1982년 &nbsp;11월 14일 제 1회 정기총회</p><p>1982년 &nbsp;12월　　　전국대학 컴퓨터 동아리 연합서클(UNICOSA)가입</p><p><br></p><p>1983년 &nbsp; 4월　　　동아리방 배정, 1차 교육실시</p><p>1983년 &nbsp; 5월　　　제1회전시회-컴퓨터전시회</p><p>1983년 &nbsp;10월 29일 제1회 창립기념행사</p><p><br></p><p>1984년 &nbsp; 8월　　　공청회 개최</p><p><br></p><p>1986년 &nbsp; 5월 &nbsp; &nbsp; &nbsp;공대 컴퓨터실(comby)운영</p><p>1986년 &nbsp; 8월 &nbsp; &nbsp; &nbsp;동문회 발족 및 동문회칙제정</p><p>1986년 &nbsp;10월 &nbsp; &nbsp; &nbsp;제1회 동문회총회 개최</p><p><br></p><p>1987년 &nbsp; 6월 &nbsp; &nbsp; &nbsp;회칙개정</p><p><br></p><p>1988년 &nbsp; 8월 &nbsp; &nbsp; &nbsp;제3회 한건교환체육대회</p><p>1988년 &nbsp; 9월 &nbsp; &nbsp; &nbsp;프로콤과 프로그램 협력제작</p><p>　　　　　 　 &nbsp; &nbsp; UNICOSA 회원으로 올림픽 자원봉사</p><p>1988년 &nbsp;11월 &nbsp; &nbsp; &nbsp;공개 PC강좌</p><p><br></p><p>1989년 &nbsp; 4월 &nbsp; &nbsp; &nbsp;제1회 프로그램공모전</p><p>　　　　　 　 &nbsp; &nbsp; 공개PC강좌(중급)</p><p><br></p><p>1991년 제10회 &nbsp; &nbsp; 정기총회</p><p><br></p><p>1992년 &nbsp; 5월 &nbsp; &nbsp; &nbsp;제10회전시회-프로그램전시회</p><p>　　　　 &nbsp; 　 &nbsp; &nbsp; (이하 03년까지의 전시회는 프로그램 전시회라 명한다)</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6월 &nbsp; &nbsp; &nbsp;회칙개정</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 10월 &nbsp; &nbsp; &nbsp;10회 창립기념행사</p><p><br></p><p>2002년 &nbsp; 2월 &nbsp;6일 huhs.net 서비스 개시</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;5월 &nbsp; &nbsp; &nbsp;제20회 프로그램 전시회</p><p>　　　 &nbsp;11월 &nbsp;2일 제20회 창립기념행사</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 11월 28일 회칙개정</p><p><br></p><p>2003년 &nbsp; 1월 &nbsp;4일 휴즈피아 웹진발표</p><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3월 &nbsp; &nbsp; &nbsp;마이크로소프트사 컴퓨터 잡지 투고 계약</p><p><br></p><p>2007년 &nbsp; 5월 11일 제600회 정기집회</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 10월 27일 제25회 창립기념행사 및 HUHSPIA 발간</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 11월 29일 회칙개정</p>',

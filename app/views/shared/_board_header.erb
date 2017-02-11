@@ -1,6 +1,6 @@
 <h1 id="title">
   <% if @board%>
-  <a href="/board/<%=@board.category.route%>/<%=@board.route%>" style="color:black"><%=@board.name%></a>
+  <a href="<%if @board.template%><%if @board.template[0]=='/'%><%=@board.template%><%end else%>/board/<%=@board.category.route%>/<%=@board.route%><%end%>" style="color:black"><%=@board.name%></a>
   <%else%>
   <%=params[:sended] || ""%>
   <%end%>

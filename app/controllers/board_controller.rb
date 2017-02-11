@@ -51,7 +51,7 @@ class BoardController < ApplicationController
         end
       end
       #페이지네이션 끝
-      if @board.show_last
+      if @board.show_last && @article.last
         params[:id] = @article.last.id
         if current_member
           Statistic.create(name:"read_article", member_id: current_member.id, target_model: Article, target_id: params[:id])
@@ -60,7 +60,9 @@ class BoardController < ApplicationController
         render template: "board/showArticle"
       end
       if @board.template && !params[:id]
-        render template: @board.template
+        if @board.template[0] != '/'
+          render template: @board.template
+        end
       end
     end
     def showArticle

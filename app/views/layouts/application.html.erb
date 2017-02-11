@@ -63,7 +63,13 @@
           <li><a><%=category.name%> <span class="icon icon-chevron-down"></span></a>
             <ul class="nav child_menu" style="display: none">
               <%category.boards.each do |board|%>
-              <li><a href="/board/<%=category.route%>/<%=board.route%>"><%=board.name%></a></li>
+                <%if board.template%>
+                  <%if board.template[0] == '/'%>
+                    <li><a href="<%=board.template%>"><%=board.name%></a></li>
+                  <%end%>
+                <%else%>
+                  <li><a href="/board/<%=category.route%>/<%=board.route%>"><%=board.name%></a></li>
+                <%end%>
               <%end%>
             </ul>
           </li>

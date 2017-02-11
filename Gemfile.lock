@@ -9,7 +9,7 @@ GIT
 PATH
   remote: ../rock_scissors_paper
   specs:
-    rock_scissors_paper (0.1.0)
+    rock_scissors_paper (0.1.3)
 
 GEM
   remote: https://rubygems.org/

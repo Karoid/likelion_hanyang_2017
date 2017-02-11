@@ -12,4 +12,7 @@ RockScissorsPaper.setup do |config|
 
   #default model used by RockScissorsPaper
   config.default_model = Point
+
+  #if you need to notice playing this game, I recommend put notice written url
+  config.notice_route = "/board/addon/rsp"
 end
