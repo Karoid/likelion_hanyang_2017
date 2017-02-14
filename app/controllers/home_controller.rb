@@ -78,14 +78,14 @@ class HomeController < ApplicationController
   end
   #파일 업로드
   def upload_image
-    sended_msg = Cloudinary::Uploader.upload(params[:file],{use_filename: true,folder: params[:post_id]})
-    upload_write2model(sended_msg)
+    #sended_msg = Cloudinary::Uploader.upload(params[:file],{use_filename: true,folder: params[:post_id]})
+    #upload_write2model(sended_msg)
 
      render json: {:link => sended_msg['url']}
   end
   def upload_file
-    sended_msg = Cloudinary::Uploader.upload(params[:file],{resource_type: 'raw',use_filename: true,folder: params[:post_id]})
-    upload_write2model(sended_msg)
+    #sended_msg = Cloudinary::Uploader.upload(params[:file],{resource_type: 'raw',use_filename: true,folder: params[:post_id]})
+    #upload_write2model(sended_msg)
 
     render json: {:link => sended_msg['url']}
   end

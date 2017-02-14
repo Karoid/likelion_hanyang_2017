@@ -18,7 +18,7 @@ a, a:visited, a:focus, a:active, :visited, :focus, :active, .btn:focus, .btn:act
   height: 100%;
   position: fixed;
   top: 0%;
-  background-color: rgb(38,41,51);
+  background-color: #f29500;;
   color: white;
   overflow-y: auto;
 }
@@ -111,7 +111,7 @@ a, a:visited, a:focus, a:active, :visited, :focus, :active, .btn:focus, .btn:act
   float: left;
 }
 #profile_right a {
-  color: rgb(90, 210, 210);
+  color: #42413d;
   font-size: 20px;
 }
 #profile_right div a {
@@ -216,7 +216,7 @@ a, a:visited, a:focus, a:active, :visited, :focus, :active, .btn:focus, .btn:act
   padding: 13px 15px 12px;
 }
 .nav.side-menu> li.current-page, .nav.side-menu> li.active {
-  border-right: 5px solid rgb(90, 210, 210);
+  border-right: 5px solid #42413d;
 }
 .nav li.current-page {
   background: rgba(255, 255, 255, 0.05);
@@ -265,15 +265,10 @@ a, a:visited, a:focus, a:active, :visited, :focus, :active, .btn:focus, .btn:act
   margin: 0 auto;
 }
 
-#title{
-  margin: 60px auto 30px auto;
-  text-align: center;
-  font-size: 50px;
-  font-weight: bold;
-}
+
 #log_in{
-  background-color: rgb(30,34,41);
-  border-right: 5px solid rgb(90, 210, 210);
+  background-color: #f29500;
+  border-right: 5px solid #42413d;
 }
 #main-slider{
   background-image: url(../images/slider-bg.jpg);
@@ -385,7 +380,7 @@ a, a:visited, a:focus, a:active, :visited, :focus, :active, .btn:focus, .btn:act
   animation: scaleUp 400ms;
 }
 #main-slider .item.active h1 span {
-  color: rgb(90, 210, 210);
+  color: #42413d;
   font-size: 90px;
   font-weight: bolder;
 }
@@ -955,25 +950,7 @@ a, a:visited, a:focus, a:active, :visited, :focus, :active, .btn:focus, .btn:act
   margin-bottom: 100px;
 }
 .article{margin:0 15px}
-.article_list tbody>tr>td a{
-  color:#000;
-  display:block;
-}
-.article_list thead>tr>th:nth-child(1),
-.article_list tbody>tr>th{
-  width: 5%;
-  text-align: center;
-}
-.article_list thead>tr>th:nth-child(3),
-.article_list tbody>tr>td:nth-child(3){
-  width: 80px;
-  text-align: center;
-}
-.article_list thead>tr>th:nth-child(4),
-.article_list tbody>tr>td:nth-child(4){
-  width: 70px;
-  text-align: center;
-}
+
 .scroll_bottom{
   padding-top: 40px;
   position: fixed;
@@ -1039,13 +1016,6 @@ ul.social > li > a i {
 textarea#message {
   padding: 10px 15px;
   height: 220px;
-}
-table thead{border-color: #000000;}
-table tr .th {
-  border: none;
-  border-bottom: 1px solid #000000 !important;
-  font-size: 25px;
-  text-align: center;
 }
 @keyframes scaleUp {
   0% {

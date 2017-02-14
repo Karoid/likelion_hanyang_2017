@@ -29,11 +29,10 @@ gem 'will_paginate', '~> 3.1.0'
 #comments gem
 gem 'acts_as_commentable_with_threading'
 #Parsing an HTML / XML Document
-gem 'nokogiri'
+gem 'faker'
 #XSS Attack defence
 gem 'loofah', :git => 'https://github.com/flavorjones/loofah.git'
-#free remote storage service
-gem 'cloudinary'
+
 #edit db in browser /rails/db
 gem 'rails_db'
 

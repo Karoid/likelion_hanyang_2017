@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Huhs.net</title>
+  <title>Likelion Hanyang</title>
   <script src="/js/jquery-1.12.4.min.js"></script>
   <%= csrf_meta_tags %>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="theme-color" content="#2a2a2a">
+  <meta name="author" content="LIKE LION">
+  <meta property="og:title" content="LIKE LION">
+  <meta property="og:image" content="http://likelion.org/assets/preview-71cca4b02507e57f57232854db0b705aef38e3e8b82631d290d4b05727d81629.png">
+  <meta property="og:url" content="https://likelion.net">
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="HACK YOUR LIFE.">
+  <!-- favicons -->
+  <link rel="shortcut icon" href="http://likelion.org/assets/favicons/favicon-841c731d4bf227cdbfe4fe4245d7750b2c18c37f61810aa6100de9174db89e4f.ico">
+  <!-- For iPad with high-resolution Retina display running iOS ≥ 7: -->
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="http://likelion.org/assets/favicons/favicon-152-e6c0654188bcb660b2d7582e42aaa29d977f3a7cc26ff1cacafc79b90f73f3f2.png">
+  <!-- For iPhone with high-resolution Retina display running iOS ≥ 7: -->
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="http://likelion.org/assets/favicons/favicon-120-f7b42ac475d76685a746bfd55e9d9de8c5e006f9b6afb90331a72c5942da7e59.png">
+
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <link href="/css/font-awesome.min.css" rel="stylesheet">
   <link href="/css/prettyPhoto.css" rel="stylesheet">
@@ -34,8 +47,8 @@
 	  </div>
     <div id="logo">
       <a href="/">
-        <h2> HUHS </h2>
-        <span class="logo_detail">Hanyang University<br>Hardware & Software</span>
+        <img style ="padding:30px;" src="/LIKE LION Index_files/likelion-white-a930fbcdf3042a50ba882ece9c02f43536971297a8e143e212d9b92d653bfa44.png" alt="Likelion white">
+        <span class="logo_detail">Hanyang Univ.</span>
       </a>
     </div>
     <div id="log_in">
@@ -66,8 +79,10 @@
                 <%if board.template%>
                   <%if board.template[0] == '/'%>
                     <li><a href="<%=board.template%>"><%=board.name%></a></li>
+                    <%else%>
+                    <li><a href="/board/<%=category.route%>/<%=board.route%>"><%=board.name%></a></li>
                   <%end%>
-                <%else%>
+                  <%else%>
                   <li><a href="/board/<%=category.route%>/<%=board.route%>"><%=board.name%></a></li>
                 <%end%>
               <%end%>
@@ -126,11 +141,12 @@
     #index {
       width: 100%;
       height: 100px;
-      background-color: rgb(90, 210, 210);
+      background-color: #f29500;
       position: fixed;
       z-index: 999;
       overflow: visible;
     }
+    #logo img{width:185px;}
     .alert{
       top:100px;
     }
@@ -160,7 +176,7 @@
 
     #log_in {
       border: none;
-      background-color: rgb(90, 210, 210);
+      background-color: #f29500;
       float: right;
     }
     #log_in div.logged_on {
@@ -204,16 +220,14 @@
       height:100vh;
       height:calc(100vh - 100px);
       overflow-y: scroll;
-      background: white;
+      background-color: #42413d;
     }
     #sidebar-menu a, #sidebar-menu a:hover, #sidebar-menu a:active {
-      color:black!important;
     }
     .menu_section>ul{
       margin:0;
     }
     .menu_section>ul>li{
-      border-bottom:rgb(242,242,242) solid .5px;
     }
     .menu_section>ul.nav.side-menu>li>a{
       font-size: 22px;

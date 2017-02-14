@@ -3,56 +3,7 @@
 /*4. 글 안에 있는 댓글  631번째 줄*/
 
 /*3. 각 게시판의 목록*/
-#title{
-  margin: 60px auto 30px auto;
-  text-align: center;
-  font-size: 50px;
-  font-weight: bold;
-}
-table thead{border-color: #000000;}
-table tr .th {
-  border: none;
-  border-bottom: 1px solid #000000 !important;
-  font-size: 25px;
-  text-align: center;
-}
-.article{margin:0 15px}
-.article_list tbody>tr>td a{
-  color:#000;
-  display:block;
-}
-.article_list thead>tr>th:nth-child(1),
-.article_list tbody>tr>th{
-  width: 5%;
-  text-align: center;
-}
-.article_list thead>tr>th:nth-child(3),
-.article_list tbody>tr>td:nth-child(3){
-  width: 80px;
-  text-align: center;
-}
-.article_list thead>tr>th:nth-child(4),
-.article_list tbody>tr>td:nth-child(4){
-  width: 70px;
-  text-align: center;
-}
-.article_list thead>tr>th:nth-child(5),
-.article_list tbody>tr>td:nth-child(5){
-  text-align: center;
-}
-@media screen and (min-width: 768px){
-  .article_list thead>tr>th:nth-child(3),
-  .article_list tbody>tr>td:nth-child(3){
-    width: 100px!important;
-  }
-  .article_list thead>tr>th:nth-child(4),
-  .article_list tbody>tr>td:nth-child(4){
-    width: 120px!important;
-  }
-  .hidden-xs{
-    display: inline-block!important;
-  }
-}
+
 /*4. 글 안에 있는 댓글 */
 .comments input,.comments textarea {
   outline: none;
