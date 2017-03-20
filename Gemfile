@@ -38,6 +38,16 @@ gem 'loofah', :git => 'https://github.com/flavorjones/loofah.git'
 #edit db in browser /rails/db
 gem 'rails_db'
 
+if File.exist?("../check_attendence")
+  gem "check_attendence", :path => "../check_attendence"
+else
+  gem "check_attendence", :git => "https://github.com/Karoid/check_attendence.git"
+end
+#제거할 때 rails d irwi_wiki, rails d irwi_wiki_views
+gem 'irwi', :git => 'git://github.com/alno/irwi.git'
+#markdown for writing
+gem 'redcarpet'
+
 #:git => 'https://github.com/Karoid/rock_scissors_paper'
 #:path => "../rock_scissors_paper"
 #제거할 때 rails d rock_scissors_paper point
